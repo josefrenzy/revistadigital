@@ -2,24 +2,10 @@
 
 @section('content')
     <div class="content shadow">
-        {{-- <div class="row">
-            <div class="col-md-12">
-                <div class="hover hover-5 text-white rounded">
-                    <img src="{{ asset('images/' . $post[0]->img_portada) }}" alt="">
-                    <div class="hover-overlay"></div>
-                    <div class="hover-5-content">
-                        <h3 class="hover-5-title text-uppercase font-weight-light mb-0">
-                            <strong class="font-weight-bold text-white">{{ $post[0]->titulo }}</strong>
-                            <span>Autor: {{ $post[0]->name }}</span>
-                        </h3>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
         <div class="row main">
-            <div class="col-md-10 main">
+            {{-- <div class="col-md-12">
                 <div class="hover hover-5 text-white rounded">
-                    <img src="{{ asset('images/' . $post[0]->img_portada) }}" alt="">
+                    <img src="{{ url('/images/row2-2.png') }}" alt="">
                     <div class="hover-overlay"></div>
                     <div class="hover-5-content">
                         <h3 class="hover-5-title text-uppercase font-weight-light mb-0">
@@ -28,14 +14,32 @@
                         </h3>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12 cuerpo-articulo">
-                        {!! $post[0]->cuerpo !!}
+            </div> --}}
+            <div class="col-md-10" style="padding-top: 1rem">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="titulo-capsula">{{ $capsula->nombre }}</h1>
+                        {!! $capsula->descripcion !!}
+                        {{-- <a href="#" class="btn btn-primary">Go somewhere</a> --}}
                     </div>
                 </div>
+
             </div>
             @include('main.components.aside')
+            {{-- <div class="col-md-12">
+                <h1 ></h1>
+            </div> --}}
         </div>
+        {{-- <div class="row main">
+            <div class="col-md-10 main">
+                <div class="row">
+                    <div class="col-md-12 cuerpo-articulo">
+                        {!! $capsula->descripcion !!}
+                    </div>
+                </div>
+            </div>
+            
+        </div> --}}
 
         <div class="row main">
             <div class="col-md-12">

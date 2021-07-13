@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Capsula;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CapsulaController extends Controller
 {
@@ -79,5 +81,22 @@ class CapsulaController extends Controller
             return back()
                 ->with('success', 'Producto editado correctamente.');
         }
+    }
+
+    public function show($id)
+    {
+        $capsula = Capsula::find($id);
+        $capsulas = DB::select('select * from capsula order by id desc limit 2');
+        $categories = Category::all();
+        $pub_rel = DB::select('select * from posts 
+            inner join abstract
+            on posts.abstract_id = abstract.id
+            where posts.categorias_id = 1 order by created_at desc limit 3');
+        return view('capsula.show')
+            ->with('pub_rel',$pub_rel)
+            ->with('capsula', $capsula)
+            ->with('capsulas', $capsulas)
+            ->with('categories', $categories);
+
     }
 }

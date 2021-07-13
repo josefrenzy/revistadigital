@@ -20,18 +20,21 @@ class RevistaController extends Controller
         $user = Auth::check();
         if ($user) {
             $last_edicion = DB::select('select * from ediciones order by id desc limit 1');
-            $posts_row_one = DB::select('select *, posts.id as post_id from posts
-            inner join ediciones on posts.ediciones_id = ediciones.id
+            $posts_row_one = DB::select('select posts.titulo as titulo, abstract.descripcion as descripcion, abstract.img_abstract as img_abstract, posts.id as post_id from posts  
             inner join abstract on posts.abstract_id = abstract.id
-            where ediciones.nombre = ? order by created_at desc limit 1', [$last_edicion[0]->nombre]);
-            $posts_row_two = DB::select('select *, posts.id as post_id from posts
             inner join ediciones on posts.ediciones_id = ediciones.id
+            where posts.visibility=1 and ediciones.nombre = ? and posts.scope = 1
+            order by posts.created_at desc limit 1', [$last_edicion[0]->nombre]);
+            $posts_row_two = DB::select('select posts.titulo as titulo, abstract.descripcion as descripcion, abstract.img_abstract as img_abstract, posts.id as post_id from posts  
             inner join abstract on posts.abstract_id = abstract.id
-            where ediciones.nombre = ? order by created_at desc limit 1, ?', [$last_edicion[0]->nombre, 1]);
-            $posts_row_three = DB::select('select * FROM posts 
             inner join ediciones on posts.ediciones_id = ediciones.id
+            where posts.visibility=2 and ediciones.nombre = ? and posts.scope = 1
+            order by posts.created_at desc limit 1', [$last_edicion[0]->nombre]);
+            $posts_row_three = DB::select('select posts.titulo as titulo, abstract.descripcion as descripcion, abstract.img_abstract as img_abstract, posts.id as post_id from posts  
             inner join abstract on posts.abstract_id = abstract.id
-            WHERE posts.id= ((select max(id) from posts)-2)');
+            inner join ediciones on posts.ediciones_id = ediciones.id
+            where posts.visibility=3 and ediciones.nombre = ? and posts.scope = 1
+            order by posts.created_at desc limit 1', [$last_edicion[0]->nombre]);
 
             $flash = DB::select('select * from flash order by created_at desc limit 1');
             $capsulas = DB::select('select * from capsula order by id desc limit 2');
@@ -60,19 +63,21 @@ class RevistaController extends Controller
                 ->with('nombreEdicion', $nombreEdicion);
         } else {
             $last_edicion = DB::select('select * from ediciones order by id desc limit 1');
-            $posts_row_one = DB::select('select *, posts.id as post_id from posts
-            inner join ediciones on posts.ediciones_id = ediciones.id
+            $posts_row_one = DB::select('select posts.titulo as titulo, abstract.descripcion as descripcion, abstract.img_abstract as img_abstract, posts.id as post_id from posts  
             inner join abstract on posts.abstract_id = abstract.id
-            where ediciones.nombre = ? order by created_at desc limit 1', [$last_edicion[0]->nombre]);
-            $posts_row_two = DB::select('select *, posts.id as post_id from posts
             inner join ediciones on posts.ediciones_id = ediciones.id
+            where posts.visibility=1 and ediciones.nombre = ? and posts.scope = 0
+            order by posts.created_at desc limit 1', [$last_edicion[0]->nombre]);
+            $posts_row_two = DB::select('select posts.titulo as titulo, abstract.descripcion as descripcion, abstract.img_abstract as img_abstract, posts.id as post_id from posts 
             inner join abstract on posts.abstract_id = abstract.id
-            where ediciones.nombre = ? order by created_at desc limit 1, ?', [$last_edicion[0]->nombre, 1]);
-            $posts_row_three = DB::select('select * FROM posts 
             inner join ediciones on posts.ediciones_id = ediciones.id
+            where posts.visibility=2 and ediciones.nombre = ? and posts.scope = 0
+            order by posts.created_at desc limit 1', [$last_edicion[0]->nombre]);
+            $posts_row_three = DB::select('select posts.titulo as titulo, abstract.descripcion as descripcion, abstract.img_abstract as img_abstract, posts.id as post_id from posts 
             inner join abstract on posts.abstract_id = abstract.id
-            WHERE posts.id= ((select max(id) from posts)-2)');
-
+            inner join ediciones on posts.ediciones_id = ediciones.id
+            where posts.visibility=3 and ediciones.nombre = ? and posts.scope = 0
+            order by posts.created_at desc limit 1', [$last_edicion[0]->nombre]);
             $flash = DB::select('select * from flash order by created_at desc limit 1');
             $capsulas = DB::select('select * from capsula order by id desc limit 2');
             $art = DB::select('select a.nombre, a.descripcion, p.id , a.img_abstract
@@ -99,33 +104,52 @@ class RevistaController extends Controller
                 ->with('categories', $categories)
                 ->with('nombreEdicion', $nombreEdicion);
         }
-        // dd($user);
-
     }
     public function show($id)
     {
-        // $post = DB::select('select * from posts 
-        //     inner join users on posts.user_id=users.id
-        //     where posts.id = ?', [$id]);
-        $latest = DB::select('select * from abstract order by id desc limit 2');
-        $capsulas = DB::select('select * from capsula order by id desc limit 2');
-        $art = DB::select('select a.nombre, a.descripcion, p.id , a.img_abstract
+        $user = Auth::check();
+        if ($user) {
+            $latest = DB::select('select * from abstract order by id desc limit 2');
+            $capsulas = DB::select('select * from capsula order by id desc limit 2');
+            $art = DB::select('select a.nombre, a.descripcion, p.id , a.img_abstract
             from posts as p 
             inner join abstract as a order by id desc limit 1');
-        $categories = Category::all();
-        $post = DB::select('select * from posts 
+            $categories = Category::all();
+            $post = DB::select('select * from posts 
             inner join users on posts.user_id=users.id
             where posts.id = ?', [$id]);
-        $pub_rel = DB::select('select * from posts 
+            $pub_rel = DB::select('select * from posts 
             inner join abstract
             on posts.abstract_id = abstract.id
             where posts.categorias_id = ? order by created_at desc limit 3', [$post[0]->categorias_id]);
-        return view('main.show')
-            ->with('art', $art)
-            ->with('post', $post)
-            ->with('latest', $latest)
-            ->with('pub_rel', $pub_rel)
-            ->with('capsulas', $capsulas)
-            ->with('categories', $categories);
+            return view('main.show')
+                ->with('art', $art)
+                ->with('post', $post)
+                ->with('latest', $latest)
+                ->with('pub_rel', $pub_rel)
+                ->with('capsulas', $capsulas)
+                ->with('categories', $categories);
+        } else {
+            $latest = DB::select('select * from abstract order by id desc limit 2');
+            $capsulas = DB::select('select * from capsula order by id desc limit 2');
+            $art = DB::select('select a.nombre, a.descripcion, p.id , a.img_abstract
+            from posts as p 
+            inner join abstract as a order by id desc limit 1');
+            $categories = Category::all();
+            $post = DB::select('select * from posts 
+            inner join users on posts.user_id=users.id
+            where posts.id = ?', [$id]);
+            $pub_rel = DB::select('select * from posts 
+            inner join abstract
+            on posts.abstract_id = abstract.id
+            where posts.categorias_id = ? order by created_at desc limit 3', [$post[0]->categorias_id]);
+            return view('guest.show')
+                ->with('art', $art)
+                ->with('post', $post)
+                ->with('latest', $latest)
+                ->with('pub_rel', $pub_rel)
+                ->with('capsulas', $capsulas)
+                ->with('categories', $categories);
+        }
     }
 }

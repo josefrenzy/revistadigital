@@ -2,7 +2,7 @@
     <div class="container-fluid text-center text-md-left">
         <div class="row">
             <div class="col-md-3 mb-md-0 mb-3">
-                <img src="{{ url('/images/footer.png') }}" alt="Footer" style="max-width: 90%" />
+                <img src="{{ url('/images/utils/footer.png') }}" alt="Footer" style="max-width: 90%" />
             </div>
             <div class="col-md-3 mb-md-0 mb-3">
                 <h5 class="text-uppercase">Horario</h5>
@@ -33,6 +33,6 @@
         </div>
     </div>
     <div class="footer-copyright text-center py-3">© 2021 Copyright:
-        <a class="aviso-privacidad" href="https://mdbootstrap.com/"><strong>Aviso de Privacidad</strong></a>
+        <a class="aviso-privacidad" href="http://floresgaribay.mx/aviso-de-privacidad/"><strong>Aviso de Privacidad</strong></a>
     </div>
 </footer>

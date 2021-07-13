@@ -1,6 +1,8 @@
 <header class="box-shadow">
     <nav class="navbar navbar-expand-sm">
-        <img src="{{ url('/images/nav.png') }}" alt="Navbar" class="img-nav">
+        <a href="https://floresgaribay.mx/">
+            <img src="{{ url('/images/utils/nav.png') }}" alt="Navbar" class="img-nav">
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
