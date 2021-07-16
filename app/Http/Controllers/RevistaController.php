@@ -11,10 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class RevistaController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware(['guest','auth']);
-    // }
     public function index()
     {
         $user = Auth::check();
@@ -35,7 +31,6 @@ class RevistaController extends Controller
             inner join ediciones on posts.ediciones_id = ediciones.id
             where posts.visibility=3 and ediciones.nombre = ? and posts.scope = 1
             order by posts.created_at desc limit 1', [$last_edicion[0]->nombre]);
-
             $flash = DB::select('select * from flash order by created_at desc limit 1');
             $capsulas = DB::select('select * from capsula order by id desc limit 2');
             $art = DB::select('select a.nombre, a.descripcion, p.id , a.img_abstract
@@ -63,7 +58,7 @@ class RevistaController extends Controller
                 ->with('nombreEdicion', $nombreEdicion);
         } else {
             $last_edicion = DB::select('select * from ediciones order by id desc limit 1');
-            dd($last_edicion);
+            // dd($last_edicion);
             $posts_row_one = DB::select('select posts.titulo as titulo, abstract.descripcion as descripcion, abstract.img_abstract as img_abstract, posts.id as post_id from posts  
             inner join abstract on posts.abstract_id = abstract.id
             inner join ediciones on posts.ediciones_id = ediciones.id
