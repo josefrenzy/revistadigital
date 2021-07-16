@@ -63,6 +63,7 @@ class RevistaController extends Controller
                 ->with('nombreEdicion', $nombreEdicion);
         } else {
             $last_edicion = DB::select('select * from ediciones order by id desc limit 1');
+            dd($last_edicion);
             $posts_row_one = DB::select('select posts.titulo as titulo, abstract.descripcion as descripcion, abstract.img_abstract as img_abstract, posts.id as post_id from posts  
             inner join abstract on posts.abstract_id = abstract.id
             inner join ediciones on posts.ediciones_id = ediciones.id
@@ -143,7 +144,7 @@ class RevistaController extends Controller
             inner join abstract
             on posts.abstract_id = abstract.id
             where posts.categorias_id = ? order by created_at desc limit 3', [$post[0]->categorias_id]);
-            return view('guest.show')
+            return view('main.show')
                 ->with('art', $art)
                 ->with('post', $post)
                 ->with('latest', $latest)

@@ -83,7 +83,7 @@
                                     </div>
                                     <div class="card-body gray">
                                         <p class="card-text">{!! $item->descripcion !!}</p>
-                                        <a href="{{ route('revistaguest.show', $item->post_id) }}"
+                                        <a href="{{ route('revista.show', $item->post_id) }}"
                                             class="btn read-more text-lowercase">Leer
                                             más...</a>
                                     </div>
@@ -110,7 +110,7 @@
                                     </div>
                                     <div class="card-body gray">
                                         <div>{!! Illuminate\Support\Str::of($item->cuerpo)->words(30) !!}</div>
-                                        <a href="{{ route('revistaguest.show', $item->id) }}"
+                                        <a href="{{ route('revista.show', $item->id) }}"
                                             class="btn read-more text-lowercase">
                                             Leer más...
                                         </a>
@@ -141,7 +141,7 @@
                                     <div class="card-body gray">
                                         </h4>
                                         {!! $item->descripcion !!}
-                                        <a href="{{ route('revistaguest.show', $item->post_id) }}"
+                                        <a href="{{ route('revista.show', $item->post_id) }}"
                                             class="btn read-more text-lowercase">Leer
                                             más...</a>
                                     </div>
@@ -168,7 +168,7 @@
                                     </div>
                                     <div class="card-body gray">
                                         {!! $item->descripcion !!}
-                                        <a href="{{ route('revistaguest.show', $item->id) }}"
+                                        <a href="{{ route('revista.show', $item->id) }}"
                                             class="btn read-more text-lowercase">
                                             Leer más...
                                         </a>
@@ -198,7 +198,7 @@
                                     </div>
                                     <div class="card-body gray">
                                         {!! $item->descripcion !!}
-                                        <a href="{{ route('revistaguest.show', $item->post_id) }}"
+                                        <a href="{{ route('revista.show', $item->post_id) }}"
                                             class="btn read-more text-lowercase">Leer
                                             más...</a>
                                     </div>
@@ -223,7 +223,7 @@
                                 </div>
                                 <div class="card-body gray">
                                     {!! $item->descripcion !!}
-                                    <a href="{{ route('revistaguest.show', $item->id) }}"
+                                    <a href="{{ route('revista.show', $item->id) }}"
                                         class="btn read-more text-lowercase">Leer
                                         más...</a>
                                 </div>
@@ -285,7 +285,7 @@
                         <div class="card-body gray gray">
                             <h4 class="card-title">{{ Illuminate\Support\Str::of($item->nombre)->words(20) }}</h4>
                             <p class="card-text">{!! Illuminate\Support\Str::of($item->descripcion)->words(30) !!}</p>
-                            <a href="{{ route('revistaguest.show', $item->id) }}" class="btn read-more text-lowercase">Leer
+                            <a href="{{ route('revista.show', $item->id) }}" class="btn read-more text-lowercase">Leer
                                 más...</a>
                         </div>
                     </div>

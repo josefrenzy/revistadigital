@@ -1,4 +1,4 @@
-@extends('guest.app',['activePage'=>'revistaguest.show','titlePage' => __('Inicio')])
+@extends('main.app',['activePage'=>'revistaguest.show','titlePage' => __('Inicio')])
 
 @section('content')
 <div class="content shadow">

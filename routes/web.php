@@ -33,9 +33,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+// Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home')->middleware('auth');
+// ->middleware('auth');
 
 Route::post('suscripcion', [
 	'as' => 'suscribe.store',
@@ -47,7 +47,20 @@ Route::get('suscripcion', [
 	'uses' => 'App\Http\Controllers\SuscribeController@index'
 ])->middleware('auth');
 
-Route::resource('revistaguest', RevistaController::class);
+// Route::resource('revistaguest', RevistaController::class);
+Route::resource('revista', RevistaController::class);
+Route::get('/', function () {
+	return view('main.index');
+});
+Route::get('/nosotros', function () {
+	return view('main.nosotros');
+});
+Route::get('/servicios', function () {
+	return view('main.servicios');
+});
+Route::get('/contacto', function () {
+	return view('main.contacto');
+});
 
 Route::resource('categories', CategoryController::class);
 Route::resource('posts', PostController::class);
@@ -67,20 +80,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('capsula', CapsulaController::class);
 	Route::resource('flash', FlashController::class);
 	Route::resource('user', UserController::class);
-	Route::resource('revista', RevistaController::class);
+	// Route::resource('revista', RevistaController::class);
+	Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
-	Route::get('/', function () {
-		return view('main.index');
-	});
-	Route::get('/nosotros', function () {
-		return view('main.nosotros');
-	});
-	Route::get('/servicios', function () {
-		return view('main.servicios');
-	});
-	Route::get('/contacto', function () {
-		return view('main.contacto');
-	});
 });

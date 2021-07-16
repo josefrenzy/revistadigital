@@ -24,11 +24,16 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" type="text/css">
 </head>
 
-
 <body class="{{ $class ?? '' }}">
     @auth()
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
         @include('main.template')
     @endauth
+    @guest()
+        @include('main.template')
+    @endguest
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
     </script>

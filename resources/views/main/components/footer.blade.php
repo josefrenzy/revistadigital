@@ -8,7 +8,7 @@
                 <h5 class="text-uppercase"><strong>Horario</strong></h5>
                 <p>Lunes a viernes de 9:00 AM a 6:00 PM</p>
 
-                <h5 class="text-uppercase">EMAIL</h5>
+                <h5 class="text-uppercase"><strong>EMAIL</strong></h5>
                 <p>contacto@fg.com.mx</p>
 
             </div>

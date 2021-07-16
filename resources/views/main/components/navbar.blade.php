@@ -26,22 +26,32 @@
                 <li class="nav-item">
                     <a class="nav-link text-uppercase gray" href="{{ url('revista') }}">Revista FG</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <i class="material-icons">person</i>
-                        <p class="d-lg-none d-md-block">
-                            {{ __('Account') }}
-                        </p>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                        <a class="dropdown-item" href="{{ route('profile.edit') }}">{{ __('Profile') }}</a>
-                        <a class="dropdown-item" href="{{ route('home') }}">{{ __('Dashboard') }}</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Salir') }}</a>
-                    </div>
-                </li>
+                @auth()
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">person</i>
+                            <p class="d-lg-none d-md-block">
+                                {{ __('Account') }}
+                            </p>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+                            <a class="dropdown-item" href="{{ route('profile.edit') }}">{{ __('Profile') }}</a>
+                            <a class="dropdown-item" href="{{ route('home') }}">{{ __('Dashboard') }}</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Salir') }}</a>
+                        </div>
+                    </li>
+                @endauth
+                @guest()
+                    <li class="nav-item">
+                        <a href="{{ route('login') }}" class="nav-link">
+                            <i class="material-icons">fingerprint</i> {{ __('Login') }}
+                        </a>
+                    </li>
+                @endguest
+
 
                 {{-- <li class="nav-item{{ $activePage == 'register' ? ' active' : '' }}" style="display: none">
                     <a href="{{ route('register') }}" class="nav-link">
