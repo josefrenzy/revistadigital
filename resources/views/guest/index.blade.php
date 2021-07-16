@@ -76,7 +76,7 @@
                                                 <img class="card-img-top img-responsive"
                                                     src="{{ asset('images/' . $item->img_abstract) }}" alt="Card image">
                                                 <div class="overlay">
-                                                    <h2>{{ Illuminate\Support\Str::of($item->nombre)->words(20) }}</h2>
+                                                    <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}</h2>
                                                 </div>
                                             </div>
                                         </div>
@@ -123,66 +123,102 @@
                 <div class="row cards">
                     <div class="col-md-4">
                         <div class="card">
-                            @foreach ($posts_row_two as $item)
-                                <div class="doc">
-                                    <div class="box-2">
-                                        <div class="hovereffect">
-                                            <img class="card-img-top" src="{{ asset('images/' . $item->img_abstract) }}"
-                                                alt="Card image">
-                                            <div class="overlay">
-                                                <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}</h2>
+                            @if (sizeof($posts_row_two) == 0)
+                                <p>No hay articulos para mostar</p>
+                            @else
+                                @foreach ($posts_row_two as $item)
+                                    <div class="doc">
+                                        <div class="box-2">
+                                            <div class="hovereffect">
+                                                <img class="card-img-top"
+                                                    src="{{ asset('images/' . $item->img_abstract) }}" alt="Card image">
+                                                <div class="overlay">
+                                                    <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}</h2>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="card-body gray">
-                                    </h4>
-                                    {!! $item->descripcion !!}
-                                    <a href="{{ route('revista.show', $item->id) }}"
-                                        class="btn read-more text-lowercase">Leer
-                                        más...</a>
-                                </div>
-                            @endforeach
+                                    <div class="card-body gray">
+                                        </h4>
+                                        {!! $item->descripcion !!}
+                                        <a href="{{ route('revista.show', $item->post_id) }}"
+                                            class="btn read-more text-lowercase">Leer
+                                            más...</a>
+                                    </div>
+                                @endforeach
+                            @endif
                         </div>
                     </div>
                     <div class="col-md-8">
                         <div class="card">
-                            @foreach ($posts_row_three as $item)
-                                <div class="doc">
-                                    <div class="box-1">
-                                        <div class="hovereffect">
-                                            <img class="card-img-top" src="{{ asset('images/' . $item->img_abstract) }}"
-                                                alt="Card image">
-                                            <div class="overlay">
-                                                <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}</h2>
+                            @if (sizeof($art) == 0)
+                                <p>No hay articulos para mostar</p>
+                            @else
+                                @foreach ($art as $item)
+                                    <div class="doc">
+                                        <div class="box-1">
+                                            <div class="hovereffect">
+                                                <img class="card-img-top"
+                                                    src="{{ asset('images/' . $item->img_abstract) }}" alt="Card image">
+                                                <div class="overlay">
+                                                    <h2>{{ Illuminate\Support\Str::of($item->nombre)->words(20) }}</h2>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="card-body gray">
-                                    {!! $item->descripcion !!}
-                                    <a href="{{ route('revista.show', $item->id) }}"
-                                        class="btn read-more text-lowercase">
-                                        Leer más...
-                                    </a>
-                                </div>
-                            @endforeach
+                                    <div class="card-body gray">
+                                        {!! $item->descripcion !!}
+                                        <a href="{{ route('revista.show', $item->id) }}"
+                                            class="btn read-more text-lowercase">
+                                            Leer más...
+                                        </a>
+                                    </div>
+                                @endforeach
+                            @endif
                         </div>
                     </div>
                 </div>
                 <div class="row cards">
                     <div class="col-md-8">
                         <div class="card">
+                            @if (sizeof($posts_row_three) == 0)
+                                <p>No hay articulos para mostar</p>
+                            @else
+                                @foreach ($posts_row_three as $item)
+                                    <div class="doc">
+                                        <div class="box-1">
+                                            <div class="hovereffect">
+                                                <img class="card-img-top"
+                                                    src="{{ asset('images/' . $item->img_abstract) }}" alt="Card image">
+                                                <div class="overlay">
+                                                    <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body gray">
+                                        {!! $item->descripcion !!}
+                                        <a href="{{ route('revista.show', $item->post_id) }}"
+                                            class="btn read-more text-lowercase">Leer
+                                            más...</a>
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
                             @foreach ($art as $item)
                                 <div class="doc">
-                                    <div class="box-1">
+                                    <div class="box-2">
                                         <div class="hovereffect">
                                             <img class="card-img-top" src="{{ asset('images/' . $item->img_abstract) }}"
                                                 alt="Card image">
                                             <div class="overlay">
-                                                <h2>{{ Illuminate\Support\Str::of($item->nombre)->words(20) }}</h2>
+                                                <h2>{{ Illuminate\Support\Str::of($item->nombre)->words(13) }}</h2>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                                 <div class="card-body gray">
@@ -192,30 +228,6 @@
                                         más...</a>
                                 </div>
                             @endforeach
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="doc">
-                                <div class="box-2">
-                                    <div class="hovereffect">
-                                        <img class="card-img-top" src="{{ asset('images/' . $item->img_abstract) }}"
-                                            alt="Card image">
-                                        <div class="overlay">
-                                            <h2>{{ Illuminate\Support\Str::of($item->nombre)->words(13) }}</h2>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="card-body gray">
-                                @foreach ($art as $item)
-                                    {!! $item->descripcion !!}
-                                @endforeach
-                                <a href="{{ route('revista.show', $item->id) }}"
-                                    class="btn read-more text-lowercase">Leer
-                                    más...</a>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -253,7 +265,7 @@
                 </div>
                 <hr>
                 <div class="row" style="padding: 1em">
-                    <img class="img-fluid"src="{{asset('images/publicidad/publicidad.png')}}" alt="profile Pic">
+                    <img class="img-fluid" src="{{ asset('images/publicidad/publicidad.png') }}" alt="profile Pic">
                 </div>
             </div>
         </div>
@@ -309,63 +321,3 @@
         integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I=" crossorigin="anonymous">
     </script>
 @endsection
-
-
-{{-- <div class="row">
-    <div class="col-lg-4 col-md-12 mb-4">
-      <div class="card">
-        <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light" data-mdb-ripple-color="light" style="min-width: 696px;">
-          <img src="https://mdbootstrap.com/img/new/standard/nature/002.jpg" class="img-fluid">
-          <a href="#!">
-            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-          </a>
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Post title</h5>
-          <p class="card-text">
-            Some quick example text to build on the card title and make up the bulk of the
-            card's content.
-          </p>
-          <a href="#!" class="btn btn-primary">Read</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-lg-4 col-md-6 mb-4">
-      <div class="card">
-        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-          <img src="https://mdbootstrap.com/img/new/standard/nature/022.jpg" class="img-fluid">
-          <a href="#!">
-            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-          </a>
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Post title</h5>
-          <p class="card-text">
-            Some quick example text to build on the card title and make up the bulk of the
-            card's content.
-          </p>
-          <a href="#!" class="btn btn-primary">Read</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-lg-4 col-md-6 mb-4">
-      <div class="card">
-        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-          <img src="https://mdbootstrap.com/img/new/standard/nature/035.jpg" class="img-fluid">
-          <a href="#!">
-            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-          </a>
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Post title</h5>
-          <p class="card-text">
-            Some quick example text to build on the card title and make up the bulk of the
-            card's content.
-          </p>
-          <a href="#!" class="btn btn-primary">Read</a>
-        </div>
-      </div>
-    </div>
-  </div> --}}

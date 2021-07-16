@@ -34,13 +34,13 @@
     @guest()
         @include('layouts.page_templates.guest')
     @endguest
-    {{-- @if (auth()->check()) --}}
-    {{-- <div class="container">
-        <div class="col-md-7 offset-3 mt-4">
-            @yield('content')
+    {{-- @if (auth()->check())
+        <div class="container">
+            <div class="col-md-7 offset-3 mt-4">
+                @yield('content')
+            </div>
         </div>
-    </div> --}}
-    {{-- @endif --}}
+    @endif --}}
     <!--   Core JS Files   -->
     <script src="{{ asset('material') }}/js/core/jquery.min.js"></script>
     <script src="{{ asset('material') }}/js/core/popper.min.js"></script>
