@@ -38,15 +38,6 @@ Dashboard')])
                                         </div>
                                     </div>
                                 </div>
-                                {{-- <div class="row">
-                                    <label class="col-sm-2 col-form-label" for="descripcion">{{ __('Cuerpo') }}</label>
-                                    <div class="col-sm-7">
-                                        <div class="form-group">
-                                            <textarea class="ckeditor form-control" name="descripcion"></textarea>
-                                        </div>
-                                    </div>
-                                </div> --}}
-
                                 <div class="row">
                                     <label class="col-sm-2 col-form-label"
                                         for="img_portada">{{ __('Imagen Flash') }}</label>
@@ -82,19 +73,6 @@ Dashboard')])
                                         </div>
                                     </div>
                                 </div>
-                                {{-- <div class="row">
-                                    <label class="col-sm-2 col-form-label">{{ __('Autor') }}</label>
-                                    <div class="col-sm-7">
-                                        <div class="form-group">
-                                            <select class="form-control" name='user_id'>
-                                            <option value="0">-- Selecciona una opcion --</option> 
-                                                @foreach ($user_id as $user)
-                                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div> --}}
                                 <div class="row">
                                     <label for="categorias_id"
                                         class="col-sm-2 col-form-label">{{ __('Categorias') }}</label>
@@ -105,6 +83,19 @@ Dashboard')])
                                                 @foreach ($categories as $cat)
                                                     <option value={{ $cat->id }}>{{ $cat->nombre }}</option>
                                                 @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label for="position" class="col-sm-2 col-form-label">{{ __('Posición') }}</label>
+                                    <div class="col-sm-7">
+                                        <div class="form-group">
+                                            <select class="form-control" name="position" id="position" required>
+                                                <option value="">-- selecciona una opción --</option>
+                                                <option value="1">1a fila</option>
+                                                <option value="2">2a fila</option>
+                                                <option value="3">3a fila</option>
                                             </select>
                                         </div>
                                     </div>
@@ -146,7 +137,14 @@ Dashboard')])
                     title: 'Oops...',
                     text: 'Un flash debe tener un maximo de 1700 caracteres',
                 })
-                // alert('un Flash debe tener un maximo de 1700 caracteres(1 Cuartilla)');
+                e.preventDefault();
+            }
+            if (!messageLength) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'El campo del cuerpo del flash no puede ir vacio',
+                })
                 e.preventDefault();
             }
         });

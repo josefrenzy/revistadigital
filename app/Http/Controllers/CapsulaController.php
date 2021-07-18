@@ -23,6 +23,7 @@ class CapsulaController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request);
         $request->validate([
             'nombre' => 'required',
             'descripcion' => 'required',
@@ -31,7 +32,7 @@ class CapsulaController extends Controller
         ]);
         $imageName = time() . '-' . $request->nombre . '.' . $request->img_capsula->extension();
 
-        $request->img_capsula->move(public_path('images'), $imageName);
+        $request->img_capsula->move(public_path('images/capsulas'), $imageName);
 
          Capsula::create([
             'nombre' => $request->input('nombre'),

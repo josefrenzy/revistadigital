@@ -45,9 +45,13 @@ class UserController extends Controller
             ->with('user', $user);
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        dd($request);
+        $data =  $request->except('_token', '_method');
+        User::where('id', $id)
+        ->update($data);
+        return back()
+            ->with('success', 'Usuario editado correctamente.');
     }
 
     public function show($id)
