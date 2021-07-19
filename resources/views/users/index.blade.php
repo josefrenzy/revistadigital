@@ -33,6 +33,9 @@
                                             <th>
                                                 Creation date
                                             </th>
+                                            <th>
+                                                Role
+                                            </th>
                                             <th class="text-right">
                                                 Actions
                                             </th>
@@ -49,6 +52,14 @@
                                                 </td>
                                                 <td>
                                                     {{ $item->created_at }}
+                                                </td>
+                                                <td>
+                                                    @if ($item->type == 0)
+                                                        Administrador
+                                                    @endif
+                                                    @if ($item->type == 1)
+                                                        Redactor
+                                                    @endif
                                                 </td>
                                                 <td class="td-actions text-right">
                                                     <a rel="tooltip" class="btn btn-success btn-link"

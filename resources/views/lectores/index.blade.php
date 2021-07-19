@@ -24,9 +24,9 @@
                                         <th>
                                             Nombre completo
                                         </th>
-                                        <th>
-                                            Empesa
-                                        </th>
+                                        {{-- <th>
+                                            Empresa
+                                        </th> --}}
                                         <th>
                                             Correo electronico
                                         </th>
@@ -38,38 +38,45 @@
                                         </th>
                                     </thead>
                                     <tbody>
-                                        @foreach ($lectores as $lector)
-                                            <tr>
-                                                <td>
-                                                    {{ $lector->id }}
-                                                </td>
-                                                <td>
-                                                    {{ $lector->nombre }}
-                                                </td>
-                                                <td>
-                                                    {{ $lector->nombre_empresa }}
-                                                </td>
-                                                <td>
-                                                    {{ $lector->email }}
-                                                </td>
-                                                <td>
-                                                    @if ($lector->status == 1)
-                                                        <input class="toggle-status" type="checkbox" data-toggle="toggle"
-                                                            data-size="xs" checked value="{{ $lector['status'] }}">
-                                                    @else
-
-                                                        <input class="toggle-status" type="checkbox" data-toggle="toggle"
-                                                            value="{{ $lector['status'] }}" data-size="xs">
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    <a rel="tooltip" class="btn btn-success btn-link" href="{{ route('lectores.edit', $lector->id) }}"
-                                                        data-original-title="" title="">
-                                                        <i class="material-icons">edit</i>
-                                                        <div class="ripple-container"></div>
-                                                    </a>
-                                                </td>
-                                            </tr>
+                                        @foreach ($lectores as $item)
+                                            @if ($item->type == 2)
+                                                <tr>
+                                                    <td>
+                                                        {{ $item->name }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $item->email }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $item->created_at }}
+                                                    </td>
+                                                    <td>
+                                                        {{-- @if ($item->type == 0)
+                                                    Administrador
+                                                @endif
+                                                @if ($item->type == 1)
+                                                    Redactor
+                                                @endif --}}
+                                                        @if ($item->type == 2)
+                                                            Lector
+                                                        @endif
+                                                    </td>
+                                                    <td class="td-actions text-right">
+                                                        <a rel="tooltip" class="btn btn-success btn-link"
+                                                            href="{{ route('user.edit', $item->id) }}"
+                                                            data-original-title="" title="">
+                                                            <i class="material-icons">edit</i>
+                                                            <div class="ripple-container"></div>
+                                                        </a>
+                                                        {{-- <a rel="tooltip" class="btn btn-danger btn-link" id="delete-user"
+                                                    href="{{ route('user.show', $item->id) }}" data-original-title=""
+                                                    title="">
+                                                    <i class="material-icons">clear</i>
+                                                    <div class="ripple-container"></div>
+                                                </a> --}}
+                                                    </td>
+                                                </tr>
+                                            @endif
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -88,7 +95,6 @@
         $(".toggle-status").change(function() {
             console.log($(".toggle-status"))
         })
-
     </script>
 
 @endsection

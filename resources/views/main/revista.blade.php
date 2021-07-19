@@ -86,7 +86,8 @@
                                         </div>
                                     </div>
                                     <div class="card-body gray">
-                                        <p class="card-text">{!! $item->descripcion !!}</p>
+                                        {!! Illuminate\Support\Str::of($item->descripcion)->words(25) !!}
+                                        <br>
                                         <a href="{{ route('revista.show', $item->post_id) }}"
                                             class="btn read-more text-lowercase">Leer
                                             más...</a>
@@ -114,7 +115,8 @@
                                         </div>
                                     </div>
                                     <div class="card-body gray">
-                                        <div>{!! Illuminate\Support\Str::of($item->cuerpo)->words(30) !!}</div>
+                                        {!! Illuminate\Support\Str::of($item->cuerpo)->words(30) !!}
+                                        <br>
                                         <a href="{{ route('flash.show', $item->id) }}"
                                             class="btn read-more text-lowercase">
                                             Leer más...
@@ -146,7 +148,8 @@
                                     </div>
                                     <div class="card-body gray">
                                         </h4>
-                                        {!! $item->descripcion !!}
+                                        {!! Illuminate\Support\Str::of($item->descripcion)->words(17) !!}
+                                        <br>
                                         <a href="{{ route('revista.show', $item->post_id) }}"
                                             class="btn read-more text-lowercase">Leer
                                             más...</a>
@@ -174,7 +177,8 @@
                                         </div>
                                     </div>
                                     <div class="card-body gray">
-                                        {!! Illuminate\Support\Str::of($item->cuerpo)->words(20) !!}
+                                        {!! Illuminate\Support\Str::of($item->cuerpo)->words(25) !!}
+                                        <br>
                                         <a href="{{ route('flash.show', $item->id) }}"
                                             class="btn read-more text-lowercase">
                                             Leer más...
@@ -204,8 +208,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card-body gray">
-                                        {!! $item->descripcion !!}
+                                    <div class="card-body gray"> 
+                                        {!! Illuminate\Support\Str::of($item->descripcion)->words(30) !!}
                                         <div><br></div>
                                         <a href="{{ route('revista.show', $item->post_id) }}"
                                             class="btn read-more text-lowercase">Leer
@@ -234,7 +238,8 @@
                                         </div>
                                     </div>
                                     <div class="card-body gray">
-                                        {!! Illuminate\Support\Str::of($item->cuerpo)->words(20) !!}
+                                        {!! Illuminate\Support\Str::of($item->cuerpo)->words(17) !!}
+                                        <br>
                                         <a href="{{ route('flash.show', $item->id) }}"
                                             class="btn read-more text-lowercase">Leer
                                             más...</a>
@@ -253,7 +258,7 @@
             <div class="col-md-12">
                 <h3>Ultimas Publicaciones</h3>
             </div>
-            @foreach ($pub_rel as $item)
+            @foreach ($ultimas_publicaciones as $item)
                 <div class="col-md-4">
                     <div class="card relacionadas">
                         <div class="doc">

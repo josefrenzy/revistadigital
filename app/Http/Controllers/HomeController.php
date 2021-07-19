@@ -24,19 +24,23 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
-        $flashs = Flash::all();
-        $capsulas = Capsula::all();
-        $ediciones = Edicion::all();
-        $tabla = DB::table('posts')
-            ->join('users', 'posts.user_id','=','users.id')
-            ->select('posts.id','posts.titulo','users.name','posts.status')
-            ->paginate(5);
-        return view('dashboard')
-            ->with('tabla', $tabla)
-            ->with('posts', $posts)
-            ->with('flashs', $flashs)
-            ->with('capsulas', $capsulas)
-            ->with('ediciones', $ediciones);
+        if (auth()->user()->type == 2) {
+            return redirect()->route('revista.index');
+        } else {
+            $posts = Post::all();
+            $flashs = Flash::all();
+            $capsulas = Capsula::all();
+            $ediciones = Edicion::all();
+            $tabla = DB::table('posts')
+                ->join('users', 'posts.user_id', '=', 'users.id')
+                ->select('posts.id', 'posts.titulo', 'users.name', 'posts.status')
+                ->paginate(5);
+            return view('dashboard')
+                ->with('tabla', $tabla)
+                ->with('posts', $posts)
+                ->with('flashs', $flashs)
+                ->with('capsulas', $capsulas)
+                ->with('ediciones', $ediciones);
+        }
     }
 }

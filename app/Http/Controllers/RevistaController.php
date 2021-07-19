@@ -40,24 +40,23 @@ class RevistaController extends Controller
             $nombreEdicion = DB::select('select * from ediciones order by id desc limit 1');
             $categories = Category::all();
             $ediciones = Edicion::all();
-            $pub_rel = DB::select('select * from posts 
-            inner join abstract
-            on posts.abstract_id = abstract.id
-            where posts.categorias_id = 1 order by created_at desc limit 3');
+            $ultimas_publicaciones = DB::select('select * from posts 
+            inner join abstract on posts.abstract_id = abstract.id 
+            order by created_at desc');
             return view('main.revista')
                 ->with('art', $art)
                 ->with('cat', $cat)
                 ->with('flash_row_one', $flash_row_one)
                 ->with('flash_row_two', $flash_row_two)
                 ->with('flash_row_three', $flash_row_three)
-                ->with('pub_rel', $pub_rel)
                 ->with('posts_row_one', $posts_row_one)
                 ->with('posts_row_two', $posts_row_two)
                 ->with('posts_row_three', $posts_row_three)
                 ->with('capsulas', $capsulas)
                 ->with('ediciones', $ediciones)
                 ->with('categories', $categories)
-                ->with('nombreEdicion', $nombreEdicion);
+                ->with('nombreEdicion', $nombreEdicion)
+                ->with('ultimas_publicaciones', $ultimas_publicaciones);
         } else {
             $last_edicion = DB::select('select * from ediciones order by id desc limit 1');
             $posts_row_one = DB::select('select posts.titulo as titulo, abstract.descripcion as descripcion, abstract.img_abstract as img_abstract, posts.id as post_id from posts  
@@ -78,7 +77,6 @@ class RevistaController extends Controller
             $flash_row_one = DB::select('select * from flash where position = 1 limit 1');
             $flash_row_two = DB::select('select * from flash where position = 2 limit 1');
             $flash_row_three = DB::select('select * from flash where position = 3 limit 1');
-            // $flash = DB::select('select * from flash order by created_at desc limit 1');
             $capsulas = DB::select('select * from capsula order by id desc limit 2');
             $art = DB::select('select a.nombre, a.descripcion, p.id , a.img_abstract
                 from posts as p 
@@ -87,6 +85,9 @@ class RevistaController extends Controller
             $nombreEdicion = DB::select('select * from ediciones order by id desc limit 1');
             $categories = Category::all();
             $ediciones = Edicion::all();
+            $ultimas_publicaciones = DB::select('select * from posts 
+            inner join abstract on posts.abstract_id = abstract.id 
+            order by created_at desc');
             $pub_rel = DB::select('select * from posts 
             inner join abstract
             on posts.abstract_id = abstract.id
@@ -104,7 +105,8 @@ class RevistaController extends Controller
                 ->with('capsulas', $capsulas)
                 ->with('ediciones', $ediciones)
                 ->with('categories', $categories)
-                ->with('nombreEdicion', $nombreEdicion);
+                ->with('nombreEdicion', $nombreEdicion)
+                ->with('ultimas_publicaciones', $ultimas_publicaciones);
         }
     }
     public function show($id)

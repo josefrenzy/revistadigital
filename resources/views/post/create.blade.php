@@ -46,7 +46,9 @@ Dashboard')])
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col">Datos del Abstract</div>
+                                    <div class="col-md-sm-12" style="padding: 0 35%;background-color:rgb(211, 206, 206);">
+                                        Datos del Abstract
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <label class="col-sm-2 col-form-label" for="descripcion">{{ __('Cuerpo') }}</label>
@@ -114,8 +116,10 @@ Dashboard')])
                                             <select class="form-control" name='user_id' required>
                                                 <option value="0">-- Selecciona una opcion --</option>
                                                 @foreach ($user_id as $user)
-                                                    <option value="{{ $user->id }}">{{ $user->name }}
-                                                    </option>
+                                                    @if ($user->type == 0 || $user->type == 1)
+                                                        <option value="{{ $user->id }}">{{ $user->name }}
+                                                        </option>
+                                                    @endif
                                                 @endforeach
                                             </select>
                                         </div>
@@ -129,8 +133,10 @@ Dashboard')])
                                             <select name="categorias_id" id="categorias_id" class="form-control" required>
                                                 <option value="0">-- Selecciona una opcion --</option>
                                                 @foreach ($categories as $cat)
-                                                    <option value={{ $cat->id }}>{{ $cat->nombre }}
-                                                    </option>
+                                                    @if ($cat->status == 1)
+                                                        <option value={{ $cat->id }}>{{ $cat->nombre }}
+                                                        </option>
+                                                    @endif
                                                 @endforeach
                                             </select>
                                         </div>
@@ -143,8 +149,10 @@ Dashboard')])
                                             <select name="ediciones_id" id="ediciones_id" class="form-control" required>
                                                 <option value="0">-- Selecciona una opcion --</option>
                                                 @foreach ($ediciones as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->nombre }}
-                                                    </option>
+                                                    @if ($item->status == 1)
+                                                        <option value="{{ $item->id }}">{{ $item->nombre }}
+                                                        </option>
+                                                    @endif
                                                 @endforeach
                                             </select>
                                         </div>

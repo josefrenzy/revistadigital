@@ -27,9 +27,10 @@ use Illuminate\Support\Facades\Mail;
 |
 */
 
-Route::get('/', function () {
-	return view('welcome');
-});
+Route::get('/', [
+	'as' => 'index',
+	'uses' => 'App\Http\Controllers\RevistaController@index'
+]);
 
 Auth::routes();
 
@@ -49,18 +50,7 @@ Route::get('suscripcion', [
 
 // Route::resource('revistaguest', RevistaController::class);
 Route::resource('revista', RevistaController::class);
-Route::get('/', function () {
-	return view('main.index');
-});
-Route::get('/nosotros', function () {
-	return view('main.nosotros');
-});
-Route::get('/servicios', function () {
-	return view('main.servicios');
-});
-Route::get('/contacto', function () {
-	return view('main.contacto');
-});
+
 
 Route::resource('categories', CategoryController::class);
 Route::resource('posts', PostController::class);

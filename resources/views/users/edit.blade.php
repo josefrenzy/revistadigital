@@ -13,8 +13,8 @@ Dashboard')])
                             <div class="card-header card-header-primary text-center">
                                 <h4 class="card-title"><strong>{{ __('Editar Usuario') }}</strong></h4>
                             </div>
-                            @include('flash-message')
                             <div class="card-body ">
+                                @include('flash-message')
                                 <div class="bmd-form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -46,6 +46,38 @@ Dashboard')])
                                         <div id="email-error" class="error text-danger pl-3" for="email"
                                             style="display: block;">
                                             <strong>{{ $errors->first('email') }}</strong>
+                                        </div>
+                                    @endif
+                                </div>
+                                <div class="bmd-form-group{{ $errors->has('type') ? ' has-danger' : '' }} mt-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="material-icons">close</i>
+                                            </span>
+                                        </div>
+                                        <select class="form-control" name="type" id="type">
+                                            <option value="" de>-- Selecciona un valor --</option>
+                                            <option value="0">Administrador</option>
+                                            <option value="1">Redactor</option>
+                                            <option value="2">Lector</option>
+                                        </select>
+                                        <script src="https://code.jquery.com/jquery-3.2.0.min.js"
+                                          integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I="
+                                          crossorigin="anonymous">
+                                        </script>
+                                        <script>
+                                            $(function() {
+                                                $("#type").val({{ $user->type }})
+                                            });
+                                        </script>
+                                        {{-- <input type="email" name="email" class="form-control"
+                                          placeholder="{{ __('Email...') }}" value="{{ old('email') }}" required> --}}
+                                    </div>
+                                    @if ($errors->has('type'))
+                                        <div id="email-error" class="error text-danger pl-3" for="email"
+                                            style="display: block;">
+                                            <strong>{{ $errors->first('type') }}</strong>
                                         </div>
                                     @endif
                                 </div>

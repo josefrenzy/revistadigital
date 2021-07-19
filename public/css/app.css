@@ -13,8 +13,9 @@ a{
 }
 
 .wrapper {
-    padding: 0 1rem;
-    margin: 0 0.5rem;
+    padding-top: 7.2rem;
+    /* padding: 0 1rem;
+    margin: 0 0.5rem; */
 }
 /* Cards Settings */
 .doc {
@@ -465,4 +466,17 @@ a.aviso-privacidad {
 .titulo-capsula.aside{
     color: rgb(0, 70, 128) !important;
     font-weight: 400 !important;
+}
+
+a.nav-link.main {
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 2px;
+    transition: background-size .3s;
+}
+
+a.nav-link.main:hover, a.nav-link.main:focus {
+    background-size: 100% 2px;
 }
