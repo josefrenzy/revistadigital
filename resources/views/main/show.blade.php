@@ -41,7 +41,7 @@
             <div class="col-md-12">
                 <h3>Publicaciones Relacionadas</h3>
             </div>
-            @foreach ($pub_rel as $item)
+            {{-- @foreach ($pub_rel as $item)
                 <div class="col-md-4">
                     <div class="card relacionadas">
                         <div class="doc">
@@ -58,7 +58,7 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
+            @endforeach --}}
         </div>
         @include('main.components.suscribe')
     </div>

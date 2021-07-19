@@ -6,7 +6,7 @@ Dashboard')])
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <form method="post" action="{{ route('flash.update',$flash->id) }}" class="form-horizontal"
+                    <form method="post" action="{{ route('flash.update', $flash->id) }}" class="form-horizontal"
                         enctype="multipart/form-data">
                         @csrf
                         @method('put')
@@ -48,7 +48,8 @@ Dashboard')])
                                                 <input type="text" class="form-control" disabled placeholder="Upload File"
                                                     id="file" value="{{ $flash->img_portada }}">
                                                 <div class="input-group-append">
-                                                    <button type="button" class="browse btn btn-primary">Selecciona...</button>
+                                                    <button type="button"
+                                                        class="browse btn btn-primary">Selecciona...</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -57,7 +58,7 @@ Dashboard')])
                                 <div class="row" style="padding: 0 20rem;">
                                     <div class="doc">
                                         <div class="col-sm-12 box">
-                                            <img src="{{ asset('images/' . $flash->img_portada) }}" id="preview"
+                                            <img src="{{ asset('images/flash/' . $flash->img_portada) }}" id="preview"
                                                 class="img-thumbnail" style="max-width:50%;">
                                         </div>
                                     </div>
@@ -72,14 +73,13 @@ Dashboard')])
                                                 <option value="0" default>inactivo</option>
                                             </select>
                                             <script src="https://code.jquery.com/jquery-3.2.0.min.js"
-                                                integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I="
-                                                crossorigin="anonymous">
+                                                                                        integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I="
+                                                                                        crossorigin="anonymous">
                                             </script>
                                             <script>
                                                 $(function() {
                                                     $("#status").val({{ $flash->status }})
                                                 });
-
                                             </script>
                                         </div>
                                     </div>
@@ -96,14 +96,35 @@ Dashboard')])
                                                 @endforeach
                                             </select>
                                             <script src="https://code.jquery.com/jquery-3.2.0.min.js"
-                                                integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I="
+                                                integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I=" 
                                                 crossorigin="anonymous">
                                             </script>
                                             <script>
                                                 $(function() {
                                                     $("#categorias_id").val({{ $flash->categorias_id }})
                                                 });
-
+                                            </script>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label for="position" class="col-sm-2 col-form-label">{{ __('Posición') }}</label>
+                                    <div class="col-sm-7">
+                                        <div class="form-group">
+                                            <select class="form-control" name="position" id="position" required>
+                                                <option value="">-- selecciona una opción --</option>
+                                                <option value="1">1a fila</option>
+                                                <option value="2">2a fila</option>
+                                                <option value="3">3a fila</option>
+                                            </select>
+                                            <script src="https://code.jquery.com/jquery-3.2.0.min.js" 
+                                                integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I=" 
+                                                crossorigin="anonymous">
+                                            </script>
+                                            <script>
+                                                $(function() {
+                                                    $("#position").val({{ $flash->position }})
+                                                });
                                             </script>
                                         </div>
                                     </div>
@@ -112,7 +133,8 @@ Dashboard')])
                                     <label class="col-sm-2 col-form-label" for="cuerpo">{{ __('Cuerpo') }}</label>
                                     <div class="col-sm-7">
                                         <div class="form-group">
-                                            <textarea class="ckeditor form-control" name="cuerpo">{{$flash -> cuerpo}}</textarea>
+                                            <textarea class="ckeditor form-control"
+                                                name="cuerpo">{{ $flash->cuerpo }}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -170,6 +192,5 @@ Dashboard')])
             console.log(str)
             $('#slug').val(str)
         }
-
     </script>
 @endsection

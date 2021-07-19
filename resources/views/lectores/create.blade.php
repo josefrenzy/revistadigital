@@ -15,40 +15,61 @@
                             <div class="card-body ">
                                 @include('flash-message')
                                 <div class="row">
-                                    <label class="col-sm-2 col-form-label" for="nombre">{{ __('Nombre') }}</label>
+                                    <label class="col-sm-2 col-form-label" for="name">{{ __('Nombre') }}</label>
                                     <div class="col-sm-7">
                                         <div class="form-group">
-                                            <input class="form-control" input type="text" name="nombre" id="nombre"
+                                            <input class="form-control" input type="text" name="name" id="name"
                                                 placeholder="{{ __('Nombre') }}" value="" required />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label class="col-sm-2 col-form-label" for="nombre">{{ __('Empresa') }}</label>
+                                    <label class="col-sm-2 col-form-label" for="name">{{ __('Role') }}</label>
                                     <div class="col-sm-7">
                                         <div class="form-group">
-                                            <input class="form-control" input type="text" name="nombre_empresa" id="nombre"
-                                                placeholder="{{ __('Empresa') }}" value="" required />
-                                            {{-- @if ($errors->has('old_password')) --}}
-                                            {{-- <span id="name-error" class="error text-danger" --}}
-                                                {{-- for="title">{{ $errors->first('old_password') }}</span> --}}
-                                            {{-- @endif --}}
+                                            <select class="form-control" name="type" id="type">
+                                                <option value="">-- Selecciona un valor --</option>
+                                                <option value="0">Administrador</option>
+                                                <option value="1">Redactor</option>
+                                                <option value="2" selected>Lector</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-                                
+                                {{-- <div class="bmd-form-group{{ $errors->has('type') ? ' has-danger' : '' }} mt-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+
+                                        </div>
+                                        <select class="form-control" name="type" id="type">
+                                            <option value="">-- Selecciona un valor --</option>
+                                            <option value="0">Administrador</option>
+                                            <option value="1">Redactor</option>
+                                            <option value="2">Lector</option>
+                                        </select>
+                                    </div>
+                                    @if ($errors->has('type'))
+                                        <div id="email-error" class="error text-danger pl-3" for="email"
+                                            style="display: block;">
+                                            <strong>{{ $errors->first('type') }}</strong>
+                                        </div>
+                                    @endif
+                                </div> --}}
                                 <div class="row">
                                     <label class="col-sm-2 col-form-label">{{ __('Email') }}</label>
                                     <div class="col-sm-7">
                                         <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
-                                        <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" id="input-email" type="email" placeholder="{{ __('Email') }}" value="" required />
-                                        @if ($errors->has('email'))
-                                            <span id="email-error" class="error text-danger" for="input-email">{{ $errors->first('email') }}</span>
-                                        @endif
+                                            <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
+                                                name="email" id="input-email" type="email" placeholder="{{ __('Email') }}"
+                                                value="" required />
+                                            @if ($errors->has('email'))
+                                                <span id="email-error" class="error text-danger"
+                                                    for="input-email">{{ $errors->first('email') }}</span>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                {{-- <div class="row">
                                     <label for="estatus" class="col-sm-2 col-form-label">{{__('Estatus')}}</label>
                                     <div class="col-sm-7">
                                         <div class="form-group">
@@ -59,13 +80,13 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="row">
-                                    <label class="col-sm-2 col-form-label" for="nombre">{{ __('Contraseña') }}</label>
+                                    <label class="col-sm-2 col-form-label" for="password">{{ __('Contraseña') }}</label>
                                     <div class="col-sm-7">
                                         <div class="form-group">
-                                            <input class="form-control" input type="text"  id="nombre"
-                                                placeholder="{{ __('Contraseña') }}" value="Por defecto es: revista@123"  disabled />
+                                            <input class="form-control" type="text" id="password" name="password"
+                                                placeholder="{{ __('Contraseña') }}" value="revista123"/>
                                         </div>
                                     </div>
                                 </div>

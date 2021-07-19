@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\Lector;
+use App\Models\User;
 
 class LectoresController extends Controller
 {
@@ -14,9 +16,13 @@ class LectoresController extends Controller
      */
     public function index()
     {
-        $lectores = Lector::all();
-        return view('lectores.index')
-            ->with('lectores', $lectores);
+        if (auth()->user()->type == 2) {
+            return redirect()->route('revista.index');
+        } else {
+            $lectores = User::all();
+            return view('lectores.index')
+                ->with('lectores', $lectores);
+        }
     }
 
     /**
@@ -37,15 +43,31 @@ class LectoresController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nombre' => 'required',
-            'nombre_empresa' => 'required',
-            'status' => 'required',
-            'email' => 'required',
-        ]);
-        $items = lector::create($request->all());
-        return back()
-            ->with('success', 'Lector creado correctamente.');
+        // if (auth()->user()->type == 2) {
+        //     return redirect()->route('revista.index');
+        // } else {
+        //     $request->validate([
+        //         'nombre' => 'required',
+        //         'nombre_empresa' => 'required',
+        //         'status' => 'required',
+        //         'email' => 'required',
+        //     ]);
+        //     $items = lector::create($request->all());
+        //     return back()
+        //         ->with('success', 'Lector creado correctamente.');
+        // }
+        if (auth()->user()->type == 2) {
+            return redirect()->route('revista.index');
+        } else {
+            User::create([
+                'name' => $request['name'],
+                'email' => $request['email'],
+                'password' => Hash::make($request['name'],),
+                'type' => $request['type'],
+            ]);
+            return back()
+                ->with('success', 'Artículo creado correctamente.');
+        }
     }
 
     /**
@@ -70,9 +92,13 @@ class LectoresController extends Controller
      */
     public function edit($id)
     {
-        $lector = lector::findOrFail($id);
-        return view('lectores.edit')
-            ->with('lector', $lector);
+        if (auth()->user()->type == 2) {
+            return redirect()->route('revista.index');
+        } else {
+            $lector = lector::findOrFail($id);
+            return view('lectores.edit')
+                ->with('lector', $lector);
+        }
     }
 
     /**
@@ -84,11 +110,15 @@ class LectoresController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data =  $request->except('_token', '_method');
-        lector::where('id', $id)
-            ->update($data);
-        return back()
-            ->with('success', 'Lector editado correctamente.');
+        if (auth()->user()->type == 2) {
+            return redirect()->route('revista.index');
+        } else {
+            $data =  $request->except('_token', '_method');
+            lector::where('id', $id)
+                ->update($data);
+            return back()
+                ->with('success', 'Lector editado correctamente.');
+        }
     }
 
     /**
@@ -99,10 +129,10 @@ class LectoresController extends Controller
      */
     public function show($id)
     {
-        printf($id);
-        // echo $id;
-        // lector::destroy($id);
-        // return redirect('lectores.index')
-        //     ->with('success', 'Categoria eliminado correctamente.');
+        if (auth()->user()->type == 2) {
+            return redirect()->route('revista.index');
+        } else {
+            dd($id);
+        }
     }
 }

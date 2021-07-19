@@ -52,7 +52,7 @@
                                 <div class="row" style="padding: 0 20rem;">
                                     <div class="doc">
                                         <div class="col-sm-12 box">
-                                            <img src="{{ asset('images/' . $capsula->img_capsula) }}" id="preview"
+                                            <img src="{{ asset('images/capsulas/' . $capsula->img_capsula) }}" id="preview"
                                                 class="img-thumbnail" style="max-width:50%;">
                                         </div>
                                     </div>

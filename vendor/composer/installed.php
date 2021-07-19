@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'ea16ac3ad39f26ec508413767d249c3abf5db0a5',
+    'reference' => '482a4088f2a734cbfbb71e9d93957c66c5f3fcc0',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -19,6 +19,15 @@
       array (
       ),
       'reference' => '9cb795bf30988e8c96dd3c40623c48a877bc6714',
+    ),
+    'bensampo/laravel-enum' => 
+    array (
+      'pretty_version' => 'v3.4.1',
+      'version' => '3.4.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '67e13f8a211d43035146150793a95c4140f7831d',
     ),
     'brick/math' => 
     array (
@@ -195,6 +204,15 @@
       array (
       ),
       'reference' => '8c3d0a3f6af734494ad8f6fbbee0ba92422859f3',
+    ),
+    'hanneskod/classtools' => 
+    array (
+      'pretty_version' => '1.2.1',
+      'version' => '1.2.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'd365ddac0e602027c0471ea292f4ba2afcb49394',
     ),
     'illuminate/auth' => 
     array (
@@ -420,6 +438,33 @@
         0 => '*',
       ),
     ),
+    'laminas/laminas-code' => 
+    array (
+      'pretty_version' => '3.5.1',
+      'version' => '3.5.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'b549b70c0bb6e935d497f84f750c82653326ac77',
+    ),
+    'laminas/laminas-eventmanager' => 
+    array (
+      'pretty_version' => '3.3.1',
+      'version' => '3.3.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '966c859b67867b179fde1eff0cd38df51472ce4a',
+    ),
+    'laminas/laminas-zendframework-bridge' => 
+    array (
+      'pretty_version' => '1.3.0',
+      'version' => '1.3.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '13af2502d9bb6f7d33be2de4b51fb68c6cdb476e',
+    ),
     'laravel-frontend-presets/material-dashboard' => 
     array (
       'pretty_version' => 'v1.1.2',
@@ -445,7 +490,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'ea16ac3ad39f26ec508413767d249c3abf5db0a5',
+      'reference' => '482a4088f2a734cbfbb71e9d93957c66c5f3fcc0',
     ),
     'laravel/legacy-factories' => 
     array (
@@ -1306,6 +1351,20 @@
       array (
       ),
       'reference' => '6964c76c7804814a842473e0c8fd15bab0f18e25',
+    ),
+    'zendframework/zend-code' => 
+    array (
+      'replaced' => 
+      array (
+        0 => '^3.4.1',
+      ),
+    ),
+    'zendframework/zend-eventmanager' => 
+    array (
+      'replaced' => 
+      array (
+        0 => '^3.2.1',
+      ),
     ),
   ),
 );
