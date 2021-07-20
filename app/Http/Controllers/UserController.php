@@ -46,7 +46,7 @@ class UserController extends Controller
                 'name' => $request['name'],
                 'email' => $request['email'],
                 'password' => Hash::make($request['password']),
-                'type' => 2,
+                'type' => $request['type'],
             ]);
             return back()
                 ->with('success', 'Artículo creado correctamente.');

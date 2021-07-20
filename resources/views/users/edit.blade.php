@@ -57,7 +57,7 @@ Dashboard')])
                                             </span>
                                         </div>
                                         <select class="form-control" name="type" id="type">
-                                            <option value="" de>-- Selecciona un valor --</option>
+                                            <option value="">-- Selecciona un valor --</option>
                                             <option value="0">Administrador</option>
                                             <option value="1">Redactor</option>
                                             <option value="2">Lector</option>

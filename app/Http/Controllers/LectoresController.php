@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\Lector;
 use App\Models\User;
+use App\Enums\UserType;
 
 class LectoresController extends Controller
 {
@@ -43,27 +44,21 @@ class LectoresController extends Controller
      */
     public function store(Request $request)
     {
-        // if (auth()->user()->type == 2) {
-        //     return redirect()->route('revista.index');
-        // } else {
-        //     $request->validate([
-        //         'nombre' => 'required',
-        //         'nombre_empresa' => 'required',
-        //         'status' => 'required',
-        //         'email' => 'required',
-        //     ]);
-        //     $items = lector::create($request->all());
-        //     return back()
-        //         ->with('success', 'Lector creado correctamente.');
-        // }
+
         if (auth()->user()->type == 2) {
             return redirect()->route('revista.index');
         } else {
+            $request->validate([
+                'name' => 'required',
+                'email' => 'required',
+                'password' => 'required',
+                'type' => 'required',
+            ]);
             User::create([
                 'name' => $request['name'],
                 'email' => $request['email'],
-                'password' => Hash::make($request['name'],),
-                'type' => $request['type'],
+                'password' => Hash::make($request['password']),
+                'type' => '2',
             ]);
             return back()
                 ->with('success', 'Artículo creado correctamente.');
