@@ -268,8 +268,8 @@
                             </div>
                         </div>
                         <div class="card-body gray gray">
-                            <h4 class="card-title">{{ Illuminate\Support\Str::of($item->nombre)->words(20) }}</h4>
-                            <p class="card-text">{!! Illuminate\Support\Str::of($item->descripcion)->words(30) !!}</p>
+                            <h4 class="card-title">{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}</h4>
+                            <p class="card-text">{!! Illuminate\Support\Str::of($item->cuerpo)->words(30) !!}</p>
                             <a href="{{ route('revista.show', $item->id) }}" class="btn read-more text-lowercase">Leer
                                 más...</a>
                         </div>

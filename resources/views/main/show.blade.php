@@ -2,20 +2,6 @@
 
 @section('content')
     <div class="content shadow">
-        {{-- <div class="row">
-            <div class="col-md-12">
-                <div class="hover hover-5 text-white rounded">
-                    <img src="{{ asset('images/' . $post[0]->img_portada) }}" alt="">
-                    <div class="hover-overlay"></div>
-                    <div class="hover-5-content">
-                        <h3 class="hover-5-title text-uppercase font-weight-light mb-0">
-                            <strong class="font-weight-bold text-white">{{ $post[0]->titulo }}</strong>
-                            <span>Autor: {{ $post[0]->name }}</span>
-                        </h3>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
         <div class="row main">
             <div class="col-md-10 main">
                 <div class="hover hover-5 text-white rounded">

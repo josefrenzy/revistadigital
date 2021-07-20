@@ -40,7 +40,7 @@ class RevistaController extends Controller
             $nombreEdicion = DB::select('select * from ediciones order by id desc limit 1');
             $categories = Category::all();
             $ediciones = Edicion::all();
-            $ultimas_publicaciones = DB::select('select * from posts 
+            $ultimas_publicaciones = DB::select('select abstract.img_abstract,posts.titulo, posts.cuerpo, posts.id from posts
             inner join abstract on posts.abstract_id = abstract.id 
             order by created_at desc');
             return view('main.revista')
@@ -85,7 +85,7 @@ class RevistaController extends Controller
             $nombreEdicion = DB::select('select * from ediciones order by id desc limit 1');
             $categories = Category::all();
             $ediciones = Edicion::all();
-            $ultimas_publicaciones = DB::select('select * from posts 
+            $ultimas_publicaciones = DB::select('select abstract.img_abstract,posts.titulo, posts.cuerpo, posts.id from posts
             inner join abstract on posts.abstract_id = abstract.id 
             order by created_at desc');
             $pub_rel = DB::select('select * from posts 
@@ -122,15 +122,16 @@ class RevistaController extends Controller
             $post = DB::select('select * from posts 
             inner join users on posts.user_id=users.id
             where posts.id = ?', [$id]);
-            $pub_rel = DB::select('select * from posts 
-            inner join abstract
-            on posts.abstract_id = abstract.id
-            where posts.categorias_id = ? order by created_at desc limit 3', [$post[0]->categorias_id]);
+            $pub_rel = DB::select('select abstract.img_abstract,posts.titulo, users.name , posts.cuerpo, posts.id  from posts 
+            inner join abstract on posts.abstract_id = abstract.id
+            inner join users on posts.user_id = users.id
+            where posts.categorias_id = ? order by posts.created_at desc limit 3', [$post[0]->categorias_id]);
+            // dd($post);
             return view('main.show')
                 ->with('art', $art)
                 ->with('post', $post)
                 ->with('latest', $latest)
-                ->with('pub_rel', $pub_rel)
+                // ->with('pub_rel', $pub_rel)
                 ->with('capsulas', $capsulas)
                 ->with('categories', $categories);
         } else {

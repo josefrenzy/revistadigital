@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <form method="post" action="{{ route('lectores.store') }}" class="form-horizontal">
+                    <form method="post" action="{{ route('users.store') }}" class="form-horizontal">
                         @csrf
                         @method('post')
                         <div class="card ">
