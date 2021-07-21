@@ -74,9 +74,30 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($nombre)
     {
-        // 
+        $categorias = DB::table('posts')
+            ->join('categorias', 'posts.categorias_id', '=', 'categorias.id')
+            ->where('categorias.nombre', '=', $nombre)
+            ->select('posts.id', 'posts.titulo', 'categorias.nombre',)
+            ->get();
+        $latest = DB::select('select * from abstract order by id desc limit 2');
+        $capsulas = DB::select('select * from capsula order by id desc limit 2');
+        $art = DB::select('select a.nombre, a.descripcion, p.id , a.img_abstract
+        from posts as p 
+        inner join abstract as a order by id desc limit 1');
+        $ultimas_publicaciones = DB::select('select abstract.img_abstract,posts.titulo, posts.cuerpo, posts.id from posts
+            inner join abstract on posts.abstract_id = abstract.id 
+            order by created_at desc');
+        $categories = Category::all();
+        return view('main.categorias')
+            ->with('nombre', $nombre)
+            ->with('categorias', $categorias)
+            ->with('art', $art)
+            ->with('ultimas_publicaciones', $ultimas_publicaciones)
+            ->with('latest', $latest)
+            ->with('capsulas', $capsulas)
+            ->with('categories', $categories);
     }
 
     /**
