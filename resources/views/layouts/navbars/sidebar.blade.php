@@ -80,7 +80,7 @@
       <li class="nav-item{{ $activePage == 'flash' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('flash.index') }}">
           <i class="material-icons">language</i>
-          <p>{{ __('Flashs') }}</p>
+          <p>{{ __('Flash') }}</p>
         </a>
       </li>
       <li class="nav-item active-pro{{ $activePage == 'suscribe' ? ' active' : '' }}">

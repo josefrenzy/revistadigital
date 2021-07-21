@@ -13,23 +13,23 @@ class RevistaController extends Controller
     {
         $user = Auth::check();
         if ($user) {
-            $last_edicion = DB::select('select * from ediciones order by id desc limit 1');
+            $last_edicion = DB::select('select * from ediciones where status = 1 order by id desc limit 1');
             $posts_row_one = DB::select('select posts.titulo as titulo, abstract.descripcion as descripcion, abstract.img_abstract as img_abstract, posts.id as post_id from posts  
             inner join abstract on posts.abstract_id = abstract.id
             inner join ediciones on posts.ediciones_id = ediciones.id
-            where posts.visibility=1 and ediciones.nombre = ? and posts.scope = 1 and posts.status=1
+            where posts.visibility=1 and ediciones.nombre = ? and posts.scope = 1 and posts.status=1 and ediciones.status = 1
             order by posts.created_at desc limit 1', [$last_edicion[0]->nombre]);
             $posts_row_two = DB::select('select posts.titulo as titulo, abstract.descripcion as descripcion, abstract.img_abstract as img_abstract, posts.id as post_id from posts  
             inner join abstract on posts.abstract_id = abstract.id
             inner join ediciones on posts.ediciones_id = ediciones.id
-            where posts.visibility=2 and ediciones.nombre = ? and posts.scope = 1 and posts.status=1
+            where posts.visibility=2 and ediciones.nombre = ? and posts.scope = 1 and posts.status=1 and ediciones.status = 1
             order by posts.created_at desc limit 1', [$last_edicion[0]->nombre]);
             $posts_row_three = DB::select('select posts.titulo as titulo, abstract.descripcion as descripcion, abstract.img_abstract as img_abstract, posts.id as post_id from posts  
             inner join abstract on posts.abstract_id = abstract.id
             inner join ediciones on posts.ediciones_id = ediciones.id
-            where posts.visibility=3 and ediciones.nombre = ? and posts.scope = 1 and posts.status=1
+            where posts.visibility=3 and ediciones.nombre = ? and posts.scope = 1 and posts.status=1 and ediciones.status = 1
             order by posts.created_at desc limit 1', [$last_edicion[0]->nombre]);
-                        $flash_row_one = DB::select('select * from flash where position = 1 limit 1');
+            $flash_row_one = DB::select('select * from flash where position = 1 limit 1');
             $flash_row_two = DB::select('select * from flash where position = 2 limit 1');
             $flash_row_three = DB::select('select * from flash where position = 3 limit 1');
             $capsulas = DB::select('select * from capsula order by id desc limit 2');
@@ -37,7 +37,8 @@ class RevistaController extends Controller
                 from posts as p 
                 inner join abstract as a order by id desc limit 1');
             $cat = DB::select('select * from categorias order by id desc limit 3'); //
-            $nombreEdicion = DB::select('select * from ediciones order by id desc limit 1');
+            $nombreEdicion = DB::select('select * from ediciones 
+                where status = 1 order by id desc limit 1');
             $categories = Category::all();
             $ediciones = Edicion::all();
             $ultimas_publicaciones = DB::select('select abstract.img_abstract,posts.titulo, posts.cuerpo, posts.id from posts
@@ -58,21 +59,21 @@ class RevistaController extends Controller
                 ->with('nombreEdicion', $nombreEdicion)
                 ->with('ultimas_publicaciones', $ultimas_publicaciones);
         } else {
-            $last_edicion = DB::select('select * from ediciones order by id desc limit 1');
+            $last_edicion = DB::select('select * from ediciones where status = 1 order by id desc limit 1');
             $posts_row_one = DB::select('select posts.titulo as titulo, abstract.descripcion as descripcion, abstract.img_abstract as img_abstract, posts.id as post_id from posts  
             inner join abstract on posts.abstract_id = abstract.id
-            inner join ediciones on posts.ediciones_id = ediciones.id
-            where posts.visibility=1 and ediciones.nombre = ? and posts.scope = 0 and posts.status=1
+            inner join ediciones on posts.ediciones_id = ediciones.id 
+            where posts.visibility=1 and ediciones.nombre = ? and posts.scope = 0 and posts.status=1 and ediciones.status = 1
             order by posts.created_at desc limit 1', [$last_edicion[0]->nombre]);
             $posts_row_two = DB::select('select posts.titulo as titulo, abstract.descripcion as descripcion, abstract.img_abstract as img_abstract, posts.id as post_id from posts 
             inner join abstract on posts.abstract_id = abstract.id
             inner join ediciones on posts.ediciones_id = ediciones.id
-            where posts.visibility=2 and ediciones.nombre = ? and posts.scope = 0 and posts.status=1
+            where posts.visibility=2 and ediciones.nombre = ? and posts.scope = 0 and posts.status=1 and ediciones.status = 1
             order by posts.created_at desc limit 1', [$last_edicion[0]->nombre]);
             $posts_row_three = DB::select('select posts.titulo as titulo, abstract.descripcion as descripcion, abstract.img_abstract as img_abstract, posts.id as post_id from posts 
             inner join abstract on posts.abstract_id = abstract.id
             inner join ediciones on posts.ediciones_id = ediciones.id
-            where posts.visibility=3 and ediciones.nombre = ? and posts.scope = 0 and posts.status=1
+            where posts.visibility=3 and ediciones.nombre = ? and posts.scope = 0 and posts.status=1 and ediciones.status = 1
             order by posts.created_at desc limit 1', [$last_edicion[0]->nombre]);
             $flash_row_one = DB::select('select * from flash where position = 1 limit 1');
             $flash_row_two = DB::select('select * from flash where position = 2 limit 1');

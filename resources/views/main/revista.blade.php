@@ -16,7 +16,8 @@
                             <div class="hover-overlay"></div>
                             <div class="hover-3-content px-5 py-4">
                                 <h3 class="hover-3-title text-uppercase font-weight-bold mb-1">
-                                    <strong>{{ $item->nombre }}</strong>
+                                    <a href="{{ route('categories.show', $item->nombre) }}"
+                                        style="color: white !important"><strong>{{ $item->nombre }}</strong></a>
                                 </h3>
                                 <p class="hover-3-description small text-uppercase mb-0">{{ $item->descripcion }}</p>
                             </div>
@@ -64,7 +65,11 @@
         <div class="row main edicion-name">
             <div class="col-md-12">
                 @foreach ($nombreEdicion as $item)
-                    <h3 class="titulo-azul">Edición: {{ $item->nombre }}</h3>
+                    @if ($item->status == 1)
+                        <h3 class="titulo-azul">Edición: {{ $item->nombre }}</h3>
+                    @else
+                        <h3 class="titulo-azul">Edición: Inactiva</h3>           
+                    @endif
                 @endforeach
             </div>
         </div>
