@@ -2,7 +2,6 @@
     <div class="row">
         <div class="col">
             <h5 class="aside titulo-azul">Capsulas</h5>
-            <br>
             @if (sizeof($capsulas) == 0)
                 <p>No hay capsulas para mostrar</p>
             @else
@@ -17,12 +16,13 @@
                                 <a class="link-capsula" href="{{ route('capsula.show', $item->id) }}">Leer mas...</a>
                             </div>
                         </div>
-                    @else
-                        <p>No hay capsulas para mostrar</p>
+                        {{-- @else
+                        <p>No hay capsulas para mostrar</p> --}}
                     @endif
 
                     <hr>
                 @endforeach
+                <br>
             @endif
         </div>
     </div>
@@ -30,7 +30,9 @@
         <div class="col">
             <h5>Categorias</h5>
             @foreach ($categories as $cat)
-                <span class="badge badge-secondary">{{ $cat->nombre }}</span>
+                <a href="{{ route('categories.show', $cat->nombre) }}">
+                    <span class="badge badge-secondary">{{ $cat->nombre }}</span>
+                </a>
             @endforeach
         </div>
     </div>

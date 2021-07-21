@@ -48,6 +48,11 @@ Route::get('suscripcion', [
 	'uses' => 'App\Http\Controllers\SuscribeController@index'
 ])->middleware('auth');
 
+// Route::get('categorias_nombre',[
+// 	'as' => 'categorias.show',
+// 	'uses' => 'App\Http\Controllers\CategoryController@show'
+// ]);
+
 // Route::resource('revistaguest', RevistaController::class);
 Route::resource('revista', RevistaController::class);
 

@@ -9,18 +9,20 @@
         {{-- Barra donde se colocan las categorias --}}
         <div class="row main">
             @foreach ($cat as $item)
-                <div class="col-lg-4 mb-3 mb-lg-0">
-                    <div class="hover hover-3 text-white rounded">
-                        <img src="{{ asset('images/categorias/' . $item->img_categorias) }}" alt="">
-                        <div class="hover-overlay"></div>
-                        <div class="hover-3-content px-5 py-4">
-                            <h3 class="hover-3-title text-uppercase font-weight-bold mb-1">
-                                <strong>{{ $item->nombre }}</strong>
-                            </h3>
-                            <p class="hover-3-description small text-uppercase mb-0">{{ $item->descripcion }}</p>
+                @if ($item->status == 1)
+                    <div class="col-lg-4 mb-3 mb-lg-0">
+                        <div class="hover hover-3 text-white rounded">
+                            <img src="{{ asset('images/categorias/' . $item->img_categorias) }}" alt="">
+                            <div class="hover-overlay"></div>
+                            <div class="hover-3-content px-5 py-4">
+                                <h3 class="hover-3-title text-uppercase font-weight-bold mb-1">
+                                    <strong>{{ $item->nombre }}</strong>
+                                </h3>
+                                <p class="hover-3-description small text-uppercase mb-0">{{ $item->descripcion }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
             @endforeach
         </div>
         {{-- Filas Ediciones y search_bar --}}
@@ -38,8 +40,10 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu" aria-labelledby="navbarDropdownProfile">
                             @foreach ($ediciones as $item)
-                                <a class="dropdown-item"
-                                    href="{{ route('ediciones.show', $item->nombre) }}">{{ $item->nombre }}</a>
+                                @if ($item->status == 1)
+                                    <a class="dropdown-item"
+                                        href="{{ route('ediciones.show', $item->nombre) }}">{{ $item->nombre }}</a>
+                                @endif
                             @endforeach
                         </div>
                     </li>
@@ -208,7 +212,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card-body gray"> 
+                                    <div class="card-body gray">
                                         {!! Illuminate\Support\Str::of($item->descripcion)->words(30) !!}
                                         <div><br></div>
                                         <a href="{{ route('revista.show', $item->post_id) }}"
