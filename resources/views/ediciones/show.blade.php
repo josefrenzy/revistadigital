@@ -65,36 +65,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 aside ediciones">
-                <div class="row">
-                    <div class="col">
-                        <h5 class="aside titulo-azul">Ultimas Publicaciones</h5>
-                        @foreach ($capsulas as $item)
-                            <div class="card aside">
-                                <img class="card-img-top aside" src="{{ asset('images/' . $item->img_capsula) }}"
-                                    alt="Card image">
-                                <div class="card-body gray aside">
-                                    <h4 class="card-title">{{ $item->nombre }}</h4>
-                                    <p class="card-text text-truncate">{!! Illuminate\Support\Str::of($item->descripcion)->words(13) !!}</p>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <h5>Categorias</h5>
-                        @foreach ($categories as $cat)
-                            <span class="badge badge-secondary">{{ $cat->nombre }}</span>
-                        @endforeach
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <h5>Comentarios</h5>
-                    </div>
-                </div>
-            </div>
+            {{-- Barra lateral --}}
+            @include('main.components.aside')
         </div>
 
         <div class="row main">

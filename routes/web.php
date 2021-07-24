@@ -7,14 +7,8 @@ use App\Http\Controllers\EdicionController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RevistaController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CapsulaController;
 use App\Http\Controllers\FlashController;
-use App\Http\Controllers\SuscribeController;
-
-use App\Mail\ContactanosMailable;
-use App\Models\Suscribe;
-use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,15 +21,12 @@ use Illuminate\Support\Facades\Mail;
 |
 */
 
-Route::get('/', function () {
-	return view('welcome');
-});
+Route::get('/', [
+	'as' => 'index',
+	'uses' => 'App\Http\Controllers\RevistaController@index'
+]);
 
 Auth::routes();
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home')->middleware('auth');
 
 Route::post('suscripcion', [
 	'as' => 'suscribe.store',
@@ -47,7 +38,14 @@ Route::get('suscripcion', [
 	'uses' => 'App\Http\Controllers\SuscribeController@index'
 ])->middleware('auth');
 
-Route::resource('revistaguest', RevistaController::class);
+Route::delete('suscripcion/{id}', [
+	'as' => 'suscribe.destroy',
+	'uses' => 'App\Http\Controllers\SuscribeController@destroy'
+])->middleware('auth');
+
+Route::resource('revista', RevistaController::class);
+
+Route::get('/search/', 'App\Http\Controllers\PostController@search')->name('search');
 
 Route::resource('categories', CategoryController::class);
 Route::resource('posts', PostController::class);
@@ -57,8 +55,6 @@ Route::resource('capsula', CapsulaController::class);
 Route::resource('flash', FlashController::class);
 Route::resource('user', UserController::class);
 
-// Route::get('revista',['as' => 'revista.index', 'uses' => 'App\Http\Controllers\RevistaController@index'])->middleware(['guest']);
-
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('categories', CategoryController::class);
 	Route::resource('posts', PostController::class);
@@ -67,20 +63,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('capsula', CapsulaController::class);
 	Route::resource('flash', FlashController::class);
 	Route::resource('user', UserController::class);
-	Route::resource('revista', RevistaController::class);
+	Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
-	Route::get('/', function () {
-		return view('main.index');
-	});
-	Route::get('/nosotros', function () {
-		return view('main.nosotros');
-	});
-	Route::get('/servicios', function () {
-		return view('main.servicios');
-	});
-	Route::get('/contacto', function () {
-		return view('main.contacto');
-	});
 });

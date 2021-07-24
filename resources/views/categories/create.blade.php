@@ -1,11 +1,13 @@
-{@extends('layouts.app',['class' => 'off-canvas-sidebar', 'activePage' => 'categories', 'title' => __('Create Category')])
+{@extends('layouts.app',['class' => 'off-canvas-sidebar', 'activePage' => 'categories', 'title' => __('Create
+Category')])
 
 @section('content')
     <div class="content">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <form method="post" action="{{ route('categories.store') }}" class="form-horizontal" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('categories.store') }}" class="form-horizontal"
+                        enctype="multipart/form-data" onsubmit="return validarImagen();">
                         @csrf
                         @method('post')
                         <div class="card ">
@@ -22,12 +24,12 @@
                                                 placeholder="{{ __('Nombre') }}" value="" required />
                                             {{-- @if ($errors->has('old_password')) --}}
                                             {{-- <span id="name-error" class="error text-danger" --}}
-                                                {{-- for="title">{{ $errors->first('old_password') }}</span> --}}
+                                            {{-- for="title">{{ $errors->first('old_password') }}</span> --}}
                                             {{-- @endif --}}
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="row">
                                     <label class="col-sm-2 col-form-label" for="descripcion">{{ __('Cuerpo') }}</label>
                                     <div class="col-sm-7">
@@ -46,11 +48,10 @@
                                         <div class="form-group">
                                             <input type="file" name="img_categorias" class="file" accept="image/*">
                                             <div class="input-group my-3">
-                                                <input type="text" class="form-control" disabled
-                                                    placeholder="Upload File" id="file">
+                                                <input type="text" class="form-control" disabled placeholder="Upload File"
+                                                    id="file">
                                                 <div class="input-group-append">
-                                                    <button type="button"
-                                                        class="browse btn btn-primary">Browse...</button>
+                                                    <button type="button" class="browse btn btn-primary">Browse...</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -59,13 +60,12 @@
                                 <div class="row" style="padding: 0 20rem;">
                                     <div class="doc">
                                         <div class="col-sm-12 box">
-                                            <img src="" id="preview"
-                                                class="img-thumbnail" style="max-width:50%;">
+                                            <img src="" id="preview" class="img-thumbnail" style="max-width:50%;">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label for="estatus" class="col-sm-2 col-form-label">{{__('Estatus')}}</label>
+                                    <label for="estatus" class="col-sm-2 col-form-label">{{ __('Estatus') }}</label>
                                     <div class="col-sm-7">
                                         <div class="form-group">
                                             <select class="form-control" name="status" id="status">
@@ -82,6 +82,16 @@
                             </div>
                         </div>
                     </form>
+                    <script>
+                        function validarImagen() {
+                            var fileSize = $('#imagen')[0].files[0].size;
+                            var siezekiloByte = parseInt(fileSize / 1024);
+                            if (siezekiloByte > $('#imagen').attr('size')) {
+                                alert("Imagen muy grande");
+                                return false;
+                            }
+                        }
+                    </script>
                 </div>
             </div>
         </div>
@@ -107,15 +117,24 @@
         });
         $('input[type="file"]').change(function(e) {
             var fileName = e.target.files[0].name;
-            $("#file").val(fileName);
+            var fileSize = e.target.files[0].size;
+            if (fileSize > 200000) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'la imagen no puede pesar mas de 2mb',
+                })
+                e.preventDefault();
+            } else {
 
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                // get loaded data and render thumbnail.
-                document.getElementById("preview").src = e.target.result;
-            };
-            // read the image file as a data URL.
-            reader.readAsDataURL(this.files[0]);
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    // get loaded data and render thumbnail.
+                    document.getElementById("preview").src = e.target.result;
+                };
+                // read the image file as a data URL.
+                reader.readAsDataURL(this.files[0]);
+            }
         });
     </script>
 @endsection

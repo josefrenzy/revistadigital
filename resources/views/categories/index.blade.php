@@ -12,7 +12,6 @@
                                 <a style="background-color: #4caf50" href="{{ route('categories.create') }}"
                                     class="btn btn-sm btn-primary">Agregar Categoria</a>
                             </div>
-                            {{-- <p class="card-category"> Here is a subtitle for this table</p> --}}
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -35,16 +34,16 @@
                                         </th>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            @foreach ($categories as $category)
+                                        @foreach ($categories as $category)
+                                            <tr>
                                                 <td>
-                                                    {{ $category -> id }}
+                                                    {{ $category->id }}
                                                 </td>
                                                 <td>
-                                                    {{ $category-> nombre }}
+                                                    {{ $category->nombre }}
                                                 </td>
                                                 <td>
-                                                    {{ $category -> descripcion }}
+                                                    {{ $category->descripcion }}
                                                 </td>
                                                 <td>
                                                     @if ($category->status == 1)
@@ -55,20 +54,17 @@
                                                         <input class="toggle-status" type="checkbox" data-toggle="toggle"
                                                             value="{{ $category['status'] }}" data-size="xs">
                                                     @endif
-                                                    {{-- <input type="checkbox" checked data-toggle="toggle" data-size="xs" value="{{ $category -> status }}"> --}}
                                                 </td>
                                                 <td>
-                                                    <a rel="tooltip" class="btn btn-success btn-link" href="{{route('categories.edit', $category -> id) }}"
+                                                    <a rel="tooltip" class="btn btn-success btn-link"
+                                                        href="{{ route('categories.edit', $category->id) }}"
                                                         data-original-title="" title="">
                                                         <i class="material-icons">edit</i>
                                                         <div class="ripple-container"></div>
                                                     </a>
-                                                    {{-- <a href={{ route('categories.edit', $category -> id) }}
-                                                        class="btn btn-warning btn-sm">Editar</a>
-                                                    <a href={{ route('categories.destroy', $category -> id) }}
-                                                        class="btn btn-danger btn-sm">Eliminar</a> --}}
+
                                                 </td>
-                                        </tr>
+                                            </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -80,3 +76,7 @@
         </div>
     </div>
 @endsection
+{{-- <a href={{ route('categories.edit', $category -> id) }}
+                                                        class="btn btn-warning btn-sm">Editar</a>
+                                                    <a href={{ route('categories.destroy', $category -> id) }}
+                                                        class="btn btn-danger btn-sm">Eliminar</a> --}}

@@ -57,4 +57,14 @@ class SuscribeController extends Controller
 
         return back()->with('success', 'Thanks for contacting us!');
     }
+    public function destroy($id){
+        if (auth()->user()->type == 2) {
+            return redirect()->route('revista.index');
+        } else {
+            $user = Suscribe::find($id);
+            $user->delete();
+            return back()
+                    ->with('success', 'Usuario eliminado correctamente.');
+        }
+    }
 }

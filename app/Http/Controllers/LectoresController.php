@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Lector;
+use App\Models\User;
 
 class LectoresController extends Controller
 {
@@ -14,9 +17,14 @@ class LectoresController extends Controller
      */
     public function index()
     {
-        $lectores = Lector::all();
-        return view('lectores.index')
-            ->with('lectores', $lectores);
+        if (auth()->user()->type == 2) {
+            return redirect()->route('revista.index');
+        } else {
+            $lectores = DB::table('users')
+            ->paginate(5);
+            return view('lectores.index')
+                ->with('lectores', $lectores);
+        }
     }
 
     /**
@@ -37,15 +45,27 @@ class LectoresController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nombre' => 'required',
-            'nombre_empresa' => 'required',
-            'status' => 'required',
-            'email' => 'required',
-        ]);
-        $items = lector::create($request->all());
-        return back()
-            ->with('success', 'Lector creado correctamente.');
+
+        if (auth()->user()->type == 2) {
+            return redirect()->route('revista.index');
+        } else {
+            User::create([
+                'name' => $request['name'],
+                'email' => $request['email'],
+                'password' => Hash::make($request['password']),
+                'type' => $request['type'],
+            ]);
+            $id = DB::getPdo()->lastInsertId();
+            User::where('id', $id)
+                ->update([
+                    'name' => $request['name'],
+                    'email' => $request['email'],
+                    'password' => Hash::make($request['password']),
+                    'type' => $request['type'],
+                ]);
+            return back()
+                ->with('success', 'Artículo creado correctamente.');
+        }
     }
 
     /**
@@ -70,9 +90,13 @@ class LectoresController extends Controller
      */
     public function edit($id)
     {
-        $lector = lector::findOrFail($id);
-        return view('lectores.edit')
-            ->with('lector', $lector);
+        if (auth()->user()->type == 2) {
+            return redirect()->route('revista.index');
+        } else {
+            $lector = lector::findOrFail($id);
+            return view('lectores.edit')
+                ->with('lector', $lector);
+        }
     }
 
     /**
@@ -82,14 +106,18 @@ class LectoresController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        $data =  $request->except('_token', '_method');
-        lector::where('id', $id)
-            ->update($data);
-        return back()
-            ->with('success', 'Lector editado correctamente.');
-    }
+    // public function update(Request $request, $id)
+    // {
+    //     if (auth()->user()->type == 2) {
+    //         return redirect()->route('revista.index');
+    //     } else {
+    //         $data =  $request->except('_token', '_method');
+    //         lector::where('id', $id)
+    //             ->update($data);
+    //         return back()
+    //             ->with('success', 'Lector editado correctamente.');
+    //     }
+    // }
 
     /**
      * Remove the specified resource from storage.
@@ -97,12 +125,14 @@ class LectoresController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        printf($id);
-        // echo $id;
-        // lector::destroy($id);
-        // return redirect('lectores.index')
-        //     ->with('success', 'Categoria eliminado correctamente.');
+    public function destroy($id){
+        if (auth()->user()->type == 2) {
+            return redirect()->route('revista.index');
+        } else {
+            $user = User::find($id);
+            $user->delete();
+            return back()
+                    ->with('success', 'Lector eliminado correctamente.');
+        }
     }
 }

@@ -5,11 +5,17 @@
 }
 
 .img-nav {
-    max-width: 20%;
+    padding-left: 1rem;
+    max-width: 75%;
+}
+a{
+    color: #004680 ;
 }
 
 .wrapper {
-    padding: 0 8rem;
+    padding-top: 7.2rem;
+    /* padding: 0 1rem;
+    margin: 0 0.5rem; */
 }
 /* Cards Settings */
 .doc {
@@ -99,6 +105,7 @@ footer {
 
 .row.main {
     padding: 0 1rem;
+    background-color: #fff;
 }
 
 .row.main.icons {
@@ -111,10 +118,12 @@ footer {
 
 .row.suscribe {
     padding: 0 1rem;
+    background-color: #fff;
 }
 
 .col-md-10.main {
     padding-right: 2rem;
+    padding-top: 1rem;
 }
 
 .col-md-2.aside {
@@ -123,7 +132,7 @@ footer {
 }
 .col-md-2.aside.index {
     padding: 1rem;
-    margin-top: 0;
+    margin-top: 1rem;
 }
 
 .card-img-top.aside {
@@ -350,7 +359,8 @@ a.aviso-privacidad {
     overflow: hidden;
     top: 0;
     left: 0;
-    padding: 50px 20px;
+    /* padding: 50px 20px; */
+    padding: 25% 2rem;
 }
 
 .hovereffect img {
@@ -426,6 +436,49 @@ a.aviso-privacidad {
     width: 400px !important;
 }
 
-.btn.suscribe.mb-2{
+.content.profile{
+    padding: 0 10rem;
+    /* margin: 0  */
+    background-color: #fff;
+}
+
+.card-header.profile{
     background-color: rgb(0, 70, 128) !important;
+    color: #fff !important;
+}
+
+.btn.btn-primary {
+    color: #fff;
+    background-color: #2f7840;
+    border-color: #2f7840;
+    box-shadow: 0 2px 2px 0 rgb(156 39 176 / 14%), 0 3px 1px -2px rgb(156 39 176 / 20%), 0 1px 5px 0 rgb(156 39 176 / 12%);
+}
+.card-title.text-uppercase.capsulas{
+    padding: .5rem 0;
+    color: rgb(0, 70, 128) !important;
+    font-weight: 400 !important;
+}
+
+.titulo-capsula{
+    color: rgb(0, 70, 128) !important;
+    font-weight: 400 !important;
+}
+
+.link-capsula.aside,
+.titulo-capsula.aside{
+    color: rgb(0, 70, 128) !important;
+    font-weight: 400 !important;
+}
+
+a.nav-link.main {
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 2px;
+    transition: background-size .3s;
+}
+
+a.nav-link.main:hover, a.nav-link.main:focus {
+    background-size: 100% 2px;
 }

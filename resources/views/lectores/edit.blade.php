@@ -49,7 +49,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                {{-- <div class="row">
                                     <label class="col-sm-2 col-form-label" for="nombre">{{ __('Contraseña') }}</label>
                                     <div class="col-sm-7">
                                         <div class="form-group">
@@ -57,6 +57,25 @@
                                                 placeholder="{{ __('Contraseña') }}" value="{{ $lector['password'] }}"
                                                 disabled />
                                         </div>
+                                    </div>
+                                </div> --}}
+                                <div class="row">
+                                    <div class="bmd-form-group{{ $errors->has('password') ? ' has-danger' : '' }} mt-3">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="material-icons">lock_outline</i>
+                                                </span>
+                                            </div>
+                                            <input type="password" name="password" id="password" class="form-control"
+                                                placeholder="{{ __('Password...') }}">
+                                        </div>
+                                        @if ($errors->has('password'))
+                                            <div id="password-error" class="error text-danger pl-3" for="password"
+                                                style="display: block;">
+                                                <strong>{{ $errors->first('password') }}</strong>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="row">
@@ -69,14 +88,13 @@
                                                 <option value="0">inactivo</option>
                                             </select>
                                             <script src="https://code.jquery.com/jquery-3.2.0.min.js"
-                                                integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I="
-                                                crossorigin="anonymous">
+                                                                                        integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I="
+                                                                                        crossorigin="anonymous">
                                             </script>
                                             <script>
                                                 $(function() {
                                                     $("#status").val({{ $lector->status }})
                                                 });
-
                                             </script>
                                         </div>
                                     </div>

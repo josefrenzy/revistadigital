@@ -1,83 +1,136 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use app\Enums\UserType;
 use App\Models\Capsula;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CapsulaController extends Controller
 {
     public function index()
     {
-        $capsula = Capsula::paginate(5);
-        return view('capsula.index')
-            ->with('capsula', $capsula);
+        if (auth()->user()->type == 2) {
+            return redirect()->route('revista.index');
+        } else {
+            $capsula = Capsula::paginate(5);
+            return view('capsula.index')
+                ->with('capsula', $capsula);
+        }
     }
 
     public function create()
     {
-        return view('capsula.create');
+        if (auth()->user()->type == 2) {
+            return redirect()->route('revista.index');
+        } else {
+            return view('capsula.create');
+        }
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'nombre' => 'required',
-            'descripcion' => 'required',
-            'status' => 'required',
-            'img_capsula' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-        ]);
-        $imageName = time() . '-' . $request->nombre . '.' . $request->img_capsula->extension();
+        if (auth()->user()->type == 2) {
+            return redirect()->route('revista.index');
+        } else {
+            $request->validate([
+                'nombre' => 'required',
+                'descripcion' => 'required',
+                'status' => 'required',
+                'img_capsula' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            ]);
+            $imageName = time() . '-' . $request->nombre . '.' . $request->img_capsula->extension();
 
-        $request->img_capsula->move(public_path('images'), $imageName);
+            $request->img_capsula->move(public_path('images/capsulas'), $imageName);
 
-         Capsula::create([
-            'nombre' => $request->input('nombre'),
-            'descripcion' => $request->input('descripcion'),
-            'status' => $request->input('status'),
-            'img_capsula' => $imageName
-        ]);
-        return back()
-            ->with('success', 'Capsula creada correctamente.');
+            Capsula::create([
+                'nombre' => $request->input('nombre'),
+                'descripcion' => $request->input('descripcion'),
+                'status' => $request->input('status'),
+                'img_capsula' => $imageName
+            ]);
+            return back()
+                ->with('success', 'Capsula creada correctamente.');
+        }
     }
 
 
     public function edit($id)
     {
-        $capsula = Capsula::findOrFail($id);
-        return view('capsula.edit')
-            ->with('capsula', $capsula);
+        if (auth()->user()->type == 2) {
+            return redirect()->route('revista.index');
+        } else {
+            $capsula = Capsula::findOrFail($id);
+            return view('capsula.edit')
+                ->with('capsula', $capsula);
+        }
     }
     public function update(Request $request, $id)
     {
-        if ($request->img_capsula == null) {
-            Capsula::where('id', $id)
-                ->update([
-                    'nombre' => $request->input('nombre'),
-                    'descripcion' => $request->input('descripcion'),
-                    'status' => $request->input('status'),
-                ]);
-            return back()
-                ->with('success', 'Producto editado correctamente.');
+        if (auth()->user()->type == 2) {
+            return redirect()->route('revista.index');
         } else {
-            $request->validate([
-                // 'nombre' => 'required',
-                // 'descripcion' => 'required',
-                // 'status' => 'required',
-                'img_capsula' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-            ]);
-            $imageName = time() . '-' . $request->nombre . '.' . $request->img_capsula->extension();
-
-            $request->img_capsula->move(public_path('images'), $imageName);
-            Capsula::where('id', $id)
-                ->update([
-                    'nombre' => $request->input('nombre'),
-                    'descripcion' => $request->input('descripcion'),
-                    'status' => $request->input('status'),
-                    'img_capsula' => $imageName
+            if ($request->img_capsula == null) {
+                Capsula::where('id', $id)
+                    ->update([
+                        'nombre' => $request->input('nombre'),
+                        'descripcion' => $request->input('descripcion'),
+                        'status' => $request->input('status'),
+                    ]);
+                return back()
+                    ->with('success', 'Producto editado correctamente.');
+            } else {
+                $request->validate([
+                    // 'nombre' => 'required',
+                    // 'descripcion' => 'required',
+                    // 'status' => 'required',
+                    'img_capsula' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
                 ]);
+                $imageName = time() . '-' . $request->nombre . '.' . $request->img_capsula->extension();
+
+                $request->img_capsula->move(public_path('images'), $imageName);
+                Capsula::where('id', $id)
+                    ->update([
+                        'nombre' => $request->input('nombre'),
+                        'descripcion' => $request->input('descripcion'),
+                        'status' => $request->input('status'),
+                        'img_capsula' => $imageName
+                    ]);
+                return back()
+                    ->with('success', 'Producto editado correctamente.');
+            }
+        }
+    }
+
+    public function show($id)
+    {
+        if (auth()->user()->type == 2) {
+            return redirect()->route('revista.index');
+        } else {
+            $capsula = Capsula::find($id);
+            $capsulas = DB::select('select * from capsula order by id desc limit 2');
+            $categories = Category::all();
+            $ultimas_publicaciones = DB::select('select abstract.img_abstract,posts.titulo, posts.cuerpo, posts.id from posts
+                inner join abstract on posts.abstract_id = abstract.id
+                where posts.scope = 1
+                order by created_at desc');
+            return view('capsula.show')
+                ->with('ultimas_publicaciones', $ultimas_publicaciones)
+                ->with('capsula', $capsula)
+                ->with('capsulas', $capsulas)
+                ->with('categories', $categories);
+        }
+    }
+
+    public function destroy($id){
+        if (auth()->user()->type == 2) {
+            return redirect()->route('revista.index');
+        } else {
+            $user = Capsula::find($id);
+            $user->delete();
             return back()
-                ->with('success', 'Producto editado correctamente.');
+                    ->with('success', 'Usuario eliminado correctamente.');
         }
     }
 }
