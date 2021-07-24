@@ -1,31 +1,19 @@
 @extends('main.app',['activePage'=>'revista','titlePage' => __('Revista FG')])
 @section('content')
     <div class="content shadow">
-        {{-- <div class="row">
-            <div class="col-md-12">
-                <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img class="d-block w-100" src="{{ url('/images/row2-2.png') }}" alt="First slide">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h1>{{ $post->titulo }}</h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
         <div class="row main">
             <div class="col-md-10 main">
                 <div class="col-md-12">
-                    <h3 class="titulo-azul">Ediciones: {{ $nombre }} </h3>
+                    <h3 class="titulo-azul">Articulos que coinciden con: {{ $search }} </h3>
                 </div>
                 <div class="col-md-12">
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-hover">
-                                @if ($ediciones->count() == 0)
-                                    <h1>No hay datos para mostrar</h1>
+                                @if (sizeof($posts) == 0)
+                                    <div>
+                                        <h2>No encontramos Artículos relacionados</h2>
+                                    </div>
                                 @else
                                     <thead class="header-table">
                                         <th>
@@ -42,7 +30,7 @@
                                         </th>
                                     </thead>
                                     <tbody>
-                                        @foreach ($ediciones as $item)
+                                        @foreach ($posts as $item)
                                             <tr>
                                                 <td>
                                                     {{ $item->id }}
@@ -73,7 +61,7 @@
             <div class="col-md-12">
                 <h3>Ultimas Publicaciones</h3>
             </div>
-            @foreach ($pub_rel as $item)
+            @foreach ($ultimas_publicaciones as $item)
                 <div class="col-md-4">
                     <div class="card relacionadas">
                         <div class="doc">
@@ -82,12 +70,12 @@
                                     alt="Card image">
                             </div>
                         </div>
-                        {{-- <div class="card-body gray gray">
-                            <h4 class="card-title">{{ Illuminate\Support\Str::of($item->nombre)->words(20) }}</h4>
-                            <p class="card-text">{!! Illuminate\Support\Str::of($item->descripcion)->words(30) !!}</p>
+                        <div class="card-body gray gray">
+                            <h4 class="card-title">{{ Illuminate\Support\Str::of($item->titulo)->words(15) }}</h4>
+                            <p class="card-text">{!! Illuminate\Support\Str::of($item->cuerpo)->words(25) !!}</p>
                             <a href="{{ route('revista.show', $item->id) }}" class="btn read-more text-lowercase">Leer
                                 más...</a>
-                        </div> --}}
+                        </div>
                     </div>
                 </div>
             @endforeach
@@ -114,8 +102,17 @@
                     </div>
                 </form>
             </div>
-            <div class="col"></div>
         </div>
     </div>
 
 @endsection
+
+{{-- @if (sizeof($posts) != 0)
+    @foreach ($posts as $post)
+        <div class="post-list">
+            <p>{{ $post->titulo }}</p>
+            <img src="{{ $post->cuerpo }}">
+        </div>
+    @endforeach
+
+@endif --}}

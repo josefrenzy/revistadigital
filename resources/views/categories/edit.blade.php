@@ -6,8 +6,8 @@ Category')])
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <form method="post" action="{{ route('categories.update', $category->id) }}" class="was-validated form-horizontal"
-                        enctype="multipart/form-data">
+                    <form method="post" action="{{ route('categories.update', $category->id) }}"
+                        class="was-validated form-horizontal" enctype="multipart/form-data">
                         @csrf
                         @method('put')
                         <div class="card ">
@@ -22,8 +22,7 @@ Category')])
                                         <div class="form-group">
                                             <input class="form-control" input type="text" name="nombre" id="nombre"
                                                 placeholder="{{ __('Nombre') }}" value="{{ $category['nombre'] }}"
-                                                required
-                                            />
+                                                required />
                                         </div>
                                     </div>
                                 </div>
@@ -31,9 +30,10 @@ Category')])
                                     <label class="col-sm-2 col-form-label" for="descripcion">{{ __('Cuerpo') }}</label>
                                     <div class="col-sm-7">
                                         <div class="form-group">
-                                            <textarea class="form-control" name="descripcion" placeholder="Agrega contenido">
-                                                {{ $category->descripcion }}
-                                            </textarea>
+                                            <textarea class="form-control" name="descripcion"
+                                                placeholder="Agrega contenido">
+                                                    {{ $category->descripcion }}
+                                                </textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -56,8 +56,8 @@ Category')])
                                 <div class="row" style="padding: 0 20rem;">
                                     <div class="doc">
                                         <div class="col-sm-12 box">
-                                            <img src="{{ asset('images/categorias/' . $category->img_categorias) }}" id="preview"
-                                                class="img-thumbnail" style="max-width:50%;">
+                                            <img src="{{ asset('images/categorias/' . $category->img_categorias) }}"
+                                                id="preview" class="img-thumbnail" style="max-width:50%;">
                                         </div>
                                     </div>
                                 </div>
@@ -70,9 +70,9 @@ Category')])
                                                 <option id="active" value="1">activo</option>
                                                 <option id="inactive" value="2">inactivo</option>
                                             </select>
-                                            <script src="https://code.jquery.com/jquery-3.2.0.min.js" 
-                                                integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I="
-                                                crossorigin="anonymous">
+                                            <script src="https://code.jquery.com/jquery-3.2.0.min.js"
+                                                                                        integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I="
+                                                                                        crossorigin="anonymous">
                                             </script>
                                             <script>
                                                 $(function() {
@@ -115,14 +115,24 @@ Category')])
 
         $('input[type="file"]').change(function(e) {
             var fileName = e.target.files[0].name;
-            $("#file").val(fileName);
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                // get loaded data and render thumbnail.
-                document.getElementById("preview").src = e.target.result;
-            };
-            // read the image file as a data URL.
-            reader.readAsDataURL(this.files[0]);
+            var fileSize = e.target.files[0].size;
+            if (fileSize > 200000) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'la imagen no puede pesar mas de 2mb',
+                })
+                e.preventDefault();
+            } else {
+                $("#file").val(fileName);
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    // get loaded data and render thumbnail.
+                    document.getElementById("preview").src = e.target.result;
+                };
+                // read the image file as a data URL.
+                reader.readAsDataURL(this.files[0]);
+            }
         });
     </script>
 @endsection

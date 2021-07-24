@@ -167,4 +167,14 @@ class FlashController extends Controller
             }
         }
     }
+    public function destroy($id){
+        if (auth()->user()->type == 2) {
+            return redirect()->route('revista.index');
+        } else {
+            $user = Flash::find($id);
+            $user->delete();
+            return back()
+                    ->with('success', 'Lector eliminado correctamente.');
+        }
+    }
 }

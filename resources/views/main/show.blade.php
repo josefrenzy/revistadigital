@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="content shadow">
-        <div class="row main">
-            <div class="col-md-10 main">
+        <div class="row main white">
+            <div class="col-md-10 main white">
                 <div class="hover hover-5 text-white rounded">
                     <img src="{{ asset('images/' . $post[0]->img_portada) }}" alt="">
                     <div class="hover-overlay"></div>

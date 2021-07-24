@@ -87,8 +87,9 @@ class CategoryController extends Controller
         from posts as p 
         inner join abstract as a order by id desc limit 1');
         $ultimas_publicaciones = DB::select('select abstract.img_abstract,posts.titulo, posts.cuerpo, posts.id from posts
-            inner join abstract on posts.abstract_id = abstract.id 
-            order by created_at desc');
+                inner join abstract on posts.abstract_id = abstract.id
+                where posts.scope = 1
+                order by created_at desc');
         $categories = Category::all();
         return view('main.categorias')
             ->with('nombre', $nombre)

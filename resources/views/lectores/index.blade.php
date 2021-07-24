@@ -18,15 +18,12 @@
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead class=" text-primary">
-                                        <th>
+                                        {{-- <th>
                                             ID
-                                        </th>
+                                        </th> --}}
                                         <th>
                                             Nombre completo
                                         </th>
-                                        {{-- <th>
-                                            Empresa
-                                        </th> --}}
                                         <th>
                                             Correo electronico
                                         </th>
@@ -48,41 +45,58 @@
                                                         {{ $item->email }}
                                                     </td>
                                                     <td>
-                                                        {{ $item->created_at }}
-                                                    </td>
-                                                    <td>
-                                                        {{-- @if ($item->type == 0)
-                                                    Administrador
-                                                @endif
-                                                @if ($item->type == 1)
-                                                    Redactor
-                                                @endif --}}
                                                         @if ($item->type == 2)
                                                             Lector
                                                         @endif
                                                     </td>
-                                                    <td class="td-actions text-right">
+                                                    <td class="td-actions">
                                                         <a rel="tooltip" class="btn btn-success btn-link"
                                                             href="{{ route('user.edit', $item->id) }}"
                                                             data-original-title="" title="">
                                                             <i class="material-icons">edit</i>
                                                             <div class="ripple-container"></div>
                                                         </a>
-                                                        {{-- <a rel="tooltip" class="btn btn-danger btn-link" id="delete-user"
-                                                    href="{{ route('user.show', $item->id) }}" data-original-title=""
-                                                    title="">
-                                                    <i class="material-icons">clear</i>
-                                                    <div class="ripple-container"></div>
-                                                </a> --}}
+                                                        <button type="button" class="btn btn-danger btn-link"
+                                                            data-toggle="modal" data-target="#exampleModal">
+                                                            <i class="material-icons">clear</i>
+                                                        </button>
                                                     </td>
                                                 </tr>
                                             @endif
                                         @endforeach
                                     </tbody>
                                 </table>
+                                <span>{{$lectores->links()}}</span>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Eliminacion de usuario</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Estas Seguro de que deseas eliminar este registro
+                </div>
+                <div class="modal-footer">
+                    <form action="{{ route('lectores.destroy', $item->id) }}" method="POST">
+                        @method('DELETE')
+                        @csrf
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" type="submit">
+                            Eliminar
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

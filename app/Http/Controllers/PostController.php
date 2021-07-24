@@ -228,4 +228,37 @@ class PostController extends Controller
             }
         }
     }
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        $ultimas_publicaciones = DB::select('select abstract.img_abstract,posts.titulo, posts.cuerpo, posts.id from posts
+            inner join abstract on posts.abstract_id = abstract.id 
+            order by created_at desc');
+        $capsulas = DB::select('select * from capsula order by id desc limit 2');
+        $categories = Category::all();
+        $posts = Post::query()
+            ->where('titulo', 'LIKE', "%$search%")
+            // ->orWhere('cuerpo','LIKE','"%{$search}%"')
+            ->get();
+        // $posts = DB::select('select abstract.img_abstract,posts.titulo, users.name , posts.cuerpo, posts.id  from posts 
+        //     inner join abstract on posts.abstract_id = abstract.id
+        //     inner join users on posts.user_id = users.id
+        //     where posts.titulo like %{$search}% order by posts.created_at');//, [$search]
+        // dd($posts);
+        return view('main.search', compact('posts'))
+            ->with('ultimas_publicaciones',$ultimas_publicaciones)
+            ->with('capsulas', $capsulas)
+            ->with('categories', $categories)
+            ->with('search', $search);
+    }
+    public function destroy($id){
+        if (auth()->user()->type == 2) {
+            return redirect()->route('revista.index');
+        } else {
+            $user = Post::find($id);
+            $user->delete();
+            return back()
+                    ->with('success', 'Lector eliminado correctamente.');
+        }
+    }
 }

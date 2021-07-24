@@ -47,8 +47,8 @@
                                     <div class="col-sm-7">
                                         <div class="form-group">
                                             <textarea class="ckeditor form-control" name="descripcion">
-                                                                        {{ $abstract->descripcion }}
-                                                                    </textarea>
+                                                                            {{ $abstract->descripcion }}
+                                                                        </textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -208,8 +208,7 @@
                                 </div>
 
                                 <div class="row">
-                                    <label for="visibility"
-                                        class="col-sm-2 col-form-label">{{ __('Posición') }}</label>
+                                    <label for="visibility" class="col-sm-2 col-form-label">{{ __('Posición') }}</label>
                                     <div class="col-sm-7">
                                         <div class="form-group">
                                             <select class="form-control" name="visibility" id="visibility" required>
@@ -252,18 +251,27 @@
         // obteniedo el valor del input file
         $('input[type="file"]').change(function(e) {
             var fileName = e.target.files[0].name;
+            var fileSize = e.target.files[0].size;
+            if (fileSize > 200000) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'la imagen no puede pesar mas de 2mb',
+                })
+                e.preventDefault();
+            } else {
+                $("#file_abstract").val(fileName);
 
-            $("#file_abstract").val(fileName);
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    // get loaded data and render thumbnail.
+                    document.getElementById("preview-abstract").src = e.target.result;
+                    // e.target.value = ''
+                };
 
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                // get loaded data and render thumbnail.
-                document.getElementById("preview-abstract").src = e.target.result;
-                // e.target.value = ''
-            };
-
-            // read the image file as a data URL.
-            reader.readAsDataURL(this.files[0]);
+                // read the image file as a data URL.
+                reader.readAsDataURL(this.files[0]);
+            }
         });
 
         $(document).on("click", ".browse-portada", function() {

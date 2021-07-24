@@ -63,8 +63,8 @@ Dashboard')])
                                             <option value="2">Lector</option>
                                         </select>
                                         <script src="https://code.jquery.com/jquery-3.2.0.min.js"
-                                          integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I="
-                                          crossorigin="anonymous">
+                                                                                integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I="
+                                                                                crossorigin="anonymous">
                                         </script>
                                         <script>
                                             $(function() {
@@ -81,7 +81,37 @@ Dashboard')])
                                         </div>
                                     @endif
                                 </div>
-                                {{-- <div class="bmd-form-group{{ $errors->has('password') ? ' has-danger' : '' }} mt-3">
+                                <div class="bmd-form-group{{ $errors->has('password') ? ' has-danger' : '' }} mt-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="material-icons">lock_outline</i>
+                                            </span>
+                                        </div>
+                                        <input type="password" name="password" id="password" class="form-control"
+                                            placeholder="{{ __('Password...') }}">
+                                    </div>
+                                    @if ($errors->has('password'))
+                                        <div id="password-error" class="error text-danger pl-3" for="password"
+                                            style="display: block;">
+                                            <strong>{{ $errors->first('password') }}</strong>
+                                        </div>
+                                    @endif
+                                </div>
+
+                            </div>
+                            <div class="card-footer justify-content-center">
+                                <button type="submit"
+                                    class="btn btn-primary btn-link btn-lg">{{ __('Editar usuario') }}</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+{{-- <div class="bmd-form-group{{ $errors->has('password') ? ' has-danger' : '' }} mt-3">
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
@@ -120,15 +150,3 @@ Dashboard')])
                 {{ __('I agree with the ') }} <a href="#">{{ __('Privacy Policy') }}</a>
               </label>
             </div> --}}
-                            </div>
-                            <div class="card-footer justify-content-center">
-                                <button type="submit"
-                                    class="btn btn-primary btn-link btn-lg">{{ __('Editar usuario') }}</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-@endsection

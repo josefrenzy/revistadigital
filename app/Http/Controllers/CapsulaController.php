@@ -111,15 +111,26 @@ class CapsulaController extends Controller
             $capsula = Capsula::find($id);
             $capsulas = DB::select('select * from capsula order by id desc limit 2');
             $categories = Category::all();
-            $pub_rel = DB::select('select * from posts 
-            inner join abstract
-            on posts.abstract_id = abstract.id
-            where posts.categorias_id = 1 order by created_at desc limit 3');
+            $ultimas_publicaciones = DB::select('select abstract.img_abstract,posts.titulo, posts.cuerpo, posts.id from posts
+                inner join abstract on posts.abstract_id = abstract.id
+                where posts.scope = 1
+                order by created_at desc');
             return view('capsula.show')
-                ->with('pub_rel', $pub_rel)
+                ->with('ultimas_publicaciones', $ultimas_publicaciones)
                 ->with('capsula', $capsula)
                 ->with('capsulas', $capsulas)
                 ->with('categories', $categories);
+        }
+    }
+
+    public function destroy($id){
+        if (auth()->user()->type == 2) {
+            return redirect()->route('revista.index');
+        } else {
+            $user = Capsula::find($id);
+            $user->delete();
+            return back()
+                    ->with('success', 'Usuario eliminado correctamente.');
         }
     }
 }

@@ -48,6 +48,14 @@ class UserController extends Controller
                 'password' => Hash::make($request['password']),
                 'type' => $request['type'],
             ]);
+            $id = DB::getPdo()->lastInsertId();
+            User::where('id', $id)
+                ->update([
+                    'name' => $request['name'],
+                    'email' => $request['email'],
+                    'password' => Hash::make($request['password']),
+                    'type' => $request['type'],
+                ]);
             return back()
                 ->with('success', 'Artículo creado correctamente.');
         }
@@ -68,23 +76,37 @@ class UserController extends Controller
         if (auth()->user()->type == 2) {
             return redirect()->route('revista.index');
         } else {
-            $data =  $request->except('_token', '_method');
-            User::where('id', $id)
-                ->update($data);
-            return back()
-                ->with('success', 'Usuario editado correctamente.');
+            if ($request['password'] != '') {
+                User::where('id', $id)
+                    ->update([
+                        'name' => $request['name'],
+                        'email' => $request['email'],
+                        'password' => Hash::make($request['password']),
+                        'type' => $request['type'],
+                    ]);
+                return back()
+                    ->with('success', 'Usuario editado correctamente.');
+            } else {
+                User::where('id', $id)
+                    ->update([
+                        'name' => $request['name'],
+                        'email' => $request['email'],
+                        'type' => $request['type'],
+                    ]);
+                return back()
+                    ->with('success', 'Usuario editado correctamente.');
+            }
         }
     }
 
-    public function show($id)
-    {
+    public function destroy($id){
         if (auth()->user()->type == 2) {
             return redirect()->route('revista.index');
         } else {
             $user = User::find($id);
             $user->delete();
-            return redirect('users')
-                ->with('success', 'Artículo creado correctamente.');
+            return back()
+                    ->with('success', 'Usuario eliminado correctamente.');
         }
     }
 }

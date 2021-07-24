@@ -51,9 +51,9 @@
                 </ul>
             </div>
             <div class="col">
-                <form class="navbar-form">
+                <form class="navbar-form" action="{{ route('search') }}" method="GET">
                     <div class="input-group no-border">
-                        <input type="text" value="" class="form-control" placeholder="Search...">
+                        <input type="text" name="search" class="form-control" placeholder="Search..." required>
                         <button type="submit" class="btn btn-white btn-round btn-just-icon">
                             <i class="material-icons">search</i>
                             <div class="ripple-container"></div>
@@ -67,8 +67,8 @@
                 @foreach ($nombreEdicion as $item)
                     @if ($item->status == 1)
                         <h3 class="titulo-azul">Edición: {{ $item->nombre }}</h3>
-                    @else
-                        <h3 class="titulo-azul">Edición: Inactiva</h3>           
+                        {{-- @else
+                        <h3 class="titulo-azul">Edición: Inactiva</h3> --}}
                     @endif
                 @endforeach
             </div>
@@ -95,7 +95,13 @@
                                         </div>
                                     </div>
                                     <div class="card-body gray">
-                                        {!! Illuminate\Support\Str::of($item->descripcion)->words(25) !!}
+                                        {{-- <div>
+                                            <span class="badge badge-info">{{$item->edicion_nombre}}</span>
+                                            <span class="badge badge-info">{{$item->categoria_nombre}}</span>
+                                            <span class="badge badge-info">{{$item->created_at}}</span>
+                                        </div> --}}
+                                        <div>{!! Illuminate\Support\Str::of($item->descripcion)->words(25) !!}</div>
+
                                         <br>
                                         <a href="{{ route('revista.show', $item->post_id) }}"
                                             class="btn read-more text-lowercase">Leer
@@ -124,7 +130,7 @@
                                         </div>
                                     </div>
                                     <div class="card-body gray">
-                                        {!! Illuminate\Support\Str::of($item->cuerpo)->words(30) !!}
+                                        <div>{!! Illuminate\Support\Str::of($item->cuerpo)->words(30) !!}</div>
                                         <br>
                                         <a href="{{ route('flash.show', $item->id) }}"
                                             class="btn read-more text-lowercase">
@@ -156,8 +162,7 @@
                                         </div>
                                     </div>
                                     <div class="card-body gray">
-                                        </h4>
-                                        {!! Illuminate\Support\Str::of($item->descripcion)->words(17) !!}
+                                        <div>{!! Illuminate\Support\Str::of($item->descripcion)->words(17) !!}</div>
                                         <br>
                                         <a href="{{ route('revista.show', $item->post_id) }}"
                                             class="btn read-more text-lowercase">Leer
@@ -186,7 +191,7 @@
                                         </div>
                                     </div>
                                     <div class="card-body gray">
-                                        {!! Illuminate\Support\Str::of($item->cuerpo)->words(25) !!}
+                                        <div>{!! Illuminate\Support\Str::of($item->cuerpo)->words(25) !!}</div>
                                         <br>
                                         <a href="{{ route('flash.show', $item->id) }}"
                                             class="btn read-more text-lowercase">
@@ -218,7 +223,7 @@
                                         </div>
                                     </div>
                                     <div class="card-body gray">
-                                        {!! Illuminate\Support\Str::of($item->descripcion)->words(30) !!}
+                                        <div>{!! Illuminate\Support\Str::of($item->descripcion)->words(30) !!}</div>
                                         <div><br></div>
                                         <a href="{{ route('revista.show', $item->post_id) }}"
                                             class="btn read-more text-lowercase">Leer
@@ -247,7 +252,7 @@
                                         </div>
                                     </div>
                                     <div class="card-body gray">
-                                        {!! Illuminate\Support\Str::of($item->cuerpo)->words(17) !!}
+                                        <div>{!! Illuminate\Support\Str::of($item->cuerpo)->words(17) !!}</div>
                                         <br>
                                         <a href="{{ route('flash.show', $item->id) }}"
                                             class="btn read-more text-lowercase">Leer
@@ -277,8 +282,8 @@
                             </div>
                         </div>
                         <div class="card-body gray gray">
-                            <h4 class="card-title">{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}</h4>
-                            <p class="card-text">{!! Illuminate\Support\Str::of($item->cuerpo)->words(30) !!}</p>
+                            <h4 class="card-title">{{ Illuminate\Support\Str::of($item->titulo)->words(15) }}</h4>
+                            <p class="card-text">{!! Illuminate\Support\Str::of($item->cuerpo)->words(25) !!}</p>
                             <a href="{{ route('revista.show', $item->id) }}" class="btn read-more text-lowercase">Leer
                                 más...</a>
                         </div>

@@ -28,7 +28,8 @@
                                     <label class="col-sm-2 col-form-label" for="descripcion">{{ __('Cuerpo') }}</label>
                                     <div class="col-sm-7">
                                         <div class="editor">
-                                            <textarea class="ckeditor form-control" id="ckeditor" name="descripcion"></textarea>
+                                            <textarea class="ckeditor form-control" id="ckeditor"
+                                                name="descripcion"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -93,7 +94,7 @@
         CKEDITOR.replace('editor');
         $("form").submit(function(e) {
             var messageLength = CKEDITOR.instances['ckeditor'].getData().replace(/<[^>]*>/gi, '').length;
-            if (messageLength >= 500 || messageLength <100) {
+            if (messageLength >= 500 || messageLength < 100) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
@@ -102,7 +103,7 @@
                 // alert('un Flash debe tener un maximo de 1700 caracteres(1 Cuartilla)');
                 e.preventDefault();
             }
-            if(messageLength === 0){
+            if (messageLength === 0) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
@@ -115,14 +116,24 @@
         });
         $('input[type="file"]').change(function(e) {
             var fileName = e.target.files[0].name;
-            $("#file").val(fileName);
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                // get loaded data and render thumbnail.
-                document.getElementById("preview").src = e.target.result;
-            };
-            // read the image file as a data URL.
-            reader.readAsDataURL(this.files[0]);
+            var fileSize = e.target.files[0].size;
+            if (fileSize > 200000) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'la imagen no puede pesar mas de 2mb',
+                })
+                e.preventDefault();
+            } else {
+                $("#file").val(fileName);
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    // get loaded data and render thumbnail.
+                    document.getElementById("preview").src = e.target.result;
+                };
+                // read the image file as a data URL.
+                reader.readAsDataURL(this.files[0]);
+            }
         });
     </script>
 @endsection

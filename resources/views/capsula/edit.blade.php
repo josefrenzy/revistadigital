@@ -5,7 +5,8 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <form method="post" action="{{ route('capsula.update', $capsula['id']) }}" class="form-horizontal" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('capsula.update', $capsula['id']) }}" class="form-horizontal"
+                        enctype="multipart/form-data">
                         @csrf
                         @method('put')
                         <div class="card ">
@@ -43,7 +44,8 @@
                                                 <input type="text" class="form-control" disabled placeholder="Upload File"
                                                     id="file" value="{{ $capsula->img_capsula }}">
                                                 <div class="input-group-append">
-                                                    <button type="button" class="browse btn btn-primary">Selecciona...</button>
+                                                    <button type="button"
+                                                        class="browse btn btn-primary">Selecciona...</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -52,8 +54,8 @@
                                 <div class="row" style="padding: 0 20rem;">
                                     <div class="doc">
                                         <div class="col-sm-12 box">
-                                            <img src="{{ asset('images/capsulas/' . $capsula->img_capsula) }}" id="preview"
-                                                class="img-thumbnail" style="max-width:50%;">
+                                            <img src="{{ asset('images/capsulas/' . $capsula->img_capsula) }}"
+                                                id="preview" class="img-thumbnail" style="max-width:50%;">
                                         </div>
                                     </div>
                                 </div>
@@ -67,8 +69,8 @@
                                                 <option value="0" default>inactivo</option>
                                             </select>
                                             <script src="https://code.jquery.com/jquery-3.2.0.min.js"
-                                                integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I="
-                                                crossorigin="anonymous">
+                                                                                        integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I="
+                                                                                        crossorigin="anonymous">
                                             </script>
                                             <script>
                                                 $(function() {
@@ -105,15 +107,24 @@
 
         $('input[type="file"]').change(function(e) {
             var fileName = e.target.files[0].name;
-            $("#file").val(fileName);
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                // get loaded data and render thumbnail.
-                document.getElementById("preview").src = e.target.result;
-            };
-            // read the image file as a data URL.
-            reader.readAsDataURL(this.files[0]);
+            var fileSize = e.target.files[0].size;
+            if (fileSize > 200000) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'la imagen no puede pesar mas de 2mb',
+                })
+                e.preventDefault();
+            } else {
+                $("#file").val(fileName);
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    // get loaded data and render thumbnail.
+                    document.getElementById("preview").src = e.target.result;
+                };
+                // read the image file as a data URL.
+                reader.readAsDataURL(this.files[0]);
+            }
         });
-
     </script>
 @endsection

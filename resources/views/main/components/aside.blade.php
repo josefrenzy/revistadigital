@@ -30,9 +30,11 @@
         <div class="col">
             <h5>Categorias</h5>
             @foreach ($categories as $cat)
-                <a href="{{ route('categories.show', $cat->nombre) }}">
-                    <span class="badge badge-secondary">{{ $cat->nombre }}</span>
-                </a>
+                @if ($cat->status == 1)
+                    <a href="{{ route('categories.show', $cat->nombre) }}">
+                        <span class="badge badge-secondary">{{ $cat->nombre }}</span>
+                    </a>
+                @endif
             @endforeach
         </div>
     </div>

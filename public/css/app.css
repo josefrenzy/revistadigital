@@ -105,6 +105,7 @@ footer {
 
 .row.main {
     padding: 0 1rem;
+    background-color: #fff;
 }
 
 .row.main.icons {
@@ -117,6 +118,7 @@ footer {
 
 .row.suscribe {
     padding: 0 1rem;
+    background-color: #fff;
 }
 
 .col-md-10.main {

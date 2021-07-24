@@ -8,7 +8,7 @@
         <form method="POST" action="{{ route('suscribe.store') }}">
             @csrf
             @method('post')
-            <div class="form-row align-items-center" style="text-align: center;">
+            <div class="form-row align-items-center" style="padding: 0 4em;">
                 <div class="col-auto">
                     <label class="sr-only" for="inlineFormInput">Name</label>
                     <input type="text" class="form-control mb-2 form-mail" name="email" id="email"
