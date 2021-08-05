@@ -48,8 +48,9 @@
                                                     <input type="checkbox" checked data-toggle="toggle" data-size="xs">
                                                 </td>
                                                 <td>
-                                                    <a rel="tooltip" class="btn btn-success btn-link" href="{{ route('posts.edit', $post->id) }}"
-                                                        data-original-title="" title="">
+                                                    <a rel="tooltip" class="btn btn-success btn-link"
+                                                        href="{{ route('posts.edit', $post->id) }}" data-original-title=""
+                                                        title="">
                                                         <i class="material-icons">edit</i>
                                                         <div class="ripple-container"></div>
                                                     </a>
@@ -59,10 +60,41 @@
                                                     </button>
                                                 </td>
                                             </tr>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Eliminacion de
+                                                                usuario</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Estas Seguro de que deseas eliminar este registro
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <form action="{{ route('posts.destroy', $post->id) }}"
+                                                                method="POST">
+                                                                @method('DELETE')
+                                                                @csrf
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-dismiss="modal">Close</button>
+                                                                <button class="btn btn-primary" type="submit">
+                                                                    Eliminar
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <span>{{$posts->links()}}</span>
+                                <span>{{ $posts->links() }}</span>
                             </div>
                         </div>
                     </div>
@@ -70,31 +102,5 @@
             </div>
         </div>
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Eliminacion de usuario</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Estas Seguro de que deseas eliminar este registro
-                </div>
-                <div class="modal-footer">
-                    <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
-                        @method('DELETE')
-                        @csrf
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button class="btn btn-primary" type="submit">
-                            Eliminar
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+
 @endsection

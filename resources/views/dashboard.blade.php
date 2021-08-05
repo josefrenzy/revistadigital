@@ -81,67 +81,73 @@
                                         </th>
                                     </thead>
                                     <tbody>
-                                        @foreach ($tabla as $post)
-                                            <tr>
-                                                <td>
-                                                    {{ $post->id }}
-                                                </td>
-                                                <td>
-                                                    {{ $post->titulo }}
-                                                </td>
-                                                <td>
-                                                    {{ $post->name }}
-                                                </td>
-                                                <td>
-                                                    <input type="checkbox" checked data-toggle="toggle" data-size="xs">
-                                                </td>
-                                                <td>
-                                                    <a rel="tooltip" class="btn btn-success btn-link"
-                                                        href="{{ route('posts.edit', $post->id) }}" data-original-title=""
-                                                        title="">
-                                                        <i class="material-icons">edit</i>
-                                                        <div class="ripple-container"></div>
-                                                    </a>
-                                                    <button type="button" class="btn btn-danger btn-link"
-                                                        data-toggle="modal" data-target="#exampleModal">
-                                                        <i class="material-icons">clear</i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                        @if ($tabla->count() != 0)
+                                            @foreach ($tabla as $post)
+                                                <tr>
+                                                    <td>
+                                                        {{ $post->id }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $post->titulo }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $post->name }}
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" checked data-toggle="toggle" data-size="xs">
+                                                    </td>
+                                                    <td>
+                                                        <a rel="tooltip" class="btn btn-success btn-link"
+                                                            href="{{ route('posts.edit', $post->id) }}"
+                                                            data-original-title="" title="">
+                                                            <i class="material-icons">edit</i>
+                                                            <div class="ripple-container"></div>
+                                                        </a>
+                                                        <button type="button" class="btn btn-danger btn-link"
+                                                            data-toggle="modal" data-target="#exampleModal">
+                                                            <i class="material-icons">clear</i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Eliminacion
+                                                                    de usuario</h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Estas Seguro de que deseas eliminar este registro
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <form action="{{ route('posts.destroy', $post->id) }}"
+                                                                    method="POST">
+                                                                    @method('DELETE')
+                                                                    @csrf
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-dismiss="modal">Close</button>
+                                                                    <button class="btn btn-primary" type="submit">
+                                                                        Eliminar
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        @endif
                                     </tbody>
                                 </table>
-                                <span>{{$tabla -> links()}}</span>
+                                <span>{{ $tabla->links() }}</span>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Eliminacion de usuario</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Estas Seguro de que deseas eliminar este registro
-                </div>
-                <div class="modal-footer">
-                    <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
-                        @method('DELETE')
-                        @csrf
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button class="btn btn-primary" type="submit">
-                            Eliminar
-                        </button>
-                    </form>
                 </div>
             </div>
         </div>

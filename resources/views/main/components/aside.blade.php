@@ -1,7 +1,7 @@
 <div class="col-md-2 aside index">
     <div class="row">
         <div class="col">
-            <h5 class="aside titulo-azul">Capsulas</h5>
+            {{-- <h5 class="aside titulo-azul">Capsulas</h5> --}}
             @if (sizeof($capsulas) == 0)
                 <p>No hay capsulas para mostrar</p>
             @else
@@ -11,7 +11,7 @@
                             <img class="card-img-top aside" src="{{ asset('images/capsulas/' . $item->img_capsula) }}"
                                 alt="Card image">
                             <div class="card-body gray aside">
-                                <h4 class="card-title text-uppercase capsulas">{{ $item->nombre }}</h4>
+                                <h5 class="card-title text-uppercase capsulas">{{ $item->nombre }}</h5>
                                 <div>{!! Illuminate\Support\Str::of($item->descripcion)->words(13) !!}</div>
                                 <a class="link-capsula" href="{{ route('capsula.show', $item->id) }}">Leer mas...</a>
                             </div>
@@ -39,11 +39,11 @@
         </div>
     </div>
     <hr>
-    <div class="row">
+    {{-- <div class="row">
         <div class="col">
             <h5>Comentarios</h5>
         </div>
-    </div>
+    </div> --}}
     <hr>
     <div class="row" style="padding: 1em">
         <img class="img-fluid" src="{{ asset('images/publicidad/publicidad.png') }}" alt="profile Pic">

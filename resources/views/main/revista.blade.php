@@ -3,7 +3,13 @@
     <div class="content shadow">
         <div class="row main">
             <div class="col-md-12 cat">
-                <h3 class="titulo-azul">Categorias</h3>
+                @foreach ($nombreEdicion as $item)
+                    @if ($item->status == 1)
+                        <h3 class="titulo-azul">Edición: {{ $item->nombre }}</h3>
+                    @else
+                        <h3 class="titulo-azul">Edición: Inactiva</h3>
+                    @endif
+                @endforeach
             </div>
         </div>
         {{-- Barra donde se colocan las categorias --}}
@@ -12,8 +18,12 @@
                 @if ($item->status == 1)
                     <div class="col-lg-4 mb-3 mb-lg-0">
                         <div class="hover hover-3 text-white rounded">
-                            <img src="{{ asset('images/categorias/' . $item->img_categorias) }}" alt="">
-                            <div class="hover-overlay"></div>
+                            {{-- contenerdor de imagen --}}
+                            <div class="img-contenedor-categoria">
+                                <img class="img-categoria" src="{{ asset('images/categorias/' . $item->img_categorias) }}"
+                                    alt="">
+                                <div class="hover-overlay"></div>
+                            </div>
                             <div class="hover-3-content px-5 py-4">
                                 <h3 class="hover-3-title text-uppercase font-weight-bold mb-1">
                                     <a href="{{ route('categories.show', $item->nombre) }}"
@@ -62,32 +72,78 @@
                 </form>
             </div>
         </div>
-        <div class="row main edicion-name">
-            <div class="col-md-12">
-                @foreach ($nombreEdicion as $item)
-                    @if ($item->status == 1)
-                        <h3 class="titulo-azul">Edición: {{ $item->nombre }}</h3>
-                        {{-- @else
-                        <h3 class="titulo-azul">Edición: Inactiva</h3> --}}
-                    @endif
-                @endforeach
-            </div>
-        </div>
         <div class="row main">
             <div class="col-md-10 main">
                 {{-- fila 1 --}}
                 <div class="row cards">
-                    <div class="col-md-6">
-                        <div class="card">
-                            @if (sizeof($posts_row_one) == 0)
-                                <p>No hay articulos para mostar</p>
-                            @else
+                    @if (sizeof($posts_row_one) == 0 || sizeof($flash_row_one) == 0)
+                        @if (sizeof($posts_row_one) == 0)
+                            <div class="col-md-12">
+                                <div class="card">
+                                    @foreach ($flash_row_one as $item)
+                                        <div class="img-contenedor-fila-tres">
+                                            <div class="box-2">
+                                                <div class="hovereffect">
+                                                    <img class="img-fila-tres-solo"
+                                                        src="{{ asset('images/flash/' . $item->img_portada) }}"
+                                                        alt="Card image">
+                                                    <div class="overlay">
+                                                        <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(13) }}
+                                                        </h2>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{-- </div> --}}
+                                        <div class="card-body gray">
+                                            <div>{!! Illuminate\Support\Str::of($item->cuerpo)->words(17) !!}</div>
+                                            <br>
+                                            <a href="{{ route('flash.show', $item->id) }}"
+                                                class="btn read-more text-lowercase">Leer
+                                                más...</a>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
+                        @if (sizeof($flash_row_one) == 0)
+                            <div class="col-md-12">
+                                <div class="card">
+                                    @foreach ($posts_row_one as $item)
+                                        <div class="img-contenedor-fila-tres">
+                                            <div class="box-2">
+                                                <div class="hovereffect">
+                                                    <img class="img-fila-tres-solo"
+                                                        src="{{ asset('images/abstract/' . $item->img_abstract) }}"
+                                                        alt="Card image">
+                                                    <div class="overlay">
+                                                        <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}
+                                                        </h2>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body gray">
+                                            <div>{!! Illuminate\Support\Str::of($item->descripcion)->words(17) !!}</div>
+                                            <br>
+                                            <a href="{{ route('revista.show', $item->post_id) }}"
+                                                class="btn read-more text-lowercase">Leer
+                                                más...</a>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
+                    @else
+                        <div class="col-md-6">
+                            <div class="card">
                                 @foreach ($posts_row_one as $item)
-                                    <div class="doc">
+                                    <div class="img-contenedor-fila-uno">
                                         <div class="box">
                                             <div class="hovereffect">
-                                                <img class="card-img-top img-responsive"
-                                                    src="{{ asset('images/' . $item->img_abstract) }}" alt="Card image">
+                                                <img class="img-fila-uno"
+                                                    src="{{ asset('images/abstract/' . $item->img_abstract) }}"
+                                                    alt="Card image">
                                                 <div class="overlay">
                                                     <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}</h2>
                                                 </div>
@@ -95,32 +151,23 @@
                                         </div>
                                     </div>
                                     <div class="card-body gray">
-                                        {{-- <div>
-                                            <span class="badge badge-info">{{$item->edicion_nombre}}</span>
-                                            <span class="badge badge-info">{{$item->categoria_nombre}}</span>
-                                            <span class="badge badge-info">{{$item->created_at}}</span>
-                                        </div> --}}
                                         <div>{!! Illuminate\Support\Str::of($item->descripcion)->words(25) !!}</div>
-
                                         <br>
                                         <a href="{{ route('revista.show', $item->post_id) }}"
                                             class="btn read-more text-lowercase">Leer
                                             más...</a>
                                     </div>
                                 @endforeach
-                            @endif
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card">
-                            @if (sizeof($flash_row_one) == 0)
-                                <p>No hay flash para mostar</p>
-                            @else
+                        <div class="col-md-6">
+                            <div class="card">
                                 @foreach ($flash_row_one as $item)
-                                    <div class="doc">
+                                    {{-- @if ($item->status == 1) --}}
+                                    <div class="img-contenedor-fila-uno">
                                         <div class="box">
                                             <div class="hovereffect">
-                                                <img class="card-img-top"
+                                                <img class="img-fila-uno"
                                                     src="{{ asset('images/flash/' . $item->img_portada) }}"
                                                     alt="Card image">
                                                 <div class="overlay">
@@ -137,24 +184,81 @@
                                             Leer más...
                                         </a>
                                     </div>
+                                    {{-- @endif --}}
                                 @endforeach
-                            @endif
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
                 {{-- Fila 2 --}}
                 <div class="row cards">
-                    <div class="col-md-4">
-                        <div class="card">
-                            @if (sizeof($posts_row_two) == 0)
-                                <p>No hay articulos para mostar</p>
-                            @else
+                    @if (sizeof($posts_row_two) == 0 || sizeof($flash_row_two) == 0)
+                        @if (sizeof($posts_row_two) == 0)
+                            <div class="col-md-12">
+                                <div class="card">
+                                    @foreach ($flash_row_two as $item)
+                                        <div class="img-contenedor-fila-tres">
+                                            <div class="box-2">
+                                                <div class="hovereffect">
+                                                    <img class="img-fila-tres-solo"
+                                                        src="{{ asset('images/flash/' . $item->img_portada) }}"
+                                                        alt="Card image">
+                                                    <div class="overlay">
+                                                        <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(13) }}
+                                                        </h2>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body gray">
+                                            <div>{!! Illuminate\Support\Str::of($item->cuerpo)->words(17) !!}</div>
+                                            <br>
+                                            <a href="{{ route('flash.show', $item->id) }}"
+                                                class="btn read-more text-lowercase">Leer
+                                                más...</a>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
+                        @if (sizeof($flash_row_two) == 0)
+                            <div class="col-md-12">
+                                <div class="card">
+                                    @foreach ($posts_row_two as $item)
+                                        <div class="img-contenedor-fila-tres">
+                                            <div class="box-2">
+                                                <div class="hovereffect">
+                                                    <img class="img-fila-tres-solo"
+                                                        src="{{ asset('images/abstract/' . $item->img_abstract) }}"
+                                                        alt="Card image">
+                                                    <div class="overlay">
+                                                        <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}
+                                                        </h2>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body gray">
+                                            <div>{!! Illuminate\Support\Str::of($item->descripcion)->words(17) !!}</div>
+                                            <br>
+                                            <a href="{{ route('revista.show', $item->post_id) }}"
+                                                class="btn read-more text-lowercase">Leer
+                                                más...</a>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
+                    @else
+                        <div class="col-md-4">
+                            <div class="card">
                                 @foreach ($posts_row_two as $item)
-                                    <div class="doc">
+                                    <div class="img-contenedor-fila-dos">
                                         <div class="box-2">
                                             <div class="hovereffect">
-                                                <img class="card-img-top"
-                                                    src="{{ asset('images/' . $item->img_abstract) }}" alt="Card image">
+                                                <img class="img-fila-dos"
+                                                    src="{{ asset('images/abstract/' . $item->img_abstract) }}"
+                                                    alt="Card image">
                                                 <div class="overlay">
                                                     <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}</h2>
                                                 </div>
@@ -169,53 +273,110 @@
                                             más...</a>
                                     </div>
                                 @endforeach
-                            @endif
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card">
-                            @if (sizeof($flash_row_two) == 0)
-                                <p>No hay articulos para mostar</p>
-                            @else
-                                @foreach ($flash_row_two as $item)
-                                    <div class="doc">
-                                        <div class="box-1">
-                                            <div class="hovereffect">
-                                                <img class="card-img-top"
-                                                    src="{{ asset('images/flash/' . $item->img_portada) }}"
-                                                    alt="Card image">
-                                                <div class="overlay">
-                                                    <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}</h2>
+                        <div class="col-md-8">
+                            <div class="card">
+                                @if (sizeof($flash_row_two) == 0)
+                                    <p>no hay flash para mostrar</p>
+                                @else
+                                    @foreach ($flash_row_two as $item)
+                                        <div class="img-contenedor-fila-tres">
+                                            <div class="box-1">
+                                                <div class="hovereffect">
+                                                    <img class="img-fila-dos"
+                                                        src="{{ asset('images/flash/' . $item->img_portada) }}"
+                                                        alt="Card image">
+                                                    <div class="overlay">
+                                                        <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}
+                                                        </h2>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="card-body gray">
-                                        <div>{!! Illuminate\Support\Str::of($item->cuerpo)->words(25) !!}</div>
-                                        <br>
-                                        <a href="{{ route('flash.show', $item->id) }}"
-                                            class="btn read-more text-lowercase">
-                                            Leer más...
-                                        </a>
-                                    </div>
-                                @endforeach
-                            @endif
+                                        <div class="card-body gray">
+                                            <div>{!! Illuminate\Support\Str::of($item->cuerpo)->words(25) !!}</div>
+                                            <br>
+                                            <a href="{{ route('flash.show', $item->id) }}"
+                                                class="btn read-more text-lowercase">
+                                                Leer más...
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
                 {{-- Fila 3 --}}
                 <div class="row cards">
-                    <div class="col-md-8">
-                        <div class="card">
-                            @if (sizeof($posts_row_three) == 0)
-                                <p>No hay articulos para mostar</p>
-                            @else
+                    @if (sizeof($posts_row_three) == 0 || sizeof($flash_row_three) == 0)
+                        @if (sizeof($posts_row_three) == 0)
+                            <div class="col-md-12">
+                                <div class="card">
+                                    @foreach ($flash_row_three as $item)
+                                        <div class="img-contenedor-fila-tres">
+                                            <div class="box-2">
+                                                <div class="hovereffect">
+                                                    <img class="img-fila-tres-solo"
+                                                        src="{{ asset('images/flash/' . $item->img_portada) }}"
+                                                        alt="Card image">
+                                                    <div class="overlay">
+                                                        <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(13) }}
+                                                        </h2>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body gray">
+                                            <div>{!! Illuminate\Support\Str::of($item->cuerpo)->words(17) !!}</div>
+                                            <br>
+                                            <a href="{{ route('flash.show', $item->id) }}"
+                                                class="btn read-more text-lowercase">Leer
+                                                más...</a>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
+                        @if (sizeof($flash_row_three) == 0)
+                            <div class="col-md-12">
+                                <div class="card">
+                                    @foreach ($posts_row_three as $item)
+                                        <div class="img-contenedor-fila-tres">
+                                            <div class="box-2">
+                                                <div class="hovereffect">
+                                                    <img class="img-fila-tres-solo"
+                                                        src="{{ asset('images/abstract/' . $item->img_abstract) }}"
+                                                        alt="Card image">
+                                                    <div class="overlay">
+                                                        <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}
+                                                        </h2>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body gray">
+                                            <div>{!! Illuminate\Support\Str::of($item->descripcion)->words(17) !!}</div>
+                                            <br>
+                                            <a href="{{ route('revista.show', $item->post_id) }}"
+                                                class="btn read-more text-lowercase">Leer
+                                                más...</a>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
+                    @else
+                        <div class="col-md-8">
+                            <div class="card">
                                 @foreach ($posts_row_three as $item)
-                                    <div class="doc">
+                                    <div class="img-contenedor-fila-tres">
                                         <div class="box-1">
                                             <div class="hovereffect">
-                                                <img class="card-img-top"
-                                                    src="{{ asset('images/' . $item->img_abstract) }}" alt="Card image">
+                                                <img class="img-fila-tres"
+                                                    src="{{ asset('images/abstract/' . $item->img_abstract) }}"
+                                                    alt="Card image">
                                                 <div class="overlay">
                                                     <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}</h2>
                                                 </div>
@@ -230,38 +391,39 @@
                                             más...</a>
                                     </div>
                                 @endforeach
-                            @endif
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card">
-                            @if (sizeof($flash_row_three) == 0)
-                                <p>No hay articulos para mostar</p>
-                            @else
-                                @foreach ($flash_row_three as $item)
-                                    <div class="doc">
-                                        <div class="box-2">
-                                            <div class="hovereffect">
-                                                <img class="card-img-top"
-                                                    src="{{ asset('images/flash/' . $item->img_portada) }}"
-                                                    alt="Card image">
-                                                <div class="overlay">
-                                                    <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(13) }}</h2>
+                        <div class="col-md-4">
+                            <div class="card">
+                                @if (sizeof($flash_row_three) == 0)
+                                    <p>No hay Flash para mostar</p>
+                                @else
+                                    @foreach ($flash_row_three as $item)
+                                        <div class="img-contenedor-fila-tres">
+                                            <div class="box-2">
+                                                <div class="hovereffect">
+                                                    <img class="img-fila-tres"
+                                                        src="{{ asset('images/flash/' . $item->img_portada) }}"
+                                                        alt="Card image">
+                                                    <div class="overlay">
+                                                        <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(13) }}
+                                                        </h2>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="card-body gray">
-                                        <div>{!! Illuminate\Support\Str::of($item->cuerpo)->words(17) !!}</div>
-                                        <br>
-                                        <a href="{{ route('flash.show', $item->id) }}"
-                                            class="btn read-more text-lowercase">Leer
-                                            más...</a>
-                                    </div>
-                                @endforeach
-                            @endif
+                                        <div class="card-body gray">
+                                            <div>{!! Illuminate\Support\Str::of($item->cuerpo)->words(17) !!}</div>
+                                            <br>
+                                            <a href="{{ route('flash.show', $item->id) }}"
+                                                class="btn read-more text-lowercase">Leer
+                                                más...</a>
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
             </div>
             {{-- Barra lateral --}}
@@ -275,9 +437,9 @@
             @foreach ($ultimas_publicaciones as $item)
                 <div class="col-md-4">
                     <div class="card relacionadas">
-                        <div class="doc">
+                        <div class="img-contenedor-ultimas-pub">
                             <div class="box-2">
-                                <img class="card-img-top" src="{{ asset('images/' . $item->img_abstract) }}"
+                                <img class="img-ultimas-pub" src="{{ asset('images/abstract/' . $item->img_abstract) }}"
                                     alt="Card image">
                             </div>
                         </div>
@@ -290,6 +452,11 @@
                     </div>
                 </div>
             @endforeach
+        </div>
+        <div class="row justify-content-center last-posts" style="background-color: white">
+            <div class="col-lg-1">
+                <span>{{ $ultimas_publicaciones->links() }}</span>
+            </div>
         </div>
         @include('main.components.suscribe')
     </div>

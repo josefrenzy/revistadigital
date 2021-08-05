@@ -13,7 +13,7 @@ class FlashController extends Controller
 {
     public function index()
     {
-        if (auth()->user()->type == 2) {
+        if (!auth()->user()) {
             return redirect()->route('revista.index');
         } else {
             $flash = Flash::paginate(5);
@@ -74,48 +74,46 @@ class FlashController extends Controller
 
     public function show($id)
     {
-        if (auth()->user()->type == 2) {
-            return redirect()->route('revista.index');
+        if (!auth()->user()) {
+            $latest = DB::select('select * from abstract order by id desc limit 2');
+            $capsulas = DB::select('select * from capsula order by id desc limit 2');
+            $art = DB::select('select a.nombre, a.descripcion, p.id , a.img_abstract
+                from posts as p 
+                inner join abstract as a order by id desc limit 1');
+            $categories = Category::all();
+            $post = DB::select('select * from flash 
+                where id = ?', [$id]); 
+            $ultimas_publicaciones = DB::select('select abstract.img_abstract,posts.titulo, posts.cuerpo, posts.id, abstract.descripcion from posts
+                inner join abstract on posts.abstract_id = abstract.id
+                where posts.scope = 0
+                order by created_at desc');
+            return view('flash.show')
+                ->with('art', $art)
+                ->with('post', $post)
+                ->with('latest', $latest)
+                ->with('ultimas_publicaciones', $ultimas_publicaciones)
+                ->with('capsulas', $capsulas)
+                ->with('categories', $categories);
         } else {
             $user = Auth::check();
             if ($user) {
                 $latest = DB::select('select * from abstract order by id desc limit 2');
                 $capsulas = DB::select('select * from capsula order by id desc limit 2');
                 $art = DB::select('select a.nombre, a.descripcion, p.id , a.img_abstract
-            from posts as p 
-            inner join abstract as a order by id desc limit 1');
+                    from posts as p 
+                    inner join abstract as a order by id desc limit 1');
                 $categories = Category::all();
                 $post = DB::select('select * from flash 
-            where id = ?', [$id]);
-                // $pub_rel = DB::select('select * from posts 
-                // inner join abstract
-                // on posts.abstract_id = abstract.id
-                // where posts.categorias_id = ? order by created_at desc limit 3', [$post[0]->categorias_id]);
+                    where id = ?', [$id]);
+                $ultimas_publicaciones = DB::select('select abstract.img_abstract,posts.titulo, posts.cuerpo, posts.id, abstract.descripcion from posts
+                    inner join abstract on posts.abstract_id = abstract.id
+                    where posts.scope = 1
+                    order by created_at desc');
                 return view('flash.show')
                     ->with('art', $art)
                     ->with('post', $post)
                     ->with('latest', $latest)
-                    // ->with('pub_rel', $pub_rel)
-                    ->with('capsulas', $capsulas)
-                    ->with('categories', $categories);
-            } else {
-                $latest = DB::select('select * from abstract order by id desc limit 2');
-                $capsulas = DB::select('select * from capsula order by id desc limit 2');
-                $art = DB::select('select a.nombre, a.descripcion, p.id , a.img_abstract
-            from posts as p 
-            inner join abstract as a order by id desc limit 1');
-                $categories = Category::all();
-                $post = DB::select('select * from flash 
-            where id = ?', [$id]);
-                // $pub_rel = DB::select('select * from posts 
-                // inner join abstract
-                // on posts.abstract_id = abstract.id
-                // where posts.categorias_id = ? order by created_at desc limit 3', [$post[0]->categorias_id]);
-                return view('flash.show')
-                    ->with('art', $art)
-                    ->with('post', $post)
-                    ->with('latest', $latest)
-                    // ->with('pub_rel', $pub_rel)
+                    ->with('ultimas_publicaciones', $ultimas_publicaciones)
                     ->with('capsulas', $capsulas)
                     ->with('categories', $categories);
             }
@@ -167,14 +165,15 @@ class FlashController extends Controller
             }
         }
     }
-    public function destroy($id){
+    public function destroy($id)
+    {
         if (auth()->user()->type == 2) {
             return redirect()->route('revista.index');
         } else {
             $user = Flash::find($id);
             $user->delete();
             return back()
-                    ->with('success', 'Lector eliminado correctamente.');
+                ->with('success', 'Lector eliminado correctamente.');
         }
     }
 }

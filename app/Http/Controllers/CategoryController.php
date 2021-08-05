@@ -78,18 +78,20 @@ class CategoryController extends Controller
     {
         $categorias = DB::table('posts')
             ->join('categorias', 'posts.categorias_id', '=', 'categorias.id')
+            ->join('abstract', 'posts.abstract_id', '=', 'abstract.id')
             ->where('categorias.nombre', '=', $nombre)
-            ->select('posts.id', 'posts.titulo', 'categorias.nombre',)
-            ->get();
+            ->select('posts.id', 'posts.titulo', 'categorias.nombre','abstract.descripcion', 'abstract.img_abstract')
+            ->paginate(5, ['*'], 'categorias');
         $latest = DB::select('select * from abstract order by id desc limit 2');
         $capsulas = DB::select('select * from capsula order by id desc limit 2');
         $art = DB::select('select a.nombre, a.descripcion, p.id , a.img_abstract
-        from posts as p 
-        inner join abstract as a order by id desc limit 1');
-        $ultimas_publicaciones = DB::select('select abstract.img_abstract,posts.titulo, posts.cuerpo, posts.id from posts
-                inner join abstract on posts.abstract_id = abstract.id
-                where posts.scope = 1
-                order by created_at desc');
+            from posts as p 
+            inner join abstract as a order by id desc limit 1');
+        $ultimas_publicaciones = DB::table('posts')
+            ->join('abstract', 'posts.abstract_id', '=', 'abstract.id')
+            ->where('posts.scope', '=', '1')
+            ->select('abstract.img_abstract', 'posts.titulo', 'posts.cuerpo', 'posts.id')
+            ->paginate(3, ['*'], 'ultimas_publicaciones');
         $categories = Category::all();
         return view('main.categorias')
             ->with('nombre', $nombre)

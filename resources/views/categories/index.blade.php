@@ -76,7 +76,3 @@
         </div>
     </div>
 @endsection
-{{-- <a href={{ route('categories.edit', $category -> id) }}
-                                                        class="btn btn-warning btn-sm">Editar</a>
-                                                    <a href={{ route('categories.destroy', $category -> id) }}
-                                                        class="btn btn-danger btn-sm">Eliminar</a> --}}

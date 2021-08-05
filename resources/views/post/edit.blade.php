@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <form method="post" action="{{ route('posts.update', $post->id) }}" class="form-horizontal">
+                    <form method="post" action="{{ route('posts.update', $post->id) }}" class="form-horizontal" enctype="multipart/form-data">
                         @csrf
                         @method('put')
                         <div class="card ">
@@ -274,26 +274,59 @@
             }
         });
 
-        $(document).on("click", ".browse-portada", function() {
-            var file = $(this).parents().find(".file-portada");
+        $(".custom-file-input").on("change", function() {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            console.log(fileName)
+        });
+        $(".custom-file-input2").on("change", function() {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            console.log(fileName)
+        });
+
+        $(document).on("click", ".browse", function() {
+            var file = $(this).parents().find(".file");
             file.trigger("click");
         });
         // var fileInput = document.getElementById("img_portada");
 
+        // $('input[type="file"]').change(function(e) {
+        //     var fileName = e.target.files[0].name;
+        //     $("#file-portada").val(fileName);
+        //     // $("#file-abstract").val(fileName);
+        //     console.log(e.target.files[1].name)
+        //     // console.log($("#file-abstract").val(fileName))
+        //     var reader = new FileReader();
+        //     reader.onload = function(e) {
+        //         // get loaded data and render thumbnail.
+        //         document.getElementById("preview-portada").src = e.target.result;
+        //         // e.target.value = ''
+        //     };
+        //     // read the image file as a data URL.
+        //     reader.readAsDataURL(this.files[0]);
+        // });
         $('input[type="file"]').change(function(e) {
-            var fileName = e.target.files[1].name;
-            $("#file-portada").val(fileName);
-            // $("#file-abstract").val(fileName);
-            console.log(e.target.files[1].name)
-            // console.log($("#file-abstract").val(fileName))
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                // get loaded data and render thumbnail.
-                document.getElementById("preview-portada").src = e.target.result;
-                // e.target.value = ''
-            };
-            // read the image file as a data URL.
-            reader.readAsDataURL(this.files[0]);
+            var fileName = e.target.files[0].name;
+            var fileSize = e.target.files[0].size;
+            if (fileSize > 2000000) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'la imagen no puede pesar mas de 2mb',
+                })
+                e.preventDefault();
+            } else {
+                $("#file").val(fileName);
+
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    // get loaded data and render thumbnail.
+                    document.getElementById("preview").src = e.target.result;
+                };
+                // read the image file as a data URL.
+                reader.readAsDataURL(this.files[0]);
+            }
         });
 
         $(document).ready(function() {

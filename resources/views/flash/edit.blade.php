@@ -96,8 +96,8 @@ Dashboard')])
                                                 @endforeach
                                             </select>
                                             <script src="https://code.jquery.com/jquery-3.2.0.min.js"
-                                                integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I=" 
-                                                crossorigin="anonymous">
+                                                                                        integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I="
+                                                                                        crossorigin="anonymous">
                                             </script>
                                             <script>
                                                 $(function() {
@@ -117,9 +117,9 @@ Dashboard')])
                                                 <option value="2">2a fila</option>
                                                 <option value="3">3a fila</option>
                                             </select>
-                                            <script src="https://code.jquery.com/jquery-3.2.0.min.js" 
-                                                integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I=" 
-                                                crossorigin="anonymous">
+                                            <script src="https://code.jquery.com/jquery-3.2.0.min.js"
+                                                                                        integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I="
+                                                                                        crossorigin="anonymous">
                                             </script>
                                             <script>
                                                 $(function() {
@@ -163,14 +163,24 @@ Dashboard')])
         });
         $('input[type="file"]').change(function(e) {
             var fileName = e.target.files[0].name;
-            $("#file").val(fileName);
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                // get loaded data and render thumbnail.
-                document.getElementById("preview").src = e.target.result;
-            };
-            // read the image file as a data URL.
-            reader.readAsDataURL(this.files[0]);
+            var fileSize = e.target.files[0].size;
+            if (fileSize > 2000000) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'la imagen no puede pesar mas de 2mb',
+                })
+                e.preventDefault();
+            } else {
+                $("#file").val(fileName);
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    // get loaded data and render thumbnail.
+                    document.getElementById("preview").src = e.target.result;
+                };
+                // read the image file as a data URL.
+                reader.readAsDataURL(this.files[0]);
+            }
         });
 
 

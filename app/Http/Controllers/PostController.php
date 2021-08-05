@@ -80,9 +80,9 @@ class PostController extends Controller
 
             $imageNamePortada = time() . '-' . $request->slug . '_portada' . '.' . $request->img_portada->extension();
 
-            $request->img_abstract->move(public_path('images'), $imageNameAbstract);
+            $request->img_abstract->move(public_path('images/abstract'), $imageNameAbstract);
 
-            $request->img_portada->move(public_path('images'), $imageNamePortada);
+            $request->img_portada->move(public_path('images/portada'), $imageNamePortada);
 
             $id = DB::getPdo()->lastInsertId();
 
@@ -161,9 +161,9 @@ class PostController extends Controller
         if (auth()->user()->type == 2) {
             return redirect()->route('revista.index');
         } else {
-            if ($request->abstract == null || $request->abstract == null) {
+            if ($request->img_abstract == null || $request->img_portada == null) {
                 $id_abstracto = DB::select('select posts.abstract_id from posts
-            inner join abstract on posts.abstract_id = abstract.id where posts.id = ?', [$id]);
+                inner join abstract on posts.abstract_id = abstract.id where posts.id = ?', [$id]);
                 Abstracto::where('id', $id_abstracto[0]->abstract_id)->update([
                     'nombre' => $request->input('nombre'),
                     'descripcion' => $request->input('descripcion'),
@@ -185,7 +185,7 @@ class PostController extends Controller
                     ->with('success', 'Artículo editado correctamente.');
             } else {
                 $id_abstracto = DB::select('select posts.abstract_id from posts
-            inner join abstract on posts.abstract_id = abstract.id where posts.id = ?', [$id]);
+                    inner join abstract on posts.abstract_id = abstract.id where posts.id = ?', [$id]);
                 $request->validate([
                     'img_portada' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                     'img_abstract' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -193,20 +193,17 @@ class PostController extends Controller
                 $nombreAbstract = $request->input('titulo');
                 $descripcion = $request->input('descripcion');
                 $imageNameAbstract = time() . '-' . $request->slug . '_abstract' . '.' . $request->img_abstract->extension();
-
                 // se le pasa como nombre el slug para hacerlo unique e irrepetible y asi poder sacar el 
-                dd($id_abstracto);
-                Abstracto::where('id',)->update([
+                Abstracto::where('id',$id_abstracto[0]->abstract_id)->update([
                     'nombre' => $nombreAbstract,
                     'descripcion' => $descripcion,
                     'img_abstract' => $imageNameAbstract,
                 ]);
                 $imageNamePortada = time() . '-' . $request->slug . '_portada' . '.' . $request->img_portada->extension();
 
-                $request->img_abstract->move(public_path('images'), $imageNameAbstract);
+                $request->img_abstract->move(public_path('images/abstract'), $imageNameAbstract);
 
-                $request->img_portada->move(public_path('images'), $imageNamePortada);
-
+                $request->img_portada->move(public_path('images/portada'), $imageNamePortada);
                 $id_abstracto = DB::select('select posts.abstract_id from posts inner join abstract on posts.abstract_id = abstract.id where posts.id = ?', [$id]);
                 Post::where('id', $id)
                     ->update([
@@ -231,20 +228,19 @@ class PostController extends Controller
     public function search(Request $request)
     {
         $search = $request->input('search');
-        $ultimas_publicaciones = DB::select('select abstract.img_abstract,posts.titulo, posts.cuerpo, posts.id from posts
-            inner join abstract on posts.abstract_id = abstract.id 
-            order by created_at desc');
+        $ultimas_publicaciones = DB::table('posts')
+            ->join('abstract', 'posts.abstract_id', '=', 'abstract.id')
+            ->where('posts.scope', '=', '1')
+            ->select('abstract.img_abstract', 'posts.titulo', 'posts.cuerpo', 'posts.id')
+            ->paginate(3, ['*'], 'ultimas_publicaciones');
         $capsulas = DB::select('select * from capsula order by id desc limit 2');
         $categories = Category::all();
-        $posts = Post::query()
+        $posts = DB::table('posts')
+            ->join('abstract','posts.abstract_id', '=', 'abstract.id')
+            ->join('categorias', 'posts.categorias_id', '=', 'categorias.id')
             ->where('titulo', 'LIKE', "%$search%")
-            // ->orWhere('cuerpo','LIKE','"%{$search}%"')
-            ->get();
-        // $posts = DB::select('select abstract.img_abstract,posts.titulo, users.name , posts.cuerpo, posts.id  from posts 
-        //     inner join abstract on posts.abstract_id = abstract.id
-        //     inner join users on posts.user_id = users.id
-        //     where posts.titulo like %{$search}% order by posts.created_at');//, [$search]
-        // dd($posts);
+            ->select('posts.id', 'posts.titulo', 'categorias.nombre','abstract.descripcion', 'abstract.img_abstract')
+            ->paginate(5);
         return view('main.search', compact('posts'))
             ->with('ultimas_publicaciones',$ultimas_publicaciones)
             ->with('capsulas', $capsulas)

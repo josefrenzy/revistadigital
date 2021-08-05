@@ -105,16 +105,29 @@ class CapsulaController extends Controller
 
     public function show($id)
     {
-        if (auth()->user()->type == 2) {
-            return redirect()->route('revista.index');
+        if (auth()->user()) {
+            $capsula = Capsula::find($id);
+            $capsulas = DB::select('select * from capsula order by id desc limit 2');
+            $categories = Category::all();
+            $ultimas_publicaciones = DB::table('posts')
+                ->join('abstract', 'posts.abstract_id', '=', 'abstract.id')
+                ->where('posts.scope', '=', '1')
+                ->select('abstract.img_abstract', 'posts.titulo', 'posts.cuerpo', 'posts.id')
+                ->paginate(3, ['*'], 'ultimas_publicaciones');
+            return view('capsula.show')
+                ->with('ultimas_publicaciones', $ultimas_publicaciones)
+                ->with('capsula', $capsula)
+                ->with('capsulas', $capsulas)
+                ->with('categories', $categories);
         } else {
             $capsula = Capsula::find($id);
             $capsulas = DB::select('select * from capsula order by id desc limit 2');
             $categories = Category::all();
-            $ultimas_publicaciones = DB::select('select abstract.img_abstract,posts.titulo, posts.cuerpo, posts.id from posts
-                inner join abstract on posts.abstract_id = abstract.id
-                where posts.scope = 1
-                order by created_at desc');
+            $ultimas_publicaciones = DB::table('posts')
+                ->join('abstract', 'posts.abstract_id', '=', 'abstract.id')
+                ->where('posts.scope', '=', '1')
+                ->select('abstract.img_abstract', 'posts.titulo', 'posts.cuerpo', 'posts.id')
+                ->paginate(3, ['*'], 'ultimas_publicaciones');
             return view('capsula.show')
                 ->with('ultimas_publicaciones', $ultimas_publicaciones)
                 ->with('capsula', $capsula)

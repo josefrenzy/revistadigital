@@ -482,3 +482,71 @@ a.nav-link.main {
 a.nav-link.main:hover, a.nav-link.main:focus {
     background-size: 100% 2px;
 }
+
+.row.justify-content-center.last-posts{
+    padding-top: 2rem;
+}
+
+.img-categoria{
+    /* width: 100%; */
+    object-fit: cover;
+    height: 100%;
+}
+
+.img-contenedor-categoria{
+    object-fit: contain;
+}
+
+.img-ultimas-pub{
+    /* width: 100%; */
+    object-fit: cover;
+    height: 100%;
+}
+
+.img-contenedor-ultimas-pub{
+    object-fit: contain;
+}
+
+.img-fila-uno{
+    /* width: 100%; */
+    object-fit: cover;
+    height: 100%;
+}
+
+.img-contenedor-fila-uno{
+    object-fit: contain;
+}
+
+.img-fila-dos{
+    /* width: 100%; */
+    object-fit: cover;
+    height: 100%;
+}
+
+.img-contenedor-fila-dos{
+    object-fit: contain;
+}
+
+.img-fila-tres-solo{
+    object-fit: cover;
+    width:100%;
+}
+
+
+.img-fila-tres{
+    object-fit: cover;
+    height:100%;
+}
+
+.img-contenedor-fila-tres{
+    object-fit: contain;
+}
+
+.img-ediciones{
+    object-fit: cover;
+    height:100%;
+}
+
+.img-contenedor-ediciones{
+    object-fit: contain;
+}

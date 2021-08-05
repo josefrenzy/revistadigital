@@ -6,55 +6,32 @@
                 <div class="col-md-12">
                     <h3 class="titulo-azul">Categorias: {{ $nombre }} </h3>
                 </div>
-                <div class="col-md-12">
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                @if ($categorias->count() == 0)
-                                    <h1>No hay datos para mostrar</h1>
-                                @else
-                                    <thead class="header-table">
-                                        <th>
-                                            Id
-                                        </th>
-                                        <th>
-                                            Titulo
-                                        </th>
-                                        <th>
-                                            Edicion
-                                        </th>
-                                        <th>
-                                            Opciones
-                                        </th>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($categorias as $item)
-                                            <tr>
-                                                <td>
-                                                    {{ $item->id }}
-                                                </td>
-                                                <td>
-                                                    {{ $item->titulo }}
-                                                </td>
-                                                <td>
-                                                    {{ $item->nombre }}
-                                                </td>
-                                                <td>
-                                                    <a href="{{ route('revista.show', $item->id) }}">Ver</a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                @endif
-                            </table>
+                @foreach ($categorias as $item)
+                    <div class="card mb-3">
+                        <div class="row no-gutters">
+                            <div class="col-md-4">
+                                <img class="card-img-top" src="{{ asset('images/' . $item->img_abstract) }}"
+                                    alt="Card image">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $item->titulo }}</h5>
+                                    {!! $item->descripcion !!}
+                                    <a href="{{ route('revista.show', $item->id) }}" class="btn read-more text-lowercase">Leer más...</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                    <div class="row justify-content-center last-posts" style="background-color: white">
+                        <div class="col-lg-1">
+                            <span>{{ $categorias->links() }}</span>
+                        </div>
+                    </div>
+                @endforeach
             </div>
             {{-- Barra lateral --}}
             @include('main.components.aside')
         </div>
-
         <div class="row main">
             <div class="col-md-12">
                 <h3>Ultimas Publicaciones</h3>
@@ -78,29 +55,11 @@
                 </div>
             @endforeach
         </div>
-        <div class="row suscribe">
-            <div class="col-3"></div>
-            <div class="col-6">
-                <h3 class="titulo-azul text-center">Boletín informativo</h3>
-                <hr>
-                <p class="text-center">Suscribete para recibir antes que nadie las nuevas publicaciones</p>
-                @include('flash-message')
-                <form method="POST" action="{{ route('suscribe.store') }}">
-                    @csrf
-                    @method('post')
-                    <div class="form-row align-items-center" style="text-align: center;">
-                        <div class="col-auto">
-                            <label class="sr-only" for="inlineFormInput">Name</label>
-                            <input type="text" class="form-control mb-2 form-mail" name="email" id="email"
-                                placeholder="Correo Electronico">
-                        </div>
-                        <div class="col-auto">
-                            <button type="submit" class="btn suscribe mb-2">Suscribirse</button>
-                        </div>
-                    </div>
-                </form>
+        <div class="row justify-content-center last-posts" style="background-color: white">
+            <div class="col-lg-1">
+                <span>{{ $ultimas_publicaciones->links() }}</span>
             </div>
         </div>
+        @include('main.components.suscribe')
     </div>
-
 @endsection

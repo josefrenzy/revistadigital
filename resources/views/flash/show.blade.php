@@ -27,7 +27,7 @@
             <div class="col-md-12">
                 <h3>Publicaciones Relacionadas</h3>
             </div>
-            {{-- @foreach ($pub_rel as $item)
+            @foreach ($ultimas_publicaciones as $item)
                 <div class="col-md-4">
                     <div class="card relacionadas">
                         <div class="doc">
@@ -37,14 +37,14 @@
                             </div>
                         </div>
                         <div class="card-body gray gray">
-                            <h4 class="card-title">{{ Illuminate\Support\Str::of($item->nombre)->words(20) }}</h4>
+                            <h4 class="card-title">{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}</h4>
                             <p class="card-text">{!! Illuminate\Support\Str::of($item->descripcion)->words(30) !!}</p>
                             <a href="{{ route('revista.show', $item->id) }}" class="btn read-more text-lowercase">Leer
                                 más...</a>
                         </div>
                     </div>
                 </div>
-            @endforeach --}}
+            @endforeach
         </div>
         @include('main.components.suscribe')
     </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Edicion;
 use App\Models\Category;
@@ -54,32 +55,62 @@ class EdicionController extends Controller
      */
     public function show($nombre)
     {
-        $ediciones = DB::table('posts')
-            ->join('ediciones', 'posts.ediciones_id', '=', 'ediciones.id')
-            ->where('ediciones.nombre','=',$nombre)
-            ->select('posts.id','posts.titulo','ediciones.nombre',)
-            ->get();
-        $latest = DB::select('select * from abstract order by id desc limit 2');
-        $capsulas = DB::select('select * from capsula order by id desc limit 2');
-        $art = DB::select('select a.nombre, a.descripcion, p.id , a.img_abstract
+        $user_auth = Auth::check();
+        if ($user_auth) {
+            // dd($user_auth);
+            $ediciones = DB::table('posts')
+                ->join('ediciones', 'posts.ediciones_id', '=', 'ediciones.id')
+                ->join('abstract', 'posts.abstract_id', '=', 'abstract.id')
+                ->where('ediciones.nombre', '=', $nombre)
+                ->select('posts.id', 'posts.titulo', 'ediciones.nombre', 'abstract.descripcion', 'abstract.img_abstract')
+                ->paginate(5);
+            $latest = DB::select('select * from abstract order by id desc limit 2');
+            $capsulas = DB::select('select * from capsula order by id desc limit 2');
+            $art = DB::select('select a.nombre, a.descripcion, p.id , a.img_abstract
             from posts as p 
             inner join abstract as a order by id desc limit 1');
-        // $post = DB::select('select * from posts 
-        //     inner join users on posts.user_id=users.id
-        //     where posts.id = ?', [$id]);
-        $pub_rel = DB::select('select * from posts 
-            inner join abstract
-            on posts.abstract_id = abstract.id order by created_at desc limit 3');
-        $categories = Category::all();
-        return view('ediciones.show')
-            ->with('nombre', $nombre)
-            ->with('ediciones', $ediciones)
-            ->with('art', $art)
-            ->with('pub_rel', $pub_rel)
-            ->with('latest', $latest)
-            ->with('capsulas', $capsulas)
-            ->with('categories', $categories);
-            
+            $ultimas_publicaciones = DB::table('posts')
+                ->join('abstract', 'posts.abstract_id', '=', 'abstract.id')
+                ->where('posts.scope', '=', '1')
+                ->select('abstract.img_abstract', 'posts.titulo', 'posts.cuerpo', 'posts.id', 'posts.scope')
+                ->paginate(3, ['*'], 'ultimas_publicaciones');
+            $categories = Category::all();
+            return view('ediciones.show')
+                ->with('nombre', $nombre)
+                ->with('ediciones', $ediciones)
+                ->with('art', $art)
+                ->with('ultimas_publicaciones', $ultimas_publicaciones)
+                ->with('latest', $latest)
+                ->with('capsulas', $capsulas)
+                ->with('categories', $categories);
+        } else {
+            $ediciones = DB::table('posts')
+                ->join('ediciones', 'posts.ediciones_id', '=', 'ediciones.id')
+                ->join('abstract', 'posts.abstract_id', '=', 'abstract.id')
+                ->where('ediciones.nombre', '=', $nombre)
+                ->where('posts.scope',0)
+                ->select('posts.id', 'posts.titulo', 'ediciones.nombre', 'abstract.descripcion', 'abstract.img_abstract', 'posts.scope')
+                ->paginate(5);
+            $latest = DB::select('select * from abstract order by id desc limit 2');
+            $capsulas = DB::select('select * from capsula order by id desc limit 2');
+            $art = DB::select('select a.nombre, a.descripcion, p.id , a.img_abstract
+            from posts as p 
+            inner join abstract as a order by id desc limit 1');
+            $ultimas_publicaciones = DB::table('posts')
+                ->join('abstract', 'posts.abstract_id', '=', 'abstract.id')
+                ->where('posts.scope', '=', '0')
+                ->select('abstract.img_abstract', 'posts.titulo', 'posts.cuerpo', 'posts.id')
+                ->paginate(3, ['*'], 'ultimas_publicaciones');
+            $categories = Category::all();
+            return view('ediciones.show')
+                ->with('nombre', $nombre)
+                ->with('ediciones', $ediciones)
+                ->with('art', $art)
+                ->with('ultimas_publicaciones', $ultimas_publicaciones)
+                ->with('latest', $latest)
+                ->with('capsulas', $capsulas)
+                ->with('categories', $categories);
+        }
     }
 
     /**

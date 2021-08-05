@@ -3,14 +3,20 @@
 @section('content')
     <div class="content shadow">
         <div class="row main" style="background-color: white">
+            
             <div class="col-md-10" style="padding-top: 1rem">
-                <div class="card">
-                    <div class="card-body">
-                        <h1 class="titulo-capsula">{{ $capsula->nombre }}</h1>
-                        {!! $capsula->descripcion !!}
+                <div class="card flex-row flex-wrap">
+                    <div class="card-header border-0" style="width: 230px">
+                        <img style="max-width: 100%" src="{{ asset('images/capsulas/' . $capsula->img_capsula) }}" alt="">
                     </div>
+                    <div class="card-block px-2">
+                        <h3 class="card-title" style="padding-top: 4rem;">{{ $capsula->nombre }}</h3>
+                        {!! $capsula->descripcion !!}
+                        {{-- <p class="card-text">Description</p> --}}
+                        {{-- <a href="#" class="btn btn-primary">BUTTON</a> --}}
+                    </div>
+                    <div class="w-100"></div>
                 </div>
-
             </div>
             @include('main.components.aside')
         </div>
@@ -37,6 +43,11 @@
                     </div>
                 </div>
             @endforeach
+        </div>
+        <div class="row justify-content-center last-posts" style="background-color: white">
+            <div class="col-lg-1">
+                <span>{{ $ultimas_publicaciones->links() }}</span>
+            </div>
         </div>
         @include('main.components.suscribe')
     </div>

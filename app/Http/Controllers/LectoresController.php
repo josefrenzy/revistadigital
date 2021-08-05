@@ -21,7 +21,8 @@ class LectoresController extends Controller
             return redirect()->route('revista.index');
         } else {
             $lectores = DB::table('users')
-            ->paginate(5);
+                ->where('users.type', '=', '2')
+                ->paginate(5);
             return view('lectores.index')
                 ->with('lectores', $lectores);
         }

@@ -53,15 +53,16 @@ Route::resource('ediciones', EdicionController::class);
 Route::resource('lectores', LectoresController::class);
 Route::resource('capsula', CapsulaController::class);
 Route::resource('flash', FlashController::class);
-Route::resource('user', UserController::class);
+Route::resource('user', CapsulaController::class);
+Route::resource('ediciones', EdicionController::class);
 
 Route::group(['middleware' => 'auth'], function () {
-	Route::resource('categories', CategoryController::class);
+	Route::resource('categories', CategoryController::class)->except(['show']);
 	Route::resource('posts', PostController::class);
-	Route::resource('ediciones', EdicionController::class);
+	Route::resource('ediciones', EdicionController::class)->except(['show']);
 	Route::resource('lectores', LectoresController::class);
-	Route::resource('capsula', CapsulaController::class);
-	Route::resource('flash', FlashController::class);
+	Route::resource('capsula', CapsulaController::class)->except(['show']);
+	Route::resource('flash', FlashController::class)->except(['show']);
 	Route::resource('user', UserController::class);
 	Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
