@@ -174,6 +174,7 @@ class RevistaController extends Controller
                 ->where('posts.scope', 0)
                 ->select('posts.id', 'posts.titulo', 'abstract.descripcion', 'abstract.img_abstract','categorias.nombre')
                 ->paginate(5, ['*'], 'pub_rel');
+
             return view('main.show')
                 ->with('art', $art)
                 ->with('post', $post)

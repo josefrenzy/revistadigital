@@ -88,8 +88,9 @@
                                                         src="{{ asset('images/flash/' . $item->img_portada) }}"
                                                         alt="Card image">
                                                     <div class="overlay">
-                                                        <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(13) }}
-                                                        </h2>
+                                                        <a href="{{ route('flash.show', $item->id) }}">
+                                                            <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(13) }}</h2>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -117,8 +118,9 @@
                                                         src="{{ asset('images/abstract/' . $item->img_abstract) }}"
                                                         alt="Card image">
                                                     <div class="overlay">
-                                                        <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}
-                                                        </h2>
+                                                        <a href="{{ route('revista.show', $item->post_id) }}">
+                                                            <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}</h2>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -145,7 +147,9 @@
                                                     src="{{ asset('images/abstract/' . $item->img_abstract) }}"
                                                     alt="Card image">
                                                 <div class="overlay">
-                                                    <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}</h2>
+                                                    <a href="{{ route('revista.show', $item->post_id) }}">
+                                                        <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}</h2>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -171,7 +175,9 @@
                                                     src="{{ asset('images/flash/' . $item->img_portada) }}"
                                                     alt="Card image">
                                                 <div class="overlay">
-                                                    <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}</h2>
+                                                    <a href="{{ route('flash.show', $item->id) }}">
+                                                        <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}</h2>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -204,8 +210,9 @@
                                                         src="{{ asset('images/flash/' . $item->img_portada) }}"
                                                         alt="Card image">
                                                     <div class="overlay">
-                                                        <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(13) }}
-                                                        </h2>
+                                                        <a href="{{ route('flash.show', $item->id) }}">
+                                                            <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(13) }}</h2>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -213,9 +220,7 @@
                                         <div class="card-body gray">
                                             <div>{!! Illuminate\Support\Str::of($item->cuerpo)->words(17) !!}</div>
                                             <br>
-                                            <a href="{{ route('flash.show', $item->id) }}"
-                                                class="btn read-more text-lowercase">Leer
-                                                más...</a>
+                                            <a href="{{ route('flash.show', $item->id) }}" class="btn read-more text-lowercase">Leer más...</a>
                                         </div>
                                     @endforeach
                                 </div>
@@ -232,8 +237,9 @@
                                                         src="{{ asset('images/abstract/' . $item->img_abstract) }}"
                                                         alt="Card image">
                                                     <div class="overlay">
-                                                        <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}
-                                                        </h2>
+                                                        <a href="{{ route('revista.show', $item->post_id) }}">
+                                                            <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}</h2>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -260,7 +266,9 @@
                                                     src="{{ asset('images/abstract/' . $item->img_abstract) }}"
                                                     alt="Card image">
                                                 <div class="overlay">
-                                                    <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}</h2>
+                                                    <a href="{{ route('revista.show', $item->post_id) }}">
+                                                        <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}</h2>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -288,8 +296,9 @@
                                                         src="{{ asset('images/flash/' . $item->img_portada) }}"
                                                         alt="Card image">
                                                     <div class="overlay">
-                                                        <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}
-                                                        </h2>
+                                                        <a href="{{ route('flash.show', $item->id) }}">
+                                                            <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}</h2>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -322,8 +331,9 @@
                                                         src="{{ asset('images/flash/' . $item->img_portada) }}"
                                                         alt="Card image">
                                                     <div class="overlay">
-                                                        <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(13) }}
-                                                        </h2>
+                                                        <a href="{{ route('flash.show', $item->id) }}">
+                                                            <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(13) }}</h2>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -350,8 +360,9 @@
                                                         src="{{ asset('images/abstract/' . $item->img_abstract) }}"
                                                         alt="Card image">
                                                     <div class="overlay">
-                                                        <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}
-                                                        </h2>
+                                                        <a href="{{ route('revista.show', $item->post_id) }}">
+                                                            <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}</h2>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -378,7 +389,9 @@
                                                     src="{{ asset('images/abstract/' . $item->img_abstract) }}"
                                                     alt="Card image">
                                                 <div class="overlay">
-                                                    <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}</h2>
+                                                    <a href="{{ route('revista.show', $item->post_id) }}">
+                                                        <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}</h2>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -406,8 +419,9 @@
                                                         src="{{ asset('images/flash/' . $item->img_portada) }}"
                                                         alt="Card image">
                                                     <div class="overlay">
-                                                        <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(13) }}
-                                                        </h2>
+                                                        <a href="{{ route('flash.show', $item->id) }}">
+                                                            <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(13) }}</h2>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -444,7 +458,8 @@
                             </div>
                         </div>
                         <div class="card-body gray gray">
-                            <h4 class="card-title">{{ Illuminate\Support\Str::of($item->titulo)->words(15) }}</h4>
+                            <h3 class="card-title text-uppercase">
+                                <strong>{{ Illuminate\Support\Str::of($item->titulo)->words(15) }}</strong></h3>
                             <p class="card-text">{!! Illuminate\Support\Str::of($item->cuerpo)->words(25) !!}</p>
                             <a href="{{ route('revista.show', $item->id) }}" class="btn read-more text-lowercase">Leer
                                 más...</a>

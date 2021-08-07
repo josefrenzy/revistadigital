@@ -10,14 +10,20 @@
                     <div class="card mb-3">
                         <div class="row no-gutters">
                             <div class="col-md-4">
-                                <img class="card-img-top" src="{{ asset('images/' . $item->img_abstract) }}"
-                                    alt="Card image">
+                                <div class="img-contenedor-ultimas-pub">
+                                    <div class="box-2-ediciones">
+                                        <img class="img-ediciones"
+                                            src="{{ asset('images/abstract/' . $item->img_abstract) }}" alt="Card image">
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{ $item->titulo }}</h5>
-                                    {!! $item->descripcion !!}
-                                    <a href="{{ route('revista.show', $item->id) }}" class="btn read-more text-lowercase">Leer más...</a>
+                                    <h3 class="card-title text-uppercase"><strong>{{ $item->titulo }}</strong></h3>
+                                    <div>{!! Illuminate\Support\Str::of($item->descripcion)->words(50) !!}</div>
+                                   <br>
+                                    <a href="{{ route('revista.show', $item->id) }}"
+                                        class="btn read-more text-lowercase">Leer más...</a>
                                 </div>
                             </div>
                         </div>
@@ -41,14 +47,14 @@
             @foreach ($ultimas_publicaciones as $item)
                 <div class="col-md-4">
                     <div class="card relacionadas">
-                        <div class="doc">
+                        <div class="img-contenedor-ultimas-pub">
                             <div class="box-2">
-                                <img class="card-img-top" src="{{ asset('images/' . $item->img_abstract) }}"
+                                <img class="img-ediciones" src="{{ asset('images/abstract/' . $item->img_abstract) }}"
                                     alt="Card image">
                             </div>
                         </div>
                         <div class="card-body gray gray">
-                            <h4 class="card-title">{{ Illuminate\Support\Str::of($item->titulo)->words(15) }}</h4>
+                            <h3 class="card-title text-uppercase"><strong>{{ Illuminate\Support\Str::of($item->titulo)->words(15) }}</strong></h3>
                             <p class="card-text">{!! Illuminate\Support\Str::of($item->cuerpo)->words(25) !!}</p>
                             <a href="{{ route('revista.show', $item->id) }}" class="btn read-more text-lowercase">Leer
                                 más...</a>
@@ -63,8 +69,7 @@
             </div>
         </div>
         @include('main.components.suscribe')
-        
+
     </div>
 
 @endsection
-

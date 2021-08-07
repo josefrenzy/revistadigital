@@ -18,18 +18,18 @@
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead class=" text-primary">
-                                        <th>
+                                        {{-- <th>
                                             Id
-                                        </th>
+                                        </th> --}}
                                         <th>
                                             Nombre
                                         </th>
                                         <th>
                                             Descripción
                                         </th>
-                                        <th>
+                                        {{-- <th>
                                             Estatus
-                                        </th>
+                                        </th> --}}
                                         <th>
                                             Opciones
                                         </th>
@@ -37,16 +37,16 @@
                                     <tbody>
                                         @foreach ($ediciones as $edicion)
                                             <tr>
-                                                <td>
+                                                {{-- <td>
                                                     {{ $edicion->id }}
-                                                </td>
+                                                </td> --}}
                                                 <td>
                                                     {{ $edicion->nombre }}
                                                 </td>
                                                 <td>
                                                     {{ $edicion->descripcion }}
                                                 </td>
-                                                <td>
+                                                {{-- <td>
                                                     @if ($edicion->status == 1)
                                                         <input class="toggle-status" type="checkbox" data-toggle="toggle"
                                                             data-size="xs" checked value="{{ $edicion['status'] }}">
@@ -55,7 +55,7 @@
                                                         <input class="toggle-status" type="checkbox" data-toggle="toggle"
                                                             value="{{ $edicion['status'] }}" data-size="xs">
                                                     @endif
-                                                </td>
+                                                </td> --}}
                                                 <td>
                                                     <a rel="tooltip" class="btn btn-success btn-link"
                                                         href="{{ route('ediciones.edit', $edicion->id) }}"
@@ -68,6 +68,7 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                                <span>{{ $ediciones->links() }}</span>
                             </div>
                         </div>
                     </div>

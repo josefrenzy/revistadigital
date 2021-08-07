@@ -64,18 +64,18 @@
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead class=" text-primary">
-                                        <th>
+                                        {{-- <th>
                                             ID
-                                        </th>
+                                        </th> --}}
                                         <th>
                                             Titulo
                                         </th>
                                         <th>
                                             Autor
                                         </th>
-                                        <th>
+                                        {{-- <th>
                                             Estatus
-                                        </th>
+                                        </th> --}}
                                         <th>
                                             Opciones
                                         </th>
@@ -84,18 +84,18 @@
                                         @if ($tabla->count() != 0)
                                             @foreach ($tabla as $post)
                                                 <tr>
-                                                    <td>
+                                                    {{-- <td>
                                                         {{ $post->id }}
-                                                    </td>
+                                                    </td> --}}
                                                     <td>
                                                         {{ $post->titulo }}
                                                     </td>
                                                     <td>
                                                         {{ $post->name }}
                                                     </td>
-                                                    <td>
+                                                    {{-- <td>
                                                         <input type="checkbox" checked data-toggle="toggle" data-size="xs">
-                                                    </td>
+                                                    </td> --}}
                                                     <td>
                                                         <a rel="tooltip" class="btn btn-success btn-link"
                                                             href="{{ route('posts.edit', $post->id) }}"

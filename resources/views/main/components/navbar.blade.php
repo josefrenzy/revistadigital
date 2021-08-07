@@ -1,13 +1,20 @@
 <header class="box-shadow">
-    <nav class="navbar navbar-expand-sm fixed-top ">
+    <nav class="navbar navbar-expand-lg">
         <a href="https://floresgaribay.mx/">
-            <img src="{{ url('/images/utils/nav.png') }}" alt="Navbar" class="img-nav">
+            <img src="{{ url('/images/utils/nav.png') }}" alt="Navbar" class="img-nav d-inline-block align-top">
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        {{-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
+        </button> --}}
+        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
         </button>
-        <div class="collapse navbar-collapse mr-auto float-right" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse justify-content-end mr-auto float-right" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
                     <a class="nav-link main text-uppercase gray" href="https://floresgaribay.mx/">Inicio <span

@@ -1,4 +1,4 @@
-<div class="col-md-2 aside index">
+<div class="col-md-2 aside index d-none d-sm-none d-md-block">
     <div class="row">
         <div class="col">
             {{-- <h5 class="aside titulo-azul">Capsulas</h5> --}}

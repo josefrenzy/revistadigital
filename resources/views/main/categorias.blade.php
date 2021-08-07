@@ -10,14 +10,21 @@
                     <div class="card mb-3">
                         <div class="row no-gutters">
                             <div class="col-md-4">
-                                <img class="card-img-top" src="{{ asset('images/' . $item->img_abstract) }}"
-                                    alt="Card image">
+                                <div class="img-contenedor-ediciones">
+                                    <div class="box-2-ediciones">
+                                        <img class="img-ediciones"
+                                            src="{{ asset('images/abstract/' . $item->img_abstract) }}" alt="Card image">
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{ $item->titulo }}</h5>
-                                    {!! $item->descripcion !!}
-                                    <a href="{{ route('revista.show', $item->id) }}" class="btn read-more text-lowercase">Leer más...</a>
+                                    <h3 style="padding:1rem 0;" class="card-title text-uppercase">
+                                        <strong>{{ $item->titulo }}</strong></h3>
+                                    <div>{!! Illuminate\Support\Str::of($item->descripcion)->words(50) !!}</div>
+                                    <br>
+                                    <a href="{{ route('revista.show', $item->id) }}"
+                                        class="btn read-more text-lowercase">Leer más...</a>
                                 </div>
                             </div>
                         </div>
@@ -41,7 +48,7 @@
                     <div class="card relacionadas">
                         <div class="doc">
                             <div class="box-2">
-                                <img class="card-img-top" src="{{ asset('images/' . $item->img_abstract) }}"
+                                <img class="card-img-top" src="{{ asset('images/abstract/' . $item->img_abstract) }}"
                                     alt="Card image">
                             </div>
                         </div>

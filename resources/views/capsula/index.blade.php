@@ -17,14 +17,11 @@
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead class=" text-primary">
-                                        <th>
+                                        {{-- <th>
                                             ID
-                                        </th>
+                                        </th> --}}
                                         <th>
                                             Titulo Capsula
-                                        </th>
-                                        <th>
-                                            Estatus
                                         </th>
                                         <th>
                                             Opciones
@@ -33,13 +30,13 @@
                                     <tbody>
                                         @foreach ($capsula as $item)
                                             <tr>
-                                                <td>
+                                                {{-- <td>
                                                     {{ $item->id }}
-                                                </td>
+                                                </td> --}}
                                                 <td>
                                                     {{ $item->nombre }}
                                                 </td>
-                                                <td>
+                                                {{-- <td>
                                                     @if ($item->status == 1)
                                                         <input class="toggle-status" type="checkbox" data-toggle="toggle"
                                                             data-size="xs" checked value="{{ $item['status'] }}">
@@ -48,7 +45,7 @@
                                                         <input class="toggle-status" type="checkbox" data-toggle="toggle"
                                                             value="{{ $item['status'] }}" data-size="xs">
                                                     @endif
-                                                </td>
+                                                </td> --}}
                                                 <td>
                                                     <a rel="tooltip" class="btn btn-success btn-link"
                                                         href="{{ route('capsula.edit', $item->id) }}"

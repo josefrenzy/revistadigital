@@ -6,14 +6,14 @@
 
 .img-nav {
     padding-left: 1rem;
-    max-width: 75%;
+    max-width: 55%;
 }
 a{
     color: #004680 ;
 }
 
 .wrapper {
-    padding-top: 7.2rem;
+    /* padding-top: 7.2rem; */
     /* padding: 0 1rem;
     margin: 0 0.5rem; */
 }
@@ -42,6 +42,12 @@ a{
 .box-2 {
     /* width: 342px; */
     height: 400px;
+    background: #ccc;
+    overflow: hidden;
+}
+
+.box-2-ediciones{
+    height: 300px;
     background: #ccc;
     overflow: hidden;
 }
@@ -491,6 +497,7 @@ a.nav-link.main:hover, a.nav-link.main:focus {
     /* width: 100%; */
     object-fit: cover;
     height: 100%;
+    object-position: center;
 }
 
 .img-contenedor-categoria{
@@ -501,6 +508,7 @@ a.nav-link.main:hover, a.nav-link.main:focus {
     /* width: 100%; */
     object-fit: cover;
     height: 100%;
+    object-position: center;
 }
 
 .img-contenedor-ultimas-pub{
@@ -511,6 +519,7 @@ a.nav-link.main:hover, a.nav-link.main:focus {
     /* width: 100%; */
     object-fit: cover;
     height: 100%;
+    object-position: center;
 }
 
 .img-contenedor-fila-uno{
@@ -521,21 +530,25 @@ a.nav-link.main:hover, a.nav-link.main:focus {
     /* width: 100%; */
     object-fit: cover;
     height: 100%;
+    object-position: center;
 }
 
 .img-contenedor-fila-dos{
     object-fit: contain;
+
 }
 
 .img-fila-tres-solo{
     object-fit: cover;
     width:100%;
+    object-position: center;
 }
 
 
 .img-fila-tres{
     object-fit: cover;
     height:100%;
+    object-position: center;
 }
 
 .img-contenedor-fila-tres{
@@ -545,8 +558,29 @@ a.nav-link.main:hover, a.nav-link.main:focus {
 .img-ediciones{
     object-fit: cover;
     height:100%;
+    object-position: center;
 }
 
 .img-contenedor-ediciones{
     object-fit: contain;
+}
+
+.img-contenedor-portada{
+    object-fit: contain;
+}
+
+.img-portada{
+    object-fit: cover;
+    height: 110% !important;
+    object-position: center;
+}
+
+.row.no-gutters{
+    background-color: #f2f2f2;
+}
+
+.img-capsulas{
+    object-fit: cover;
+    height: 100%;
+    object-position: center;
 }

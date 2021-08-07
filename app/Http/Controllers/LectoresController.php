@@ -22,6 +22,7 @@ class LectoresController extends Controller
         } else {
             $lectores = DB::table('users')
                 ->where('users.type', '=', '2')
+                ->orderByDesc('id')
                 ->paginate(5);
             return view('lectores.index')
                 ->with('lectores', $lectores);

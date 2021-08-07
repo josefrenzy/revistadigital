@@ -116,7 +116,7 @@ Category')])
         $('input[type="file"]').change(function(e) {
             var fileName = e.target.files[0].name;
             var fileSize = e.target.files[0].size;
-            if (fileSize > 200000) {
+            if (fileSize > 2000000) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',

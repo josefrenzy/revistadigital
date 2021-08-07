@@ -5,7 +5,7 @@
         <div class="row main white">
             <div class="col-md-10 main white">
                 <div class="hover hover-5 text-white rounded">
-                    <img src="{{ asset('images/' . $post[0]->img_portada) }}" alt="">
+                    <img src="{{ asset('images/portada/' . $post[0]->img_portada) }}" alt="">
                     <div class="hover-overlay"></div>
                     <div class="hover-5-content">
                         <h3 class="hover-5-title text-uppercase font-weight-light mb-0">
@@ -32,7 +32,7 @@
                     <div class="card relacionadas">
                         <div class="doc">
                             <div class="box-2">
-                                <img class="card-img-top" src="{{ asset('images/' . $item->img_abstract) }}"
+                                <img class="card-img-top" src="{{ asset('images/abstract/' . $item->img_abstract) }}"
                                     alt="Card image">
                             </div>
                         </div>

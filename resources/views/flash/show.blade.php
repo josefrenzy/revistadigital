@@ -5,7 +5,9 @@
         <div class="row main">
             <div class="col-md-10 main">
                 <div class="hover hover-5 text-white rounded">
-                    <img src="{{ asset('images/flash/' . $post[0]->img_portada) }}" alt="">
+                    <div class="img-contenedor-portada">
+                        <img class="img-portada" src="{{ asset('images/flash/' . $post[0]->img_portada) }}" alt="">
+                    </div>
                     <div class="hover-overlay"></div>
                     <div class="hover-5-content">
                         <h3 class="hover-5-title text-uppercase font-weight-light mb-0">
@@ -30,9 +32,9 @@
             @foreach ($ultimas_publicaciones as $item)
                 <div class="col-md-4">
                     <div class="card relacionadas">
-                        <div class="doc">
+                        <div class="img-contenedor-ultimas-pub">
                             <div class="box-2">
-                                <img class="card-img-top" src="{{ asset('images/' . $item->img_abstract) }}"
+                                <img class="img-ediciones" src="{{ asset('images/abstract/' . $item->img_abstract) }}"
                                     alt="Card image">
                             </div>
                         </div>

@@ -17,15 +17,15 @@
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead class=" text-primary">
-                                        <th>
+                                        {{-- <th>
                                             ID
-                                        </th>
+                                        </th> --}}
                                         <th>
                                             Name
                                         </th>
-                                        <th>
+                                        {{-- <th>
                                             Estatus
-                                        </th>
+                                        </th> --}}
                                         <th>
                                             Opciones
                                         </th>
@@ -33,13 +33,13 @@
                                     <tbody>
                                         @foreach ($flash as $item)
                                             <tr>
-                                                <td>
+                                                {{-- <td>
                                                     {{ $item->id }}
-                                                </td>
+                                                </td> --}}
                                                 <td>
                                                     {{ $item->titulo }}
                                                 </td>
-                                                <td>
+                                                {{-- <td>
                                                     @if ($item->status == 1)
                                                         <input class="toggle-status" type="checkbox" data-toggle="toggle"
                                                             data-size="xs" checked value="{{ $item['status'] }}">
@@ -48,7 +48,7 @@
                                                         <input class="toggle-status" type="checkbox" data-toggle="toggle"
                                                             value="{{ $item['status'] }}" data-size="xs">
                                                     @endif
-                                                </td>
+                                                </td> --}}
                                                 <td>
                                                     <a rel="tooltip" class="btn btn-success btn-link"
                                                         href="{{ route('flash.edit', $item->id) }}" data-original-title=""

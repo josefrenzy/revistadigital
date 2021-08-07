@@ -25,6 +25,7 @@ class PostController extends Controller
             $posts = DB::table('posts')
                 ->join('users', 'posts.user_id', '=', 'users.id')
                 ->select('posts.id', 'posts.titulo', 'users.name', 'posts.status')
+                ->orderByDesc('id')
                 ->paginate(5);
             return view('post.index')
                 ->with('posts', $posts);
@@ -227,25 +228,48 @@ class PostController extends Controller
     }
     public function search(Request $request)
     {
-        $search = $request->input('search');
-        $ultimas_publicaciones = DB::table('posts')
-            ->join('abstract', 'posts.abstract_id', '=', 'abstract.id')
-            ->where('posts.scope', '=', '1')
-            ->select('abstract.img_abstract', 'posts.titulo', 'posts.cuerpo', 'posts.id')
-            ->paginate(3, ['*'], 'ultimas_publicaciones');
-        $capsulas = DB::select('select * from capsula order by id desc limit 2');
-        $categories = Category::all();
-        $posts = DB::table('posts')
-            ->join('abstract','posts.abstract_id', '=', 'abstract.id')
-            ->join('categorias', 'posts.categorias_id', '=', 'categorias.id')
-            ->where('titulo', 'LIKE', "%$search%")
-            ->select('posts.id', 'posts.titulo', 'categorias.nombre','abstract.descripcion', 'abstract.img_abstract')
-            ->paginate(5);
-        return view('main.search', compact('posts'))
-            ->with('ultimas_publicaciones',$ultimas_publicaciones)
-            ->with('capsulas', $capsulas)
-            ->with('categories', $categories)
-            ->with('search', $search);
+        if (auth()->user()) {
+            $search = $request->input('search');
+            $ultimas_publicaciones = DB::table('posts')
+                ->join('abstract', 'posts.abstract_id', '=', 'abstract.id')
+                ->where('posts.scope', '=', '1')
+                ->select('abstract.img_abstract', 'posts.titulo', 'posts.cuerpo', 'posts.id')
+                ->paginate(3, ['*'], 'ultimas_publicaciones');
+            $capsulas = DB::select('select * from capsula order by id desc limit 2');
+            $categories = Category::all();
+            $posts = DB::table('posts')
+                ->join('abstract','posts.abstract_id', '=', 'abstract.id')
+                ->join('categorias', 'posts.categorias_id', '=', 'categorias.id')
+                ->where('titulo', 'LIKE', "%$search%")
+                ->select('posts.id', 'posts.titulo', 'categorias.nombre','abstract.descripcion', 'abstract.img_abstract')
+                ->paginate(5);
+            return view('main.search', compact('posts'))
+                ->with('ultimas_publicaciones',$ultimas_publicaciones)
+                ->with('capsulas', $capsulas)
+                ->with('categories', $categories)
+                ->with('search', $search);
+        }else{
+            $search = $request->input('search');
+            $ultimas_publicaciones = DB::table('posts')
+                ->join('abstract', 'posts.abstract_id', '=', 'abstract.id')
+                ->where('posts.scope', '=', '0')
+                ->select('abstract.img_abstract', 'posts.titulo', 'posts.cuerpo', 'posts.id')
+                ->paginate(3, ['*'], 'ultimas_publicaciones');
+            $capsulas = DB::select('select * from capsula order by id desc limit 2');
+            $categories = Category::all();
+            $posts = DB::table('posts')
+                ->join('abstract','posts.abstract_id', '=', 'abstract.id')
+                ->join('categorias', 'posts.categorias_id', '=', 'categorias.id')
+                ->where('titulo', 'LIKE', "%$search%")
+                ->select('posts.id', 'posts.titulo', 'categorias.nombre','abstract.descripcion', 'abstract.img_abstract')
+                ->paginate(5);
+            return view('main.search', compact('posts'))
+                ->with('ultimas_publicaciones',$ultimas_publicaciones)
+                ->with('capsulas', $capsulas)
+                ->with('categories', $categories)
+                ->with('search', $search);
+        }
+        
     }
     public function destroy($id){
         if (auth()->user()->type == 2) {

@@ -34,6 +34,7 @@ class HomeController extends Controller
             $tabla = DB::table('posts')
                 ->join('users', 'posts.user_id', '=', 'users.id')
                 ->select('posts.id', 'posts.titulo', 'users.name', 'posts.status')
+                ->orderByDesc('id')
                 ->paginate(5);
             return view('dashboard')
                 ->with('tabla', $tabla)

@@ -14,7 +14,8 @@ class CapsulaController extends Controller
         if (auth()->user()->type == 2) {
             return redirect()->route('revista.index');
         } else {
-            $capsula = Capsula::paginate(5);
+            $capsula = Capsula::orderByDesc('id')
+                ->paginate(5);
             return view('capsula.index')
                 ->with('capsula', $capsula);
         }
@@ -125,7 +126,7 @@ class CapsulaController extends Controller
             $categories = Category::all();
             $ultimas_publicaciones = DB::table('posts')
                 ->join('abstract', 'posts.abstract_id', '=', 'abstract.id')
-                ->where('posts.scope', '=', '1')
+                ->where('posts.scope', '=', '0')
                 ->select('abstract.img_abstract', 'posts.titulo', 'posts.cuerpo', 'posts.id')
                 ->paginate(3, ['*'], 'ultimas_publicaciones');
             return view('capsula.show')

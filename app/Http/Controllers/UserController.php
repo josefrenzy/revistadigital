@@ -22,6 +22,7 @@ class UserController extends Controller
         } else {
             $users = DB::table('users')
                 ->whereIn('type', [2, 1])
+                ->orderBy('id','desc')
                 ->paginate(5);
             return view('users.index')
                 ->with('users', $users);

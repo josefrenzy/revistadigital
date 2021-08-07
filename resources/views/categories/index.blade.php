@@ -17,18 +17,18 @@
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead class=" text-primary">
-                                        <th>
+                                        {{-- <th>
                                             ID
-                                        </th>
+                                        </th> --}}
                                         <th>
                                             Name
                                         </th>
                                         <th>
                                             Descripción
                                         </th>
-                                        <th>
+                                        {{-- <th>
                                             Estatus
-                                        </th>
+                                        </th> --}}
                                         <th>
                                             Opciones
                                         </th>
@@ -36,16 +36,16 @@
                                     <tbody>
                                         @foreach ($categories as $category)
                                             <tr>
-                                                <td>
+                                                {{-- <td>
                                                     {{ $category->id }}
-                                                </td>
+                                                </td> --}}
                                                 <td>
                                                     {{ $category->nombre }}
                                                 </td>
                                                 <td>
                                                     {{ $category->descripcion }}
                                                 </td>
-                                                <td>
+                                                {{-- <td>
                                                     @if ($category->status == 1)
                                                         <input class="toggle-status" type="checkbox" data-toggle="toggle"
                                                             data-size="xs" checked value="{{ $category['status'] }}">
@@ -54,7 +54,7 @@
                                                         <input class="toggle-status" type="checkbox" data-toggle="toggle"
                                                             value="{{ $category['status'] }}" data-size="xs">
                                                     @endif
-                                                </td>
+                                                </td> --}}
                                                 <td>
                                                     <a rel="tooltip" class="btn btn-success btn-link"
                                                         href="{{ route('categories.edit', $category->id) }}"
@@ -68,6 +68,7 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                                <span>{{ $categories->links() }}</span>
                             </div>
                         </div>
                     </div>

@@ -16,7 +16,8 @@ class FlashController extends Controller
         if (!auth()->user()) {
             return redirect()->route('revista.index');
         } else {
-            $flash = Flash::paginate(5);
+            $flash = Flash::orderByDesc('id')
+            ->paginate(5);
             return view('flash.index')
                 ->with('flash', $flash);
         }
