@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Lector extends Model
 {
-    // use HasFactory;
+    use HasFactory;
     protected $table = 'lectores';
 
     public $timestamps = false;

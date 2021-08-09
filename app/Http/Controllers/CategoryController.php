@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Exception;
 
 
 class CategoryController extends Controller
@@ -204,9 +205,14 @@ class CategoryController extends Controller
         if (auth()->user()->type == 2) {
             return redirect()->route('revista.index');
         } else {
-            Category::destroy($id);
-            return redirect('categories.index')
-                ->with('success', 'Categoria eliminado correctamente.');
+            try {
+                $destroy_action =Category::destroy($id);
+                dd($destroy_action);
+                return back()
+                    ->with('success', 'Categoria eliminado correctamente.');
+            } catch (Exception $e) {
+                return back()->withError($e->getMessage())->withInput();
+            }
         }
     }
 }

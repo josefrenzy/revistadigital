@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Edicion;
 use App\Models\Category;
+use Exception;
+
 
 use Illuminate\Support\Facades\DB;
 
@@ -151,8 +153,13 @@ class EdicionController extends Controller
      */
     public function destroy($id)
     {
-        Edicion::destroy($id);
-        return redirect('ediciones.index')
-            ->with('success', 'Categoria eliminado correctamente.');
+        try {
+            Edicion::destroy($id);
+            return back()
+                ->with('success', 'Edicion eliminado correctamente.');
+        } catch (Exception $e) {
+            return back()->withError($e->getMessage())->withInput();
+        }
+        
     }
 }

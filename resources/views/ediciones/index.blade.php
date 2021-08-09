@@ -16,11 +16,12 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
+                                @include('flash-message')
                                 <table class="table">
                                     <thead class=" text-primary">
-                                        {{-- <th>
+                                        <th>
                                             Id
-                                        </th> --}}
+                                        </th>
                                         <th>
                                             Nombre
                                         </th>
@@ -37,9 +38,9 @@
                                     <tbody>
                                         @foreach ($ediciones as $edicion)
                                             <tr>
-                                                {{-- <td>
+                                                <td>
                                                     {{ $edicion->id }}
-                                                </td> --}}
+                                                </td>
                                                 <td>
                                                     {{ $edicion->nombre }}
                                                 </td>
@@ -63,8 +64,44 @@
                                                         <i class="material-icons">edit</i>
                                                         <div class="ripple-container"></div>
                                                     </a>
+                                                    <button type="button" class="btn btn-danger btn-link"
+                                                        data-toggle="modal" data-target="#exampleModal">
+                                                        <i class="material-icons">clear</i>
+                                                    </button>
                                                 </td>
                                             </tr>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Eliminacion de
+                                                                usuario</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Estas Seguro de que deseas eliminar este registro
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <form
+                                                                action="{{ route('ediciones.destroy', $edicion->id) }}"
+                                                                method="POST">
+                                                                @method('DELETE')
+                                                                @csrf
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-dismiss="modal">Close</button>
+                                                                <button class="btn btn-primary" type="submit">
+                                                                    Eliminar
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         @endforeach
                                     </tbody>
                                 </table>

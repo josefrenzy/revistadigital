@@ -9,6 +9,8 @@ use App\Http\Controllers\RevistaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CapsulaController;
 use App\Http\Controllers\FlashController;
+use App\Http\Controllers\PublicidadController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +57,7 @@ Route::resource('capsula', CapsulaController::class);
 Route::resource('flash', FlashController::class);
 Route::resource('user', CapsulaController::class);
 Route::resource('ediciones', EdicionController::class);
+Route::resource('publicidad', PublicidadController::class);
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('categories', CategoryController::class)->except(['show']);
