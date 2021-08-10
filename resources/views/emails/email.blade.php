@@ -14,7 +14,7 @@ You received a message from : {{ $name }} --}}
 <body>
     <h1>Hola que tal te has suscrito a nuestro boletin</h1>
     <p>
-        User Email: {{ $email }}
+        User Email: {{ $details['email'] }}
     </p>
 </body>
 </html>

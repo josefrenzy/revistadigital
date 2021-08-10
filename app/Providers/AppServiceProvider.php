@@ -15,7 +15,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        if (env('ENVIROMENT') != 'dev') {
+            $this->app->bind('path.public', function () {
+                return '/home/u759144440/domains/fgrevista.mx/public_html';
+            });
+        }
     }
 
     /**

@@ -23,9 +23,9 @@
                                         <th>
                                             Name
                                         </th>
-                                        {{-- <th>
+                                        <th>
                                             Estatus
-                                        </th> --}}
+                                        </th>
                                         <th>
                                             Opciones
                                         </th>
@@ -39,16 +39,17 @@
                                                 <td>
                                                     {{ $item->titulo }}
                                                 </td>
-                                                {{-- <td>
+                                                <td>
                                                     @if ($item->status == 1)
-                                                        <input class="toggle-status" type="checkbox" data-toggle="toggle"
-                                                            data-size="xs" checked value="{{ $item['status'] }}">
+                                                        Activo
+                                                        {{-- <input class="toggle-status" type="checkbox" data-toggle="toggle"
+                                                            data-size="xs" checked value="{{ $item['status'] }}"> --}}
                                                     @else
-
-                                                        <input class="toggle-status" type="checkbox" data-toggle="toggle"
-                                                            value="{{ $item['status'] }}" data-size="xs">
+                                                        Inactivo
+                                                        {{-- <input class="toggle-status" type="checkbox" data-toggle="toggle"
+                                                            value="{{ $item['status'] }}" data-size="xs"> --}}
                                                     @endif
-                                                </td> --}}
+                                                </td>
                                                 <td>
                                                     <a rel="tooltip" class="btn btn-success btn-link"
                                                         href="{{ route('flash.edit', $item->id) }}" data-original-title=""

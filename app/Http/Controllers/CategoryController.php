@@ -96,7 +96,7 @@ class CategoryController extends Controller
             $ultimas_publicaciones = DB::table('posts')
                 ->join('abstract', 'posts.abstract_id', '=', 'abstract.id')
                 ->where('posts.scope', '=', '1')
-                ->select('abstract.img_abstract', 'posts.titulo', 'posts.cuerpo', 'posts.id')
+                ->select('abstract.img_abstract', 'posts.titulo', 'abstract.descripcion', 'posts.id')
                 ->paginate(3, ['*'], 'ultimas_publicaciones');
             $categories = Category::all();
             return view('main.categorias')
@@ -122,7 +122,7 @@ class CategoryController extends Controller
             $ultimas_publicaciones = DB::table('posts')
                 ->join('abstract', 'posts.abstract_id', '=', 'abstract.id')
                 ->where('posts.scope', '=', '0')
-                ->select('abstract.img_abstract', 'posts.titulo', 'posts.cuerpo', 'posts.id')
+                ->select('abstract.img_abstract', 'posts.titulo', 'abstract.descripcion', 'posts.id')
                 ->paginate(3, ['*'], 'ultimas_publicaciones');
             $categories = Category::all();
             return view('main.categorias')
@@ -206,8 +206,7 @@ class CategoryController extends Controller
             return redirect()->route('revista.index');
         } else {
             try {
-                $destroy_action =Category::destroy($id);
-                dd($destroy_action);
+                Category::destroy($id);
                 return back()
                     ->with('success', 'Categoria eliminado correctamente.');
             } catch (Exception $e) {

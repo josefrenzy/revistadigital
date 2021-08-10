@@ -18,7 +18,6 @@
                 @if ($item->status == 1)
                     <div class="col-lg-4 mb-3 mb-lg-0">
                         <div class="hover hover-3 text-white rounded">
-                            {{-- contenerdor de imagen --}}
                             <div class="img-contenedor-categoria">
                                 <img class="img-categoria" src="{{ asset('images/categorias/' . $item->img_categorias) }}"
                                     alt="">
@@ -35,6 +34,11 @@
                     </div>
                 @endif
             @endforeach
+        </div>
+        <div class="row justify-content-center last-posts" style="background-color: white">
+            <div class="col-lg-1">
+                <span>{{ $cat->links() }}</span>
+            </div>
         </div>
         {{-- Filas Ediciones y search_bar --}}
         <div class="row main icons">
@@ -89,15 +93,14 @@
                                                         alt="Card image">
                                                     <div class="overlay">
                                                         <a href="{{ route('flash.show', $item->id) }}">
-                                                            <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(13) }}</h2>
+                                                            <h2><strong>{{ Illuminate\Support\Str::of($item->titulo)->words(13) }}</strong></h2>
                                                         </a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        {{-- </div> --}}
                                         <div class="card-body gray">
-                                            <div>{!! Illuminate\Support\Str::of($item->cuerpo)->words(17) !!}</div>
+                                            <div>{!! Illuminate\Support\Str::of($item->cuerpo)->words(55) !!}</div>
                                             <br>
                                             <a href="{{ route('flash.show', $item->id) }}"
                                                 class="btn read-more text-lowercase">Leer
@@ -119,14 +122,14 @@
                                                         alt="Card image">
                                                     <div class="overlay">
                                                         <a href="{{ route('revista.show', $item->post_id) }}">
-                                                            <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}</h2>
+                                                            <h2><strong>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}</strong></h2>
                                                         </a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="card-body gray">
-                                            <div>{!! Illuminate\Support\Str::of($item->descripcion)->words(17) !!}</div>
+                                            <div>{!! Illuminate\Support\Str::of($item->descripcion)->words(55) !!}</div>
                                             <br>
                                             <a href="{{ route('revista.show', $item->post_id) }}"
                                                 class="btn read-more text-lowercase">Leer
@@ -155,7 +158,7 @@
                                         </div>
                                     </div>
                                     <div class="card-body gray">
-                                        <div>{!! Illuminate\Support\Str::of($item->descripcion)->words(25) !!}</div>
+                                        <div>{!! Illuminate\Support\Str::of($item->descripcion)->words(30) !!}</div>
                                         <br>
                                         <a href="{{ route('revista.show', $item->post_id) }}"
                                             class="btn read-more text-lowercase">Leer
@@ -167,7 +170,6 @@
                         <div class="col-md-6">
                             <div class="card">
                                 @foreach ($flash_row_one as $item)
-                                    {{-- @if ($item->status == 1) --}}
                                     <div class="img-contenedor-fila-uno">
                                         <div class="box">
                                             <div class="hovereffect">
@@ -190,7 +192,6 @@
                                             Leer más...
                                         </a>
                                     </div>
-                                    {{-- @endif --}}
                                 @endforeach
                             </div>
                         </div>
@@ -218,7 +219,7 @@
                                             </div>
                                         </div>
                                         <div class="card-body gray">
-                                            <div>{!! Illuminate\Support\Str::of($item->cuerpo)->words(17) !!}</div>
+                                            <div>{!! Illuminate\Support\Str::of($item->cuerpo)->words(55) !!}</div>
                                             <br>
                                             <a href="{{ route('flash.show', $item->id) }}" class="btn read-more text-lowercase">Leer más...</a>
                                         </div>
@@ -245,7 +246,7 @@
                                             </div>
                                         </div>
                                         <div class="card-body gray">
-                                            <div>{!! Illuminate\Support\Str::of($item->descripcion)->words(17) !!}</div>
+                                            <div>{!! Illuminate\Support\Str::of($item->descripcion)->words(55) !!}</div>
                                             <br>
                                             <a href="{{ route('revista.show', $item->post_id) }}"
                                                 class="btn read-more text-lowercase">Leer
@@ -304,7 +305,7 @@
                                             </div>
                                         </div>
                                         <div class="card-body gray">
-                                            <div>{!! Illuminate\Support\Str::of($item->cuerpo)->words(25) !!}</div>
+                                            <div>{!! Illuminate\Support\Str::of($item->cuerpo)->words(35) !!}</div>
                                             <br>
                                             <a href="{{ route('flash.show', $item->id) }}"
                                                 class="btn read-more text-lowercase">
@@ -339,7 +340,7 @@
                                             </div>
                                         </div>
                                         <div class="card-body gray">
-                                            <div>{!! Illuminate\Support\Str::of($item->cuerpo)->words(17) !!}</div>
+                                            <div>{!! Illuminate\Support\Str::of($item->cuerpo)->words(55) !!}</div>
                                             <br>
                                             <a href="{{ route('flash.show', $item->id) }}"
                                                 class="btn read-more text-lowercase">Leer
@@ -368,7 +369,7 @@
                                             </div>
                                         </div>
                                         <div class="card-body gray">
-                                            <div>{!! Illuminate\Support\Str::of($item->descripcion)->words(17) !!}</div>
+                                            <div>{!! Illuminate\Support\Str::of($item->descripcion)->words(55) !!}</div>
                                             <br>
                                             <a href="{{ route('revista.show', $item->post_id) }}"
                                                 class="btn read-more text-lowercase">Leer
@@ -397,7 +398,7 @@
                                         </div>
                                     </div>
                                     <div class="card-body gray">
-                                        <div>{!! Illuminate\Support\Str::of($item->descripcion)->words(30) !!}</div>
+                                        <div>{!! Illuminate\Support\Str::of($item->descripcion)->words(35) !!}</div>
                                         <div><br></div>
                                         <a href="{{ route('revista.show', $item->post_id) }}"
                                             class="btn read-more text-lowercase">Leer
@@ -458,9 +459,8 @@
                             </div>
                         </div>
                         <div class="card-body gray gray">
-                            <h3 class="card-title text-uppercase">
-                                <strong>{{ Illuminate\Support\Str::of($item->titulo)->words(15) }}</strong></h3>
-                            <p class="card-text">{!! Illuminate\Support\Str::of($item->cuerpo)->words(25) !!}</p>
+                            <h4 class="card-title text-uppercase"><strong>{{ Illuminate\Support\Str::of($item->titulo)->words(15) }}</strong></h4>
+                            <p class="card-text">{!! Illuminate\Support\Str::of($item->descripcion)->words(25) !!}</p>
                             <a href="{{ route('revista.show', $item->id) }}" class="btn read-more text-lowercase">Leer
                                 más...</a>
                         </div>

@@ -9,6 +9,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Edicion;
 use App\Models\Abstracto;
+use Exception;
 
 class PostController extends Controller
 {
@@ -86,24 +87,27 @@ class PostController extends Controller
             $request->img_portada->move(public_path('images/portada'), $imageNamePortada);
 
             $id = DB::getPdo()->lastInsertId();
-
-            DB::table('posts')->insert([
-                'user_id' => $request->input('user_id'),
-                'cuerpo' => $request->input('cuerpo'),
-                'titulo' => $request->input('titulo'),
-                'slug' => $request->input('slug'),
-                'visitas' => 0,
-                'img_portada' => $imageNamePortada,
-                'status' => $request->input('status'),
-                'scope' => $request->input('scope'),
-                'visibility' => $request->input('visibility'),
-                'categorias_id' => $request->input('categorias_id'),
-                'ediciones_id' => $request->input('ediciones_id'),
-                'abstract_id' => $id,
-                'tipo_post' => $request->input('tipo_post'),
-            ]);
-            return back() //redirect('posts')
-                ->with('success', 'Artículo creado correctamente.');
+            try {
+                DB::table('posts')->insert([
+                    'user_id' => $request->input('user_id'),
+                    'cuerpo' => $request->input('cuerpo'),
+                    'titulo' => $request->input('titulo'),
+                    'slug' => $request->input('slug'),
+                    'visitas' => 0,
+                    'img_portada' => $imageNamePortada,
+                    'status' => $request->input('status'),
+                    'scope' => $request->input('scope'),
+                    'visibility' => $request->input('visibility'),
+                    'categorias_id' => $request->input('categorias_id'),
+                    'ediciones_id' => $request->input('ediciones_id'),
+                    'abstract_id' => $id,
+                    'tipo_post' => $request->input('tipo_post'),
+                ]);
+                return back()
+                    ->with('success', 'Artículo creado correctamente.');
+            } catch (Exception $e) {
+                return back()->withError($e->getMessage())->withInput();
+            }
         }
     }
 
@@ -195,7 +199,7 @@ class PostController extends Controller
                 $descripcion = $request->input('descripcion');
                 $imageNameAbstract = time() . '-' . $request->slug . '_abstract' . '.' . $request->img_abstract->extension();
                 // se le pasa como nombre el slug para hacerlo unique e irrepetible y asi poder sacar el 
-                Abstracto::where('id',$id_abstracto[0]->abstract_id)->update([
+                Abstracto::where('id', $id_abstracto[0]->abstract_id)->update([
                     'nombre' => $nombreAbstract,
                     'descripcion' => $descripcion,
                     'img_abstract' => $imageNameAbstract,
@@ -233,52 +237,52 @@ class PostController extends Controller
             $ultimas_publicaciones = DB::table('posts')
                 ->join('abstract', 'posts.abstract_id', '=', 'abstract.id')
                 ->where('posts.scope', '=', '1')
-                ->select('abstract.img_abstract', 'posts.titulo', 'posts.cuerpo', 'posts.id')
+                ->select('abstract.img_abstract', 'posts.titulo', 'abstract.descripcion', 'posts.id')
                 ->paginate(3, ['*'], 'ultimas_publicaciones');
             $capsulas = DB::select('select * from capsula order by id desc limit 2');
             $categories = Category::all();
             $posts = DB::table('posts')
-                ->join('abstract','posts.abstract_id', '=', 'abstract.id')
+                ->join('abstract', 'posts.abstract_id', '=', 'abstract.id')
                 ->join('categorias', 'posts.categorias_id', '=', 'categorias.id')
                 ->where('titulo', 'LIKE', "%$search%")
-                ->select('posts.id', 'posts.titulo', 'categorias.nombre','abstract.descripcion', 'abstract.img_abstract')
+                ->select('posts.id', 'posts.titulo', 'categorias.nombre', 'abstract.descripcion', 'abstract.img_abstract')
                 ->paginate(5);
             return view('main.search', compact('posts'))
-                ->with('ultimas_publicaciones',$ultimas_publicaciones)
+                ->with('ultimas_publicaciones', $ultimas_publicaciones)
                 ->with('capsulas', $capsulas)
                 ->with('categories', $categories)
                 ->with('search', $search);
-        }else{
+        } else {
             $search = $request->input('search');
             $ultimas_publicaciones = DB::table('posts')
                 ->join('abstract', 'posts.abstract_id', '=', 'abstract.id')
                 ->where('posts.scope', '=', '0')
-                ->select('abstract.img_abstract', 'posts.titulo', 'posts.cuerpo', 'posts.id')
+                ->select('abstract.img_abstract', 'posts.titulo', 'abstract.descripcion', 'posts.id')
                 ->paginate(3, ['*'], 'ultimas_publicaciones');
             $capsulas = DB::select('select * from capsula order by id desc limit 2');
             $categories = Category::all();
             $posts = DB::table('posts')
-                ->join('abstract','posts.abstract_id', '=', 'abstract.id')
+                ->join('abstract', 'posts.abstract_id', '=', 'abstract.id')
                 ->join('categorias', 'posts.categorias_id', '=', 'categorias.id')
                 ->where('titulo', 'LIKE', "%$search%")
-                ->select('posts.id', 'posts.titulo', 'categorias.nombre','abstract.descripcion', 'abstract.img_abstract')
+                ->select('posts.id', 'posts.titulo', 'categorias.nombre', 'abstract.descripcion', 'abstract.img_abstract')
                 ->paginate(5);
             return view('main.search', compact('posts'))
-                ->with('ultimas_publicaciones',$ultimas_publicaciones)
+                ->with('ultimas_publicaciones', $ultimas_publicaciones)
                 ->with('capsulas', $capsulas)
                 ->with('categories', $categories)
                 ->with('search', $search);
         }
-        
     }
-    public function destroy($id){
+    public function destroy($id)
+    {
         if (auth()->user()->type == 2) {
             return redirect()->route('revista.index');
         } else {
             $user = Post::find($id);
             $user->delete();
             return back()
-                    ->with('success', 'Lector eliminado correctamente.');
+                ->with('success', 'Lector eliminado correctamente.');
         }
     }
 }

@@ -12,7 +12,7 @@
                 <div class="col-lg-6">
                     <label class="sr-only" for="inlineFormInput">Name</label>
                     <input type="text" class="form-control mb-2 form-mail" name="email" id="email"
-                        placeholder="Correo Electronico">
+                        placeholder="Correo Electronico" style="text-align: center;">
                     <div class="row justify-content-center">
                         <div class="col-lg-3">
                             <button type="submit" class="btn suscribe mb-2">Suscribirse</button>

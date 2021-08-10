@@ -43,7 +43,9 @@ class RevistaController extends Controller
             $art = DB::select('select a.nombre, a.descripcion, p.id , a.img_abstract
                 from posts as p 
                 inner join abstract as a order by id desc limit 1');
-            $cat = DB::select('select * from categorias order by id desc limit 3'); //
+            $cat = DB::table('categorias')
+                ->orderByDesc('id')
+                ->paginate(3,['*'], 'categories');
             $nombreEdicion = DB::select('select * from ediciones 
                 where status = 1 order by id desc limit 1');
             $categories = Category::all();
@@ -51,8 +53,8 @@ class RevistaController extends Controller
             $ultimas_publicaciones = DB::table('posts')
                 ->join('abstract', 'posts.abstract_id', '=', 'abstract.id')
                 ->where('posts.scope', '=', '1')
-                ->select('abstract.img_abstract', 'posts.titulo', 'posts.cuerpo', 'posts.id')
-                ->paginate(3);
+                ->select('abstract.img_abstract', 'posts.titulo', 'abstract.descripcion', 'posts.id')
+                ->paginate(3, ['*'], 'last_pub');
             return view('main.revista')
                 ->with('art', $art)
                 ->with('cat', $cat)
@@ -98,15 +100,16 @@ class RevistaController extends Controller
             $art = DB::select('select a.nombre, a.descripcion, p.id , a.img_abstract
                 from posts as p 
                 inner join abstract as a order by id desc limit 1');
-            $cat = DB::select('select * from categorias order by id desc limit 3'); //
-            $nombreEdicion = DB::select('select * from ediciones order by id desc limit 1');
+            $cat = DB::table('categorias')
+                ->orderByDesc('id')
+                ->paginate(3,['*'], 'categories');            $nombreEdicion = DB::select('select * from ediciones order by id desc limit 1');
             $categories = Category::all();
             $ediciones = Edicion::all();
             $ultimas_publicaciones = DB::table('posts')
                 ->join('abstract', 'posts.abstract_id', '=', 'abstract.id')
                 ->where('posts.scope', '=', '0')
-                ->select('abstract.img_abstract', 'posts.titulo', 'posts.cuerpo', 'posts.id')
-                ->paginate(3);
+                ->select('abstract.img_abstract', 'posts.titulo', 'abstract.descripcion', 'posts.id')
+                ->paginate(3, ['*'], 'last_pub');
             $pub_rel = DB::select('select * from posts 
                 inner join abstract
                 on posts.abstract_id = abstract.id

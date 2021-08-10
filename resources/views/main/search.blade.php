@@ -28,13 +28,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row justify-content-center last-posts" style="background-color: white">
-                        <div class="col-lg-1">
-                            <span>{{ $posts->links() }}</span>
-                        </div>
-                    </div>
                 @endforeach
+                <div class="row justify-content-center last-posts" style="background-color: white">
+                    <div class="col-lg-1">
+                        <span>{{ $posts->links() }}</span>
+                    </div>
+                </div>
             </div>
+            
             {{-- Barra lateral --}}
             @include('main.components.aside')
         </div>
@@ -54,8 +55,8 @@
                             </div>
                         </div>
                         <div class="card-body gray gray">
-                            <h3 class="card-title text-uppercase"><strong>{{ Illuminate\Support\Str::of($item->titulo)->words(15) }}</strong></h3>
-                            <p class="card-text">{!! Illuminate\Support\Str::of($item->cuerpo)->words(25) !!}</p>
+                            <h4 class="card-title text-uppercase"><strong>{{ Illuminate\Support\Str::of($item->titulo)->words(15) }}</strong></h4>
+                            <p class="card-text">{!! Illuminate\Support\Str::of($item->descripcion)->words(25) !!}</p>
                             <a href="{{ route('revista.show', $item->id) }}" class="btn read-more text-lowercase">Leer
                                 más...</a>
                         </div>
