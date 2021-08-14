@@ -149,7 +149,7 @@
                                                 <img class="img-fila-uno"
                                                     src="{{ asset('images/abstract/' . $item->img_abstract) }}"
                                                     alt="Card image">
-                                                <div class="overlay">
+                                                <div class="overlay-2">
                                                     <a href="{{ route('revista.show', $item->post_id) }}">
                                                         <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}</h2>
                                                     </a>
@@ -176,7 +176,7 @@
                                                 <img class="img-fila-uno"
                                                     src="{{ asset('images/flash/' . $item->img_portada) }}"
                                                     alt="Card image">
-                                                <div class="overlay">
+                                                <div class="overlay-2">
                                                     <a href="{{ route('flash.show', $item->id) }}">
                                                         <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}</h2>
                                                     </a>
@@ -266,7 +266,7 @@
                                                 <img class="img-fila-dos"
                                                     src="{{ asset('images/abstract/' . $item->img_abstract) }}"
                                                     alt="Card image">
-                                                <div class="overlay">
+                                                <div class="overlay-3">
                                                     <a href="{{ route('revista.show', $item->post_id) }}">
                                                         <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(20) }}</h2>
                                                     </a>
@@ -419,7 +419,7 @@
                                                     <img class="img-fila-tres"
                                                         src="{{ asset('images/flash/' . $item->img_portada) }}"
                                                         alt="Card image">
-                                                    <div class="overlay">
+                                                    <div class="overlay-3">
                                                         <a href="{{ route('flash.show', $item->id) }}">
                                                             <h2>{{ Illuminate\Support\Str::of($item->titulo)->words(13) }}</h2>
                                                         </a>
