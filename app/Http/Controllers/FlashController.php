@@ -88,12 +88,15 @@ class FlashController extends Controller
                 inner join abstract on posts.abstract_id = abstract.id
                 where posts.scope = 0
                 order by created_at desc');
+            $publicidad = DB::table('publicidad')
+                ->get();
             return view('flash.show')
                 ->with('art', $art)
                 ->with('post', $post)
                 ->with('latest', $latest)
                 ->with('ultimas_publicaciones', $ultimas_publicaciones)
                 ->with('capsulas', $capsulas)
+                ->with('publicidad', $publicidad)
                 ->with('categories', $categories);
         } else {
             $user = Auth::check();
@@ -110,12 +113,15 @@ class FlashController extends Controller
                     inner join abstract on posts.abstract_id = abstract.id
                     where posts.scope = 1
                     order by created_at desc');
+                $publicidad = DB::table('publicidad')
+                    ->get();
                 return view('flash.show')
                     ->with('art', $art)
                     ->with('post', $post)
                     ->with('latest', $latest)
                     ->with('ultimas_publicaciones', $ultimas_publicaciones)
                     ->with('capsulas', $capsulas)
+                    ->with('publicidad', $publicidad)
                     ->with('categories', $categories);
             }
         }

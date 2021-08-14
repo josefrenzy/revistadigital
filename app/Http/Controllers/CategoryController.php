@@ -99,6 +99,8 @@ class CategoryController extends Controller
                 ->select('abstract.img_abstract', 'posts.titulo', 'abstract.descripcion', 'posts.id')
                 ->paginate(3, ['*'], 'ultimas_publicaciones');
             $categories = Category::all();
+            $publicidad = DB::table('publicidad')
+                ->get();
             return view('main.categorias')
                 ->with('nombre', $nombre)
                 ->with('categorias', $categorias)
@@ -106,7 +108,8 @@ class CategoryController extends Controller
                 ->with('ultimas_publicaciones', $ultimas_publicaciones)
                 ->with('latest', $latest)
                 ->with('capsulas', $capsulas)
-                ->with('categories', $categories);
+                ->with('categories', $categories)
+                ->with('publicidad', $publicidad);
         } else {
             $categorias = DB::table('posts')
                 ->join('categorias', 'posts.categorias_id', '=', 'categorias.id')
@@ -125,6 +128,8 @@ class CategoryController extends Controller
                 ->select('abstract.img_abstract', 'posts.titulo', 'abstract.descripcion', 'posts.id')
                 ->paginate(3, ['*'], 'ultimas_publicaciones');
             $categories = Category::all();
+            $publicidad = DB::table('publicidad')
+                ->get();
             return view('main.categorias')
                 ->with('nombre', $nombre)
                 ->with('categorias', $categorias)
@@ -132,7 +137,8 @@ class CategoryController extends Controller
                 ->with('ultimas_publicaciones', $ultimas_publicaciones)
                 ->with('latest', $latest)
                 ->with('capsulas', $capsulas)
-                ->with('categories', $categories);
+                ->with('categories', $categories)
+                ->with('publicidad', $publicidad);
         }
     }
 

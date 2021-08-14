@@ -75,9 +75,11 @@ class EdicionController extends Controller
             $ultimas_publicaciones = DB::table('posts')
                 ->join('abstract', 'posts.abstract_id', '=', 'abstract.id')
                 ->where('posts.scope', '=', '1')
-                ->select('abstract.img_abstract', 'posts.titulo', 'posts.cuerpo', 'posts.id', 'posts.scope')
+                ->select('abstract.img_abstract', 'posts.titulo', 'abstract.descripcion', 'posts.id', 'posts.scope')
                 ->paginate(3, ['*'], 'ultimas_publicaciones');
             $categories = Category::all();
+            $publicidad = DB::table('publicidad')
+                ->get();
             return view('ediciones.show')
                 ->with('nombre', $nombre)
                 ->with('ediciones', $ediciones)
@@ -85,7 +87,9 @@ class EdicionController extends Controller
                 ->with('ultimas_publicaciones', $ultimas_publicaciones)
                 ->with('latest', $latest)
                 ->with('capsulas', $capsulas)
+                ->with('publicidad', $publicidad)
                 ->with('categories', $categories);
+                
         } else {
             $ediciones = DB::table('posts')
                 ->join('ediciones', 'posts.ediciones_id', '=', 'ediciones.id')
@@ -102,9 +106,11 @@ class EdicionController extends Controller
             $ultimas_publicaciones = DB::table('posts')
                 ->join('abstract', 'posts.abstract_id', '=', 'abstract.id')
                 ->where('posts.scope', '=', '0')
-                ->select('abstract.img_abstract', 'posts.titulo', 'posts.cuerpo', 'posts.id')
+                ->select('abstract.img_abstract', 'posts.titulo', 'abstract.descripcion', 'posts.id')
                 ->paginate(3, ['*'], 'ultimas_publicaciones');
             $categories = Category::all();
+            $publicidad = DB::table('publicidad')
+                ->get();
             return view('ediciones.show')
                 ->with('nombre', $nombre)
                 ->with('ediciones', $ediciones)
@@ -112,7 +118,8 @@ class EdicionController extends Controller
                 ->with('ultimas_publicaciones', $ultimas_publicaciones)
                 ->with('latest', $latest)
                 ->with('capsulas', $capsulas)
-                ->with('categories', $categories);
+                ->with('categories', $categories)
+                ->with('publicidad', $publicidad);
         }
     }
 

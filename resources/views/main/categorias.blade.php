@@ -47,7 +47,7 @@
                 <div class="col-md-4">
                     <div class="card relacionadas">
                         <div class="img-contenedor-ultimas-pub">
-                            <div class="box-2">
+                            <div class="box-2-2">
                                 <img class="img-ultimas-pub" src="{{ asset('images/abstract/' . $item->img_abstract) }}"
                                     alt="Card image">
                             </div>

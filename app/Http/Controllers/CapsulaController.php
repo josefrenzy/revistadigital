@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use app\Enums\UserType;
 use App\Models\Capsula;
 use App\Models\Category;
@@ -113,12 +114,15 @@ class CapsulaController extends Controller
             $ultimas_publicaciones = DB::table('posts')
                 ->join('abstract', 'posts.abstract_id', '=', 'abstract.id')
                 ->where('posts.scope', '=', '1')
-                ->select('abstract.img_abstract', 'posts.titulo', 'posts.cuerpo', 'posts.id')
+                ->select('abstract.img_abstract', 'posts.titulo', 'abstract.descripcion', 'posts.id')
                 ->paginate(3, ['*'], 'ultimas_publicaciones');
+            $publicidad = DB::table('publicidad')
+                ->get();
             return view('capsula.show')
                 ->with('ultimas_publicaciones', $ultimas_publicaciones)
                 ->with('capsula', $capsula)
                 ->with('capsulas', $capsulas)
+                ->with('publicidad', $publicidad)
                 ->with('categories', $categories);
         } else {
             $capsula = Capsula::find($id);
@@ -127,24 +131,28 @@ class CapsulaController extends Controller
             $ultimas_publicaciones = DB::table('posts')
                 ->join('abstract', 'posts.abstract_id', '=', 'abstract.id')
                 ->where('posts.scope', '=', '0')
-                ->select('abstract.img_abstract', 'posts.titulo', 'posts.cuerpo', 'posts.id')
+                ->select('abstract.img_abstract', 'posts.titulo', 'abstract.descripcion', 'posts.id')
                 ->paginate(3, ['*'], 'ultimas_publicaciones');
+            $publicidad = DB::table('publicidad')
+                ->get();
             return view('capsula.show')
                 ->with('ultimas_publicaciones', $ultimas_publicaciones)
                 ->with('capsula', $capsula)
                 ->with('capsulas', $capsulas)
+                ->with('publicidad', $publicidad)
                 ->with('categories', $categories);
         }
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         if (auth()->user()->type == 2) {
             return redirect()->route('revista.index');
         } else {
             $user = Capsula::find($id);
             $user->delete();
             return back()
-                    ->with('success', 'Usuario eliminado correctamente.');
+                ->with('success', 'Usuario eliminado correctamente.');
         }
     }
 }

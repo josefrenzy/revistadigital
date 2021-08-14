@@ -56,14 +56,14 @@
                 <div class="col-md-4">
                     <div class="card relacionadas">
                         <div class="img-contenedor-ultimas-pub">
-                            <div class="box-2">
+                            <div class="box-2-2">
                                 <img class="img-ediciones" src="{{ asset('images/abstract/' . $item->img_abstract) }}"
                                     alt="Card image">
                             </div>
                         </div>
                         <div class="card-body gray gray">
                             <h4 class="card-title text-uppercase"><strong>{{ Illuminate\Support\Str::of($item->titulo)->words(15) }}</strong></h4>
-                            <p class="card-text">{!! Illuminate\Support\Str::of($item->cuerpo)->words(25) !!}</p>
+                            <p class="card-text">{!! Illuminate\Support\Str::of($item->descripcion)->words(25) !!}</p>
                             <a href="{{ route('revista.show', $item->id) }}" class="btn read-more text-lowercase">Leer
                                 más...</a>
                         </div>

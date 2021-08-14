@@ -247,10 +247,13 @@ class PostController extends Controller
                 ->where('titulo', 'LIKE', "%$search%")
                 ->select('posts.id', 'posts.titulo', 'categorias.nombre', 'abstract.descripcion', 'abstract.img_abstract')
                 ->paginate(5);
+            $publicidad = DB::table('publicidad')
+                ->get();
             return view('main.search', compact('posts'))
                 ->with('ultimas_publicaciones', $ultimas_publicaciones)
                 ->with('capsulas', $capsulas)
                 ->with('categories', $categories)
+                ->with('publicidad', $publicidad)
                 ->with('search', $search);
         } else {
             $search = $request->input('search');
@@ -267,10 +270,13 @@ class PostController extends Controller
                 ->where('titulo', 'LIKE', "%$search%")
                 ->select('posts.id', 'posts.titulo', 'categorias.nombre', 'abstract.descripcion', 'abstract.img_abstract')
                 ->paginate(5);
+            $publicidad = DB::table('publicidad')
+                ->get();
             return view('main.search', compact('posts'))
                 ->with('ultimas_publicaciones', $ultimas_publicaciones)
                 ->with('capsulas', $capsulas)
                 ->with('categories', $categories)
+                ->with('publicidad', $publicidad)
                 ->with('search', $search);
         }
     }

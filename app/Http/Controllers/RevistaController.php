@@ -119,7 +119,8 @@ class RevistaController extends Controller
                 inner join abstract
                 on posts.abstract_id = abstract.id
                 where posts.categorias_id = 1 order by created_at desc limit 3');
-            $publicidad = DB::table('publicidad');
+            $publicidad = DB::table('publicidad')
+                ->get();
             return view('main.revista')
                 ->with('art', $art)
                 ->with('cat', $cat)
@@ -159,11 +160,14 @@ class RevistaController extends Controller
                 ->where('posts.scope', 0)
                 ->select('posts.id', 'posts.titulo', 'abstract.descripcion', 'abstract.img_abstract', 'categorias.nombre')
                 ->paginate(5, ['*'], 'pub_rel');
+            $publicidad = DB::table('publicidad')
+                ->get();
             return view('main.show')
                 ->with('art', $art)
                 ->with('post', $post)
                 ->with('latest', $latest)
                 ->with('capsulas', $capsulas)
+                ->with('publicidad', $publicidad)
                 ->with('pub_rel', $pub_rel)
                 ->with('categories', $categories);
         } else {
@@ -184,11 +188,13 @@ class RevistaController extends Controller
                 ->where('posts.scope', 0)
                 ->select('posts.id', 'posts.titulo', 'abstract.descripcion', 'abstract.img_abstract', 'categorias.nombre')
                 ->paginate(5, ['*'], 'pub_rel');
-
+            $publicidad = DB::table('publicidad')
+                ->get();
             return view('main.show')
                 ->with('art', $art)
                 ->with('post', $post)
                 ->with('latest', $latest)
+                ->with('publicidad', $publicidad)
                 ->with('pub_rel', $pub_rel)
                 ->with('capsulas', $capsulas)
                 ->with('categories', $categories);
