@@ -1,1 +1,0 @@
-<p>soy el show {{ $publicidad }}</p>

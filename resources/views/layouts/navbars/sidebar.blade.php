@@ -45,7 +45,7 @@
             @if (auth()->user()->type == 0)
                 <li class="nav-item{{ $activePage == 'user' ? ' active' : '' }}">
                     <a class="nav-link" href="{{ route('user.index') }}">
-                        <i class="material-icons">content_paste</i>
+                        <i class="material-icons">people_outline</i>
                         <p>{{ __('Usuarios') }}</p>
                     </a>
                 </li>
@@ -64,26 +64,32 @@
             </li>
             <li class="nav-item{{ $activePage == 'categories' ? ' active' : '' }}">
                 <a class="nav-link" href="{{ route('categories.index') }}">
-                    <i class="material-icons">location_ons</i>
+                    <i class="material-icons">category</i>
                     <p>{{ __('Categorias') }}</p>
                 </a>
             </li>
             <li class="nav-item{{ $activePage == 'posts' ? ' active' : '' }}">
                 <a class="nav-link" href="{{ route('posts.index') }}">
-                    <i class="material-icons">notifications</i>
+                    <i class="material-icons">article</i>
                     <p>{{ __('Articulos') }}</p>
-                </a>
-            </li>
-            <li class="nav-item{{ $activePage == 'capsula' ? ' active' : '' }}">
-                <a class="nav-link" href="{{ route('capsula.index') }}">
-                    <i class="material-icons">location_ons</i>
-                    <p>{{ __('Capsula') }}</p>
                 </a>
             </li>
             <li class="nav-item{{ $activePage == 'flash' ? ' active' : '' }}">
                 <a class="nav-link" href="{{ route('flash.index') }}">
-                    <i class="material-icons">language</i>
+                    <i class="material-icons">receipt_long</i>
                     <p>{{ __('Flash') }}</p>
+                </a>
+            </li>
+            <li class="nav-item{{ $activePage == 'capsula' ? ' active' : '' }}">
+                <a class="nav-link" href="{{ route('capsula.index') }}">
+                    <i class="material-icons">feed</i>
+                    <p>{{ __('Capsula') }}</p>
+                </a>
+            </li>
+            <li class="nav-item{{ $activePage == 'publicidad' ? ' active' : '' }}">
+                <a class="nav-link" href="{{ route('publicidad.index') }}">
+                    <i class="material-icons">collections</i>
+                    <p>{{ __('Publicidad') }}</p>
                 </a>
             </li>
             <li class="nav-item active-pro{{ $activePage == 'suscribe' ? ' active' : '' }}">

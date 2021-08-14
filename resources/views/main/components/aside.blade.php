@@ -1,9 +1,9 @@
 <div class="col-md-2 aside index d-none d-sm-none d-md-block">
     <div class="row">
         <div class="col">
-            {{-- <h5 class="aside titulo-azul">Capsulas</h5> --}}
             @if (sizeof($capsulas) == 0)
-                <p>No hay capsulas para mostrar</p>
+                <br>
+                {{-- <p>No hay capsulas para mostrar</p> --}}
             @else
                 @foreach ($capsulas as $item)
                     @if ($item->status == 1)
@@ -16,8 +16,7 @@
                                 <a class="link-capsula" href="{{ route('capsula.show', $item->id) }}">Leer mas...</a>
                             </div>
                         </div>
-                        {{-- @else
-                        <p>No hay capsulas para mostrar</p> --}}
+
                     @endif
 
                     <hr>
@@ -39,13 +38,10 @@
         </div>
     </div>
     <hr>
-    {{-- <div class="row">
-        <div class="col">
-            <h5>Comentarios</h5>
-        </div>
-    </div> --}}
     <hr>
     <div class="row" style="padding: 1em">
-        <img class="img-fluid" src="{{ asset('images/publicidad/publicidad.png') }}" alt="profile Pic">
+        @foreach ($publicidad as $p)
+            <img class="img-fluid" src="{{ asset('images/publicidad/' . $p->img_publicidad) }}" alt="profile Pic">
+        @endforeach
     </div>
 </div>

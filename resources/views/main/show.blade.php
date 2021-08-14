@@ -30,9 +30,9 @@
             @foreach ($pub_rel as $item)
                 <div class="col-md-4">
                     <div class="card relacionadas">
-                        <div class="doc">
+                        <div class="img-contenedor-ultimas-pub">
                             <div class="box-2">
-                                <img class="card-img-top" src="{{ asset('images/abstract/' . $item->img_abstract) }}"
+                                <img class="img-ultimas-pub" src="{{ asset('images/abstract/' . $item->img_abstract) }}"
                                     alt="Card image">
                             </div>
                         </div>

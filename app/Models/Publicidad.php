@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Publicidad extends Model
 {
-    // use HasFactory;
+    use HasFactory;
     protected $table = 'publicidad';
 
     public $timestamps = false;
 
-    protected $fillable = ['img_publicidad'];
+    protected $fillable = ['status','img_publicidad'];
+
 }

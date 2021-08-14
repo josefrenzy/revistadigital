@@ -45,6 +45,12 @@ a{
     background: #ccc;
     overflow: hidden;
 }
+.box-2-2 {
+    /* width: 342px; */
+    height: 300px;
+    background: #ccc;
+    overflow: hidden;
+}
 
 .box-2-ediciones{
     height: 300px;
@@ -190,7 +196,7 @@ footer {
 .hover {
     overflow: hidden;
     position: relative;
-    padding-bottom: 60%;
+    padding-bottom: 50%;
 }
 
 .hover-overlay {

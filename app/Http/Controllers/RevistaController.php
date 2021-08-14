@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Models\Category;
 use App\Models\Edicion;
+use App\Models\Publicidad;
 use Illuminate\Support\Facades\Auth;
 
 class RevistaController extends Controller
@@ -45,7 +46,7 @@ class RevistaController extends Controller
                 inner join abstract as a order by id desc limit 1');
             $cat = DB::table('categorias')
                 ->orderByDesc('id')
-                ->paginate(3,['*'], 'categories');
+                ->paginate(3, ['*'], 'categories');
             $nombreEdicion = DB::select('select * from ediciones 
                 where status = 1 order by id desc limit 1');
             $categories = Category::all();
@@ -55,6 +56,8 @@ class RevistaController extends Controller
                 ->where('posts.scope', '=', '1')
                 ->select('abstract.img_abstract', 'posts.titulo', 'abstract.descripcion', 'posts.id')
                 ->paginate(3, ['*'], 'last_pub');
+            $publicidad = DB::table('publicidad')
+                ->get();
             return view('main.revista')
                 ->with('art', $art)
                 ->with('cat', $cat)
@@ -67,6 +70,7 @@ class RevistaController extends Controller
                 ->with('capsulas', $capsulas)
                 ->with('ediciones', $ediciones)
                 ->with('categories', $categories)
+                ->with('publicidad', $publicidad)
                 ->with('nombreEdicion', $nombreEdicion)
                 ->with('ultimas_publicaciones', $ultimas_publicaciones);
         } else {
@@ -102,7 +106,8 @@ class RevistaController extends Controller
                 inner join abstract as a order by id desc limit 1');
             $cat = DB::table('categorias')
                 ->orderByDesc('id')
-                ->paginate(3,['*'], 'categories');            $nombreEdicion = DB::select('select * from ediciones order by id desc limit 1');
+                ->paginate(3, ['*'], 'categories');
+            $nombreEdicion = DB::select('select * from ediciones order by id desc limit 1');
             $categories = Category::all();
             $ediciones = Edicion::all();
             $ultimas_publicaciones = DB::table('posts')
@@ -114,6 +119,7 @@ class RevistaController extends Controller
                 inner join abstract
                 on posts.abstract_id = abstract.id
                 where posts.categorias_id = 1 order by created_at desc limit 3');
+            $publicidad = DB::table('publicidad');
             return view('main.revista')
                 ->with('art', $art)
                 ->with('cat', $cat)
@@ -127,6 +133,7 @@ class RevistaController extends Controller
                 ->with('capsulas', $capsulas)
                 ->with('ediciones', $ediciones)
                 ->with('categories', $categories)
+                ->with('publicidad', $publicidad)
                 ->with('nombreEdicion', $nombreEdicion)
                 ->with('ultimas_publicaciones', $ultimas_publicaciones);
         }
@@ -150,7 +157,7 @@ class RevistaController extends Controller
                 ->join('users', 'posts.user_id', '=', 'users.id')
                 ->where('posts.categorias_id', '=', $post[0]->categorias_id)
                 ->where('posts.scope', 0)
-                ->select('posts.id', 'posts.titulo', 'abstract.descripcion', 'abstract.img_abstract','categorias.nombre')
+                ->select('posts.id', 'posts.titulo', 'abstract.descripcion', 'abstract.img_abstract', 'categorias.nombre')
                 ->paginate(5, ['*'], 'pub_rel');
             return view('main.show')
                 ->with('art', $art)
@@ -175,7 +182,7 @@ class RevistaController extends Controller
                 ->join('users', 'posts.user_id', '=', 'users.id')
                 ->where('posts.categorias_id', '=', $post[0]->categorias_id)
                 ->where('posts.scope', 0)
-                ->select('posts.id', 'posts.titulo', 'abstract.descripcion', 'abstract.img_abstract','categorias.nombre')
+                ->select('posts.id', 'posts.titulo', 'abstract.descripcion', 'abstract.img_abstract', 'categorias.nombre')
                 ->paginate(5, ['*'], 'pub_rel');
 
             return view('main.show')
