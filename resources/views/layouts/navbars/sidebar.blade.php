@@ -92,7 +92,7 @@
                     <p>{{ __('Publicidad') }}</p>
                 </a>
             </li>
-            <li class="nav-item active-pro{{ $activePage == 'suscribe' ? ' active' : '' }}">
+            <li class="nav-item{{ $activePage == 'suscribe' ? ' active' : '' }}">
                 <a class="nav-link text-white bg-success" href="{{ route('suscribe.index') }}">
                     <i class="material-icons text-white">unarchive</i>
                     <p>{{ __('Suscripciones') }}</p>

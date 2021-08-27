@@ -11,7 +11,7 @@
                         @method('post')
                         <div class="card ">
                             <div class="card-header card-header-primary">
-                                <h4 class="card-title">{{ __('Agregar Capsula') }}</h4>
+                                <h4 class="card-title">{{ __('Agregar Publicidad') }}</h4>
                             </div>
                             <div class="card-body ">
                                 @include('flash-message')
@@ -70,7 +70,7 @@
                                 </div>
                             </div>
                             <div class="card-footer ml-auto mr-auto">
-                                <button type="submit" class="btn btn-primary">{{ __('Crear Capsula') }}</button>
+                                <button type="submit" class="btn btn-primary">{{ __('Crear Publicidad') }}</button>
                             </div>
                         </div>
                     </form>

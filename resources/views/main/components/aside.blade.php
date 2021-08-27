@@ -38,7 +38,6 @@
         </div>
     </div>
     <hr>
-    <hr>
     <div class="row" style="padding: 1em">
         @foreach ($publicidad as $p)
             <img class="img-fluid" src="{{ asset('images/publicidad/' . $p->img_publicidad) }}" alt="profile Pic">

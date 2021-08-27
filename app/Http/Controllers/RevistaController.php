@@ -47,8 +47,9 @@ class RevistaController extends Controller
             $cat = DB::table('categorias')
                 ->orderByDesc('id')
                 ->paginate(3, ['*'], 'categories');
-            $nombreEdicion = DB::select('select * from ediciones 
-                where status = 1 order by id desc limit 1');
+            // $nombreEdicion = DB::select('select * from ediciones 
+            //     where status = 1 order by id desc limit 1');
+            $nombreEdicion = DB::select('select * from ediciones order by id desc limit 1');
             $categories = Category::all();
             $ediciones = Edicion::all();
             $ultimas_publicaciones = DB::table('posts')

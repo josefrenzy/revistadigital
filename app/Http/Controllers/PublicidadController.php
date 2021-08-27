@@ -78,7 +78,9 @@ class PublicidadController extends Controller
                     'status' => 'required',
                     'img_publicidad' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
                 ]);
-                $imageName = time() . '.' . $request->img_publicidad->extension();
+                $file = $request->img_publicidad->getClientOriginalName();
+                $filename = pathinfo($file, PATHINFO_FILENAME);
+                $imageName = $filename . '.' . $request->img_publicidad->extension();
 
                 $request->img_publicidad->move(public_path('images/publicidad'), $imageName);
                 Publicidad::where('id', $id)

@@ -7,7 +7,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header card-header-primary">
-                            <h4 class="card-title ">Lista de Capsulas</h4>
+                            <h4 class="card-title ">Publicidad</h4>
                             <div class="col-12 text-right">
                                 <a style="background-color: #4caf50" href="{{ route('publicidad.create') }}"
                                     class="btn btn-sm btn-primary">Agregar Publicidad</a>
